@@ -1,4 +1,14 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Recruma - AI-Powered Resume Builder
+
+Recruma is a modern, AI-powered resume builder that helps you create professional resumes that stand out. Built with Next.js and featuring beautiful templates, our platform combines cutting-edge design with intelligent optimization.
+
+## Features
+
+- 🎨 **Professional Templates** - Choose from a variety of beautifully designed templates
+- 🤖 **AI-Powered Optimization** - Our AI analyzes job descriptions and optimizes your resume
+- 📱 **Responsive Design** - Works perfectly on desktop, tablet, and mobile devices
+- ⚡ **Instant Download** - Get your resume in PDF format ready to send
+- 🎯 **ATS-Friendly** - All templates are optimized for Applicant Tracking Systems
 
 ## Getting Started
 
@@ -18,7 +28,29 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack
+
+- **Framework**: Next.js 15
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Animations**: Lottie Files
+- **Language**: TypeScript
+
+## Project Structure
+
+```
+src/
+├── app/                 # Next.js app directory
+│   ├── layout.tsx      # Root layout
+│   ├── page.tsx        # Home page
+│   └── globals.css     # Global styles
+├── components/          # React components
+│   ├── navbar.tsx      # Navigation component
+│   └── HeroSection.tsx # Hero section component
+└── public/             # Static assets
+    ├── animations/     # Lottie animations
+    └── template*.png   # Resume templates
+```
 
 ## Learn More
 
@@ -26,8 +58,6 @@ To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 
