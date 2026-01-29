@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="pt-2">
+      <main className="">
         <HeroSection />
         
         {/* Template Showcase Section */}
