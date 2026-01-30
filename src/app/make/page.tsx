@@ -569,7 +569,7 @@ function ResumeBuilderContent() {
               <button
                 data-download-btn
                 onClick={handleDownload}
-                className="flex items-center space-x-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-teal-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold hover:from-blue-600 hover:via-indigo-600 hover:to-teal-600 transition-all duration-200 font-montserrat shadow-lg hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                className="flex items-center space-x-2 bg-gradient-to-r from-indigo-500 via-pink-500 to-amber-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold hover:from-indigo-600 hover:via-pink-600 hover:to-amber-600 transition-all duration-200 font-montserrat shadow-lg hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
               >
                 <Download className="w-4 h-4" />
                 <span className="hidden sm:inline">Download PDF</span>
@@ -622,7 +622,7 @@ function ResumeBuilderContent() {
                       onClick={() => setSelectedTemplate(template)}
                       className={`group relative p-3 border-2 rounded-xl transition-all duration-200 hover:scale-105 bg-blue-50 ${
                         selectedTemplate === template
-                          ? "border-green-600 bg-green-50 ring-2 ring-green-200 shadow-lg"
+                          ? "border-indigo-600 bg-indigo-50 ring-2 ring-indigo-200 shadow-lg"
                           : "border-blue-200 hover:border-blue-300 hover:shadow-md"
                       }`}
                       title={`Template ${template}`}
@@ -640,7 +640,7 @@ function ResumeBuilderContent() {
                         />
                       </div>
                       {selectedTemplate === template && (
-                        <div className="absolute top-1 right-1 w-5 h-5 bg-green-600 rounded-full flex items-center justify-center">
+                        <div className="absolute top-1 right-1 w-5 h-5 bg-indigo-600 rounded-full flex items-center justify-center">
                           <svg
                             className="w-3 h-3 text-white"
                             fill="none"
@@ -664,8 +664,8 @@ function ResumeBuilderContent() {
               {/* Personal Information */}
               <div className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100 transition-shadow hover:shadow-xl">
                 <h2 className="text-xl font-bold text-slate-900 mb-4 font-montserrat flex items-center space-x-2">
-                  <div className="p-2 bg-green-100 rounded-lg">
-                    <User className="w-5 h-5 text-green-600" />
+                  <div className="p-2 bg-indigo-100 rounded-lg">
+                    <User className="w-5 h-5 text-indigo-600" />
                   </div>
                   <span>Personal Information</span>
                 </h2>
@@ -797,7 +797,7 @@ function ResumeBuilderContent() {
                   </h2>
                   <button
                     onClick={addExperience}
-                    className="flex items-center space-x-2 bg-green-50 text-green-600 hover:bg-green-100 px-3 py-1.5 rounded-lg font-medium font-poppins transition-colors"
+                    className="flex items-center space-x-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 px-3 py-1.5 rounded-lg font-medium font-poppins transition-colors"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Add</span>
@@ -910,7 +910,7 @@ function ResumeBuilderContent() {
                   </h2>
                   <button
                     onClick={addEducation}
-                    className="flex items-center space-x-2 bg-green-50 text-green-600 hover:bg-green-100 px-3 py-1.5 rounded-lg font-medium font-poppins transition-colors"
+                    className="flex items-center space-x-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 px-3 py-1.5 rounded-lg font-medium font-poppins transition-colors"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Add</span>
@@ -1002,7 +1002,7 @@ function ResumeBuilderContent() {
                   </h2>
                   <button
                     onClick={addSkill}
-                    className="flex items-center space-x-2 bg-green-50 text-green-600 hover:bg-green-100 px-3 py-1.5 rounded-lg font-medium font-poppins transition-colors"
+                    className="flex items-center space-x-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 px-3 py-1.5 rounded-lg font-medium font-poppins transition-colors"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Add</span>
@@ -1034,7 +1034,7 @@ function ResumeBuilderContent() {
 
             {/* Right Side - Preview */}
             <div className="lg:sticky lg:top-24 lg:h-screen lg:overflow-y-auto">
-              <div className="bg-white rounded-2xl p-8 shadow-2xl border-2 border-green-200">
+              <div className="bg-white rounded-2xl p-8 shadow-2xl border-2 border-indigo-200">
                 <div className="text-center mb-6">
                   <h3 className="text-lg font-semibold text-slate-700 mb-2 font-montserrat">
                     Resume Preview
@@ -1288,7 +1288,7 @@ function ResumeBuilderContent() {
                           .map((skill) => (
                             <span
                               key={skill.id}
-                              className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-poppins"
+                              className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-poppins"
                             >
                               {skill.name}
                             </span>
@@ -1376,6 +1376,9 @@ function ResumeBuilderContent() {
           </div>
         </div>
       )}
+     
+      <Footer />
+      
     </>
   );
 }
@@ -1386,7 +1389,7 @@ export default function ResumeBuilderPage() {
       fallback={
         <div className="min-h-screen bg-gradient-to-br from-gray-50 via-green-50 to-blue-50 pt-24 flex items-center justify-center">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
             <p className="text-slate-600 font-poppins">Loading...</p>
           </div>
         </div>
