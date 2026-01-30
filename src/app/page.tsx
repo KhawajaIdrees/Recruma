@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import HeroSection from "@/components/HeroSection";
 import Footer from "@/components/Footer";
@@ -9,10 +10,15 @@ import { Star, Download, Eye, Sparkles, X } from "lucide-react";
 export default function Home() {
   const [selectedTemplate, setSelectedTemplate] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
   const handlePreview = (templateNumber: number) => {
     setSelectedTemplate(templateNumber);
     setIsModalOpen(true);
+  };
+
+  const handleUseTemplate = (templateNumber: number) => {
+    router.push(`/make?template=${templateNumber}`);
   };
 
   const closeModal = () => {
@@ -60,7 +66,10 @@ export default function Home() {
                           <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
                           <span>Preview</span>
                         </button>
-                        <button className="flex-1 bg-gradient-to-r from-indigo-600 to-pink-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 flex items-center justify-center space-x-2 text-sm sm:text-base hover:scale-105 animate-wiggle">
+                        <button 
+                          onClick={() => handleUseTemplate(template)}
+                          className="flex-1 bg-gradient-to-r from-indigo-600 to-pink-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 flex items-center justify-center space-x-2 text-sm sm:text-base hover:scale-105 animate-wiggle"
+                        >
                           <Download className="w-3 h-3 sm:w-4 sm:h-4" />
                           <span>Use</span>
                         </button>
