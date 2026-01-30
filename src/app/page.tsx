@@ -42,16 +42,16 @@ export default function Home() {
               {[1, 2, 3, 4, 5, 6].map((template, index) => (
                 <div 
                   key={template} 
-                  className="group relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-indigo-100 hover:scale-105 animate-fade-in-up hover-lift"
+                  className="group relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-indigo-100 hover:scale-105 animate-fade-in-up hover-lift flex flex-col"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="relative">
+                  <div className="relative flex-1 min-h-80">
                     <img
                       src={`/template${template}.png`}
                       alt={`Template ${template}`}
-                      className="w-full h-48 sm:h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="absolute bottom-4 left-4 right-4 flex space-x-2">
                         <button 
                           onClick={() => handlePreview(template)}
@@ -71,7 +71,7 @@ export default function Home() {
                       <Sparkles className="w-4 h-4 text-indigo-400 animate-pulse" />
                     </div>
                   </div>
-                  <div className="p-4 sm:p-6">
+                  <div className="p-4 sm:p-6 border-t border-indigo-50">
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="text-base sm:text-lg font-semibold text-gray-900 font-montserrat">Template {template}</h3>
                       <div className="flex items-center space-x-1">
