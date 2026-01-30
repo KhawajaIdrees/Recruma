@@ -19,6 +19,7 @@ export default function Home() {
 
   const handleUseTemplate = (templateNumber: number) => {
     router.push(`/make?template=${templateNumber}`);
+    closeModal();
   };
 
   const closeModal = () => {
@@ -241,7 +242,10 @@ export default function Home() {
                 
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
-                  <button className="flex-1 bg-gradient-to-r from-indigo-600 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 hover:scale-105 font-montserrat animate-float">
+                  <button 
+                    onClick={() => handleUseTemplate(selectedTemplate!)}
+                    className="flex-1 bg-gradient-to-r from-indigo-600 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 hover:scale-105 font-montserrat animate-float"
+                  >
                     <Download className="w-4 h-4 inline mr-2" />
                     Use This Template
                   </button>
