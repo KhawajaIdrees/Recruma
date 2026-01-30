@@ -57,10 +57,10 @@ export default function TemplatesPage() {
             {[1, 2, 3, 4, 5, 6].map((template, index) => (
               <div 
                 key={template} 
-                className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-blue-200 hover:border-blue-300 hover:scale-[1.02] animate-fade-in-up"
+                className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-indigo-200 hover:border-indigo-300 hover:scale-[1.02] animate-fade-in-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="relative bg-gradient-to-br from-blue-50 to-indigo-50 p-4 sm:p-6">
+                <div className="relative bg-gradient-to-br from-indigo-50 to-pink-50 p-4 sm:p-6">
                   <div className="bg-white rounded-lg shadow-inner p-3 sm:p-4 overflow-hidden border border-blue-200">
                     <img
                       src={`/template${template > 6 ? template % 6 || 6 : template}.png`}
@@ -83,7 +83,7 @@ export default function TemplatesPage() {
                       </button>
                       <button 
                         onClick={() => handleUseTemplate(template)}
-                        className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 flex items-center justify-center space-x-2 text-sm sm:text-base hover:scale-105 shadow-lg"
+                        className="flex-1 bg-gradient-to-r from-indigo-600 to-pink-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 flex items-center justify-center space-x-2 text-sm sm:text-base hover:scale-105 shadow-lg"
                       >
                         <Download className="w-3 h-3 sm:w-4 sm:h-4" />
                         <span>Use</span>
@@ -91,7 +91,7 @@ export default function TemplatesPage() {
                     </div>
                   </div>
                   <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Sparkles className="w-4 h-4 text-blue-500 animate-pulse" />
+                    <Sparkles className="w-4 h-4 text-indigo-400 animate-pulse" />
                   </div>
                 </div>
                 <div className="p-4 sm:p-6">
@@ -116,7 +116,7 @@ export default function TemplatesPage() {
           </div>
 
           {/* CTA Section */}
-          <div className="text-center bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 sm:p-12">
+          <div className="text-center bg-gradient-to-r from-indigo-50 to-pink-50 rounded-2xl p-8 sm:p-12">
             <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4 font-montserrat">
               Ready to Create Your Resume?
             </h2>
@@ -125,7 +125,7 @@ export default function TemplatesPage() {
             </p>
             <Link
               href="/make"
-              className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-montserrat"
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-indigo-600 to-pink-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-montserrat"
             >
               <span>Start Building Now</span>
               <ArrowRight className="w-5 h-5" />
@@ -157,7 +157,7 @@ export default function TemplatesPage() {
               
               <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
                 <div className="space-y-6">
-                  <div className="relative bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200">
+                      <div className="relative bg-gradient-to-br from-indigo-50 to-pink-50 rounded-2xl p-6 border border-indigo-200">
                     <div className="relative max-w-4xl mx-auto">
                       <img
                         src={`/template${selectedTemplate}.png`}
@@ -168,7 +168,7 @@ export default function TemplatesPage() {
                         }}
                       />
                       <div className="absolute top-4 right-4">
-                        <div className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-full text-sm font-medium animate-pulse shadow-lg">
+                        <div className="bg-gradient-to-r from-indigo-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-medium animate-pulse shadow-lg">
                           <Eye className="w-4 h-4 inline mr-2" />
                           Preview
                         </div>
@@ -183,19 +183,19 @@ export default function TemplatesPage() {
                       </h3>
                       <ul className="space-y-2 text-slate-600 font-poppins">
                         <li className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
                           <span>Professional layout</span>
                         </li>
                         <li className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
                           <span>ATS-optimized</span>
                         </li>
                         <li className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
                           <span>Clean typography</span>
                         </li>
                         <li className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
                           <span>Responsive design</span>
                         </li>
                       </ul>
@@ -220,17 +220,17 @@ export default function TemplatesPage() {
                     </div>
                   </div>
                   
-                  <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-blue-200">
+                  <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-indigo-200">
                     <button 
                       onClick={() => handleUseTemplate(selectedTemplate)}
-                      className="flex-1 bg-gradient-to-r from-green-600 to-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-200 hover:scale-105 font-montserrat flex items-center justify-center space-x-2"
+                      className="flex-1 bg-gradient-to-r from-indigo-600 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 hover:scale-105 font-montserrat flex items-center justify-center space-x-2"
                     >
                       <Download className="w-4 h-4" />
                       <span>Use This Template</span>
                     </button>
                     <button 
                       onClick={closeModal}
-                      className="flex-1 bg-blue-100 text-slate-700 px-6 py-3 rounded-xl font-semibold hover:bg-blue-200 transition-all duration-200 font-montserrat"
+                      className="flex-1 bg-indigo-50 text-slate-700 px-6 py-3 rounded-xl font-semibold hover:bg-indigo-100 transition-all duration-200 font-montserrat"
                     >
                       Close Preview
                     </button>
