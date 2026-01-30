@@ -1,6 +1,7 @@
 "use client";
 
 import { PersonalInfo, Experience, Education, Skill } from "./types";
+import { templates } from "@/lib/templateData";
 
 interface ResumePreviewProps {
   personalInfo: PersonalInfo;
@@ -19,18 +20,44 @@ export default function ResumePreview({
   summary,
   template,
 }: ResumePreviewProps) {
+  const templateData = templates.find(t => t.id === template) || templates[0];
+  
+  // Map accent colors to Tailwind classes for borders and headings
+  const getTemplateColors = () => {
+    switch(templateData.accentColor) {
+      case 'purple':
+        return { border: 'border-purple-300', text: 'text-purple-600' };
+      case 'blue':
+        return { border: 'border-blue-300', text: 'text-blue-600' };
+      case 'indigo':
+        return { border: 'border-indigo-300', text: 'text-indigo-600' };
+      case 'orange':
+        return { border: 'border-orange-300', text: 'text-orange-600' };
+      case 'amber':
+        return { border: 'border-amber-300', text: 'text-amber-600' };
+      case 'cyan':
+        return { border: 'border-cyan-300', text: 'text-cyan-600' };
+      case 'gray':
+        return { border: 'border-gray-300', text: 'text-gray-600' };
+      default:
+        return { border: 'border-blue-300', text: 'text-blue-600' };
+    }
+  };
+
+  const colors = getTemplateColors();
+
   return (
     <div id="resume-preview" className="resume-print bg-white p-8 max-w-4xl mx-auto shadow-lg" style={{ minHeight: '11in' }}>
       {/* Personal Info Preview */}
       {personalInfo.fullName && (
-        <div className="text-center mb-6 border-b-2 border-blue-300 pb-4">
+        <div className={`text-center mb-6 border-b-2 ${colors.border} pb-4`}>
           <h1 className="text-3xl font-bold text-slate-900 mb-2 font-montserrat">{personalInfo.fullName}</h1>
           <div className="flex flex-wrap justify-center gap-3 text-sm text-slate-600 font-poppins">
             {personalInfo.email && <span>{personalInfo.email}</span>}
             {personalInfo.phone && <span>• {personalInfo.phone}</span>}
             {personalInfo.address && <span>• {personalInfo.address}</span>}
           </div>
-          <div className="flex flex-wrap justify-center gap-3 text-sm text-blue-600 mt-2 font-poppins">
+          <div className={`flex flex-wrap justify-center gap-3 text-sm ${colors.text} mt-2 font-poppins`}>
             {personalInfo.linkedin && <span>LinkedIn</span>}
             {personalInfo.github && <span>• GitHub</span>}
             {personalInfo.website && <span>• Website</span>}
@@ -41,7 +68,7 @@ export default function ResumePreview({
       {/* Summary Preview */}
       {summary && (
         <div className="mb-6">
-          <h2 className="text-lg font-semibold text-slate-900 mb-2 font-montserrat border-b border-blue-300 pb-1">
+          <h2 className={`text-lg font-semibold text-slate-900 mb-2 font-montserrat border-b ${colors.border} pb-1`}>
             Professional Summary
           </h2>
           <p className="text-slate-700 text-sm leading-relaxed font-poppins">{summary}</p>
@@ -51,7 +78,7 @@ export default function ResumePreview({
       {/* Experience Preview */}
       {experiences.some(exp => exp.position || exp.company) && (
         <div className="mb-6">
-          <h2 className="text-lg font-semibold text-slate-900 mb-3 font-montserrat border-b border-blue-300 pb-1">
+          <h2 className={`text-lg font-semibold text-slate-900 mb-3 font-montserrat border-b ${colors.border} pb-1`}>
             Work Experience
           </h2>
           <div className="space-y-4">
@@ -78,7 +105,7 @@ export default function ResumePreview({
       {/* Education Preview */}
       {educations.some(edu => edu.school || edu.degree) && (
         <div className="mb-6">
-          <h2 className="text-lg font-semibold text-slate-900 mb-3 font-montserrat border-b border-blue-300 pb-1">
+          <h2 className={`text-lg font-semibold text-slate-900 mb-3 font-montserrat border-b ${colors.border} pb-1`}>
             Education
           </h2>
           <div className="space-y-3">
@@ -101,18 +128,21 @@ export default function ResumePreview({
       {/* Skills Preview */}
       {skills.some(skill => skill.name) && (
         <div>
-          <h2 className="text-lg font-semibold text-slate-900 mb-3 font-montserrat border-b border-blue-300 pb-1">
+          <h2 className={`text-lg font-semibold text-slate-900 mb-3 font-montserrat border-b ${colors.border} pb-1`}>
             Skills
           </h2>
           <div className="flex flex-wrap gap-2">
-            {skills.filter(skill => skill.name).map((skill) => (
-              <span
-                key={skill.id}
-                className="bg-blue-100 text-slate-800 px-3 py-1 rounded text-sm font-poppins border border-blue-300"
-              >
-                {skill.name}
-              </span>
-            ))}
+            {skills.filter(skill => skill.name).map((skill) => {
+              const badgeClass = templateData.badgeColor;
+              return (
+                <span
+                  key={skill.id}
+                  className={`${badgeClass} px-3 py-1 rounded text-sm font-poppins`}
+                >
+                  {skill.name}
+                </span>
+              );
+            })}
           </div>
         </div>
       )}
