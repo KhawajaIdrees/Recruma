@@ -1,0 +1,160 @@
+export interface TemplateInfo {
+  id: number;
+  name: string;
+  description: string;
+  category: string;
+  colorScheme: string;
+  accentColor: string;
+  badgeColor: string;
+  imageIndex: number;
+  seoKeywords: string[];
+  rating: number;
+}
+
+export const templates: TemplateInfo[] = [
+  {
+    id: 1,
+    name: "Creative Professional",
+    description: "Perfect for creative professionals & designers",
+    category: "Creative",
+    colorScheme: "from-purple-500 to-pink-500",
+    accentColor: "purple",
+    badgeColor: "bg-purple-100 text-purple-700 border-purple-300",
+    imageIndex: 1,
+    seoKeywords: ["creative resume", "designer resume", "portfolio resume", "artistic resume template"],
+    rating: 4.3,
+  },
+  {
+    id: 2,
+    name: "Corporate Executive",
+    description: "Ideal for corporate executives & managers",
+    category: "Corporate",
+    colorScheme: "from-blue-600 to-indigo-600",
+    accentColor: "blue",
+    badgeColor: "bg-blue-100 text-blue-700 border-blue-300",
+    imageIndex: 2,
+    seoKeywords: ["executive resume", "corporate resume", "manager resume", "business resume template"],
+    rating: 4.4,
+  },
+  {
+    id: 3,
+    name: "Tech Professional",
+    description: "Best for tech professionals & developers",
+    category: "Technology",
+    colorScheme: "from-green-500 to-teal-500",
+    accentColor: "green",
+    badgeColor: "bg-green-100 text-green-700 border-green-300",
+    imageIndex: 3,
+    seoKeywords: ["tech resume", "developer resume", "programmer resume", "IT resume template"],
+    rating: 4.5,
+  },
+  {
+    id: 4,
+    name: "Marketing Specialist",
+    description: "Great for marketing & communications",
+    category: "Marketing",
+    colorScheme: "from-orange-500 to-red-500",
+    accentColor: "orange",
+    badgeColor: "bg-orange-100 text-orange-700 border-orange-300",
+    imageIndex: 4,
+    seoKeywords: ["marketing resume", "communications resume", "content creator resume", "advertising resume"],
+    rating: 4.6,
+  },
+  {
+    id: 5,
+    name: "Sales Professional",
+    description: "Excellent for sales & business development",
+    category: "Sales",
+    colorScheme: "from-amber-500 to-yellow-500",
+    accentColor: "amber",
+    badgeColor: "bg-amber-100 text-amber-700 border-amber-300",
+    imageIndex: 5,
+    seoKeywords: ["sales resume", "business development resume", "account manager resume", "B2B resume"],
+    rating: 4.7,
+  },
+  {
+    id: 6,
+    name: "Universal Professional",
+    description: "Versatile design for all industries",
+    category: "Universal",
+    colorScheme: "from-cyan-500 to-blue-500",
+    accentColor: "cyan",
+    badgeColor: "bg-cyan-100 text-cyan-700 border-cyan-300",
+    imageIndex: 6,
+    seoKeywords: ["general resume", "universal resume", "all-purpose resume", "professional resume template"],
+    rating: 4.8,
+  },
+  {
+    id: 7,
+    name: "Minimalist Modern",
+    description: "Modern minimalist for professionals",
+    category: "Minimalist",
+    colorScheme: "from-gray-600 to-slate-600",
+    accentColor: "gray",
+    badgeColor: "bg-gray-100 text-gray-700 border-gray-300",
+    imageIndex: 1, // Reuse template 1 but with different styling
+    seoKeywords: ["minimalist resume", "clean resume", "modern resume", "simple resume template"],
+    rating: 4.9,
+  },
+  {
+    id: 8,
+    name: "Bold Statement",
+    description: "Bold design for standout resumes",
+    category: "Bold",
+    colorScheme: "from-rose-500 to-pink-600",
+    accentColor: "rose",
+    badgeColor: "bg-rose-100 text-rose-700 border-rose-300",
+    imageIndex: 2, // Reuse template 2 but with different styling
+    seoKeywords: ["bold resume", "standout resume", "eye-catching resume", "unique resume template"],
+    rating: 4.6,
+  },
+  {
+    id: 9,
+    name: "Classic Traditional",
+    description: "Classic format for traditional fields",
+    category: "Traditional",
+    colorScheme: "from-stone-600 to-neutral-600",
+    accentColor: "stone",
+    badgeColor: "bg-stone-100 text-stone-700 border-stone-300",
+    imageIndex: 3, // Reuse template 3 but with different styling
+    seoKeywords: ["classic resume", "traditional resume", "conservative resume", "formal resume template"],
+    rating: 4.7,
+  },
+  {
+    id: 10,
+    name: "Freelance Creative",
+    description: "Creative layout for freelancers",
+    category: "Freelance",
+    colorScheme: "from-violet-500 to-purple-600",
+    accentColor: "violet",
+    badgeColor: "bg-violet-100 text-violet-700 border-violet-300",
+    imageIndex: 4, // Reuse template 4 but with different styling
+    seoKeywords: ["freelance resume", "contractor resume", "self-employed resume", "consultant resume"],
+    rating: 4.5,
+  },
+  {
+    id: 11,
+    name: "Executive Leadership",
+    description: "Executive style for leadership roles",
+    category: "Executive",
+    colorScheme: "from-indigo-600 to-blue-700",
+    accentColor: "indigo",
+    badgeColor: "bg-indigo-100 text-indigo-700 border-indigo-300",
+    imageIndex: 5, // Reuse template 5 but with different styling
+    seoKeywords: ["executive resume", "leadership resume", "C-level resume", "senior executive resume"],
+    rating: 4.8,
+  },
+  {
+    id: 12,
+    name: "Technical Expert",
+    description: "Tech-focused for IT careers",
+    category: "Technical",
+    colorScheme: "from-emerald-500 to-green-600",
+    accentColor: "emerald",
+    badgeColor: "bg-emerald-100 text-emerald-700 border-emerald-300",
+    imageIndex: 6, // Reuse template 6 but with different styling
+    seoKeywords: ["technical resume", "IT expert resume", "software engineer resume", "technical specialist resume"],
+    rating: 4.7,
+  },
+];
+
