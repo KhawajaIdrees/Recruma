@@ -42,7 +42,7 @@ export default function Home() {
               {[1, 2, 3, 4, 5, 6].map((template, index) => (
                 <div 
                   key={template} 
-                  className="group relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-green-100 hover:scale-105 animate-fade-in-up hover-lift"
+                  className="group relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-indigo-100 hover:scale-105 animate-fade-in-up hover-lift"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="relative">
@@ -60,7 +60,7 @@ export default function Home() {
                           <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
                           <span>Preview</span>
                         </button>
-                        <button className="flex-1 bg-gradient-to-r from-green-600 to-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium hover:from-green-700 hover:to-blue-700 transition-all duration-200 flex items-center justify-center space-x-2 text-sm sm:text-base hover:scale-105 animate-wiggle">
+                        <button className="flex-1 bg-gradient-to-r from-indigo-600 to-pink-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 flex items-center justify-center space-x-2 text-sm sm:text-base hover:scale-105 animate-wiggle">
                           <Download className="w-3 h-3 sm:w-4 sm:h-4" />
                           <span>Use</span>
                         </button>
@@ -68,7 +68,7 @@ export default function Home() {
                     </div>
                     {/* Floating sparkles */}
                     <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <Sparkles className="w-4 h-4 text-green-500 animate-pulse" />
+                      <Sparkles className="w-4 h-4 text-indigo-400 animate-pulse" />
                     </div>
                   </div>
                   <div className="p-4 sm:p-6">
@@ -87,8 +87,8 @@ export default function Home() {
               ))}
             </div>
             
-            <div className="text-center">
-              <button className="bg-gradient-to-r from-green-600 to-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-montserrat animate-float hover-glow">
+                <div className="text-center">
+              <button className="bg-gradient-to-r from-indigo-600 to-pink-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-montserrat animate-float hover-glow">
                 View All Templates
               </button>
             </div>
@@ -108,8 +108,8 @@ export default function Home() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-              <div className="text-center p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-green-50 to-blue-50 hover:from-green-100 hover:to-blue-100 transition-all duration-300 hover:scale-105 animate-fade-in-up stagger-1 hover-lift">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 animate-float">
+              <div className="text-center p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-indigo-50 to-pink-50 hover:from-indigo-100 hover:to-pink-100 transition-all duration-300 hover:scale-105 animate-fade-in-up stagger-1 hover-lift">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-indigo-600 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 animate-float">
                   <Star className="w-6 h-6 sm:w-8 sm:h-8 text-white animate-pulse" />
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4 font-montserrat">AI-Powered Optimization</h3>
@@ -118,8 +118,8 @@ export default function Home() {
                 </p>
               </div>
               
-              <div className="text-center p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-green-50 hover:from-blue-100 hover:to-green-100 transition-all duration-300 hover:scale-105 animate-fade-in-up stagger-2 hover-lift">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-600 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 animate-float" style={{ animationDelay: '0.5s' }}>
+              <div className="text-center p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-pink-50 to-indigo-50 hover:from-pink-100 hover:to-indigo-100 transition-all duration-300 hover:scale-105 animate-fade-in-up stagger-2 hover-lift">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-pink-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 animate-float" style={{ animationDelay: '0.5s' }}>
                   <Download className="w-6 h-6 sm:w-8 sm:h-8 text-white animate-pulse" />
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4 font-montserrat">Instant Download</h3>
@@ -128,8 +128,8 @@ export default function Home() {
                 </p>
               </div>
               
-              <div className="text-center p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-orange-50 to-green-50 hover:from-orange-100 hover:to-green-100 transition-all duration-300 hover:scale-105 animate-fade-in-up stagger-3 hover-lift">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-orange-600 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 animate-float" style={{ animationDelay: '1s' }}>
+              <div className="text-center p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-pink-50 to-indigo-50 hover:from-pink-100 hover:to-indigo-100 transition-all duration-300 hover:scale-105 animate-fade-in-up stagger-3 hover-lift">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-pink-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 animate-float" style={{ animationDelay: '1s' }}>
                   <Eye className="w-6 h-6 sm:w-8 sm:h-8 text-white animate-pulse" />
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4 font-montserrat">ATS-Friendly</h3>
@@ -174,7 +174,7 @@ export default function Home() {
                       }}
                     />
                     <div className="absolute top-4 right-4">
-                      <div className="bg-gradient-to-r from-green-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-medium animate-pulse shadow-lg">
+                      <div className="bg-gradient-to-r from-indigo-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-medium animate-pulse shadow-lg">
                         <Eye className="w-4 h-4 inline mr-2" />
                         Preview
                       </div>
@@ -232,7 +232,7 @@ export default function Home() {
                 
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
-                  <button className="flex-1 bg-gradient-to-r from-green-600 to-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-200 hover:scale-105 font-montserrat animate-float">
+                  <button className="flex-1 bg-gradient-to-r from-indigo-600 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 hover:scale-105 font-montserrat animate-float">
                     <Download className="w-4 h-4 inline mr-2" />
                     Use This Template
                   </button>
