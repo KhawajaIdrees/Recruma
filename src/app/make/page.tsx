@@ -20,6 +20,7 @@ import {
 import Link from "next/link";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
+import { templates } from "@/lib/templateData";
 
 interface PersonalInfo {
   fullName: string;
@@ -62,6 +63,31 @@ function ResumeBuilderContent() {
   const [selectedTemplate, setSelectedTemplate] = useState<number>(
     templateParam ? parseInt(templateParam) : 1,
   );
+  const templateData = templates.find(t => t.id === selectedTemplate) || templates[0];
+
+  // Map accent colors to Tailwind classes for borders and headings
+  const getTemplateColors = () => {
+    switch(templateData.accentColor) {
+      case 'purple':
+        return { border: 'border-purple-300', text: 'text-purple-600', bgLight: 'bg-purple-50' };
+      case 'blue':
+        return { border: 'border-blue-300', text: 'text-blue-600', bgLight: 'bg-blue-50' };
+      case 'indigo':
+        return { border: 'border-indigo-300', text: 'text-indigo-600', bgLight: 'bg-indigo-50' };
+      case 'orange':
+        return { border: 'border-orange-300', text: 'text-orange-600', bgLight: 'bg-orange-50' };
+      case 'amber':
+        return { border: 'border-amber-300', text: 'text-amber-600', bgLight: 'bg-amber-50' };
+      case 'cyan':
+        return { border: 'border-cyan-300', text: 'text-cyan-600', bgLight: 'bg-cyan-50' };
+      case 'gray':
+        return { border: 'border-gray-300', text: 'text-gray-600', bgLight: 'bg-gray-50' };
+      default:
+        return { border: 'border-blue-300', text: 'text-blue-600', bgLight: 'bg-blue-50' };
+    }
+  };
+
+  const colors = getTemplateColors();
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     fullName: "",
     email: "",
@@ -608,7 +634,7 @@ function ResumeBuilderContent() {
               </div>
 
               {/* Template Selection */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100">
+              <div className={`bg-white rounded-2xl p-6 shadow-lg border-2 ${colors.border}`}>
                 <h2 className="text-xl font-bold text-slate-900 mb-4 font-montserrat flex items-center justify-between">
                   <span>Select Template</span>
                   <span className="text-sm font-normal text-slate-500">
@@ -620,10 +646,10 @@ function ResumeBuilderContent() {
                     <button
                       key={template}
                       onClick={() => setSelectedTemplate(template)}
-                      className={`group relative p-3 border-2 rounded-xl transition-all duration-200 hover:scale-105 bg-blue-50 ${
+                      className={`group relative p-3 border-2 rounded-xl transition-all duration-200 hover:scale-105 ${
                         selectedTemplate === template
-                          ? "border-indigo-600 bg-indigo-50 ring-2 ring-indigo-200 shadow-lg"
-                          : "border-blue-200 hover:border-blue-300 hover:shadow-md"
+                          ? `border-${templateData.accentColor}-600 ${colors.bgLight} ring-2 ring-${templateData.accentColor}-200 shadow-lg`
+                          : `${colors.bgLight} border-${templateData.accentColor}-300 hover:shadow-md`
                       }`}
                       title={`Template ${template}`}
                     >
@@ -640,7 +666,7 @@ function ResumeBuilderContent() {
                         />
                       </div>
                       {selectedTemplate === template && (
-                        <div className="absolute top-1 right-1 w-5 h-5 bg-indigo-600 rounded-full flex items-center justify-center">
+                        <div className={`absolute top-1 right-1 w-5 h-5 bg-${templateData.accentColor}-600 rounded-full flex items-center justify-center`}>
                           <svg
                             className="w-3 h-3 text-white"
                             fill="none"
@@ -1051,7 +1077,7 @@ function ResumeBuilderContent() {
                 >
                   {/* Personal Info Preview */}
                   {personalInfo.fullName && (
-                    <div className="text-center mb-6 border-b-2 border-gray-300 pb-4">
+                    <div className={`text-center mb-6 border-b-2 ${colors.border} pb-4`}>
                       <h1 className="text-3xl font-bold text-slate-900 mb-2 font-montserrat">
                         {personalInfo.fullName}
                       </h1>
@@ -1066,7 +1092,7 @@ function ResumeBuilderContent() {
                           <span>• {personalInfo.address}</span>
                         )}
                       </div>
-                      <div className="flex flex-wrap justify-center gap-3 text-sm text-blue-600 mt-2 font-poppins">
+                      <div className={`flex flex-wrap justify-center gap-3 text-sm ${colors.text} mt-2 font-poppins`}>
                         {personalInfo.linkedin && <span>LinkedIn</span>}
                         {personalInfo.github && <span>• GitHub</span>}
                         {personalInfo.website && <span>• Website</span>}
@@ -1077,7 +1103,7 @@ function ResumeBuilderContent() {
                   {/* Summary Preview */}
                   {summary && (
                     <div className="mb-6">
-                      <h2 className="text-lg font-semibold text-slate-900 mb-2 font-montserrat border-b border-gray-300 pb-1">
+                      <h2 className={`text-lg font-semibold text-slate-900 mb-2 font-montserrat border-b ${colors.border} pb-1`}>
                         Professional Summary
                       </h2>
                       <p className="text-gray-700 text-sm leading-relaxed font-poppins">
@@ -1089,7 +1115,7 @@ function ResumeBuilderContent() {
                   {/* Experience Preview */}
                   {experiences.some((exp) => exp.position || exp.company) && (
                     <div className="mb-6">
-                      <h2 className="text-lg font-semibold text-slate-900 mb-3 font-montserrat border-b border-gray-300 pb-1">
+                      <h2 className={`text-lg font-semibold text-slate-900 mb-3 font-montserrat border-b ${colors.border} pb-1`}>
                         Work Experience
                       </h2>
                       <div className="space-y-4">
@@ -1125,7 +1151,7 @@ function ResumeBuilderContent() {
                   {/* Education Preview */}
                   {educations.some((edu) => edu.school || edu.degree) && (
                     <div className="mb-6">
-                      <h2 className="text-lg font-semibold text-slate-900 mb-3 font-montserrat border-b border-gray-300 pb-1">
+                      <h2 className={`text-lg font-semibold text-slate-900 mb-3 font-montserrat border-b ${colors.border} pb-1`}>
                         Education
                       </h2>
                       <div className="space-y-3">
@@ -1154,20 +1180,23 @@ function ResumeBuilderContent() {
                   {/* Skills Preview */}
                   {skills.some((skill) => skill.name) && (
                     <div>
-                      <h2 className="text-lg font-semibold text-slate-900 mb-3 font-montserrat border-b border-gray-300 pb-1">
+                      <h2 className={`text-lg font-semibold text-slate-900 mb-3 font-montserrat border-b ${colors.border} pb-1`}>
                         Skills
                       </h2>
                       <div className="flex flex-wrap gap-2">
                         {skills
                           .filter((skill) => skill.name)
-                          .map((skill) => (
-                            <span
-                              key={skill.id}
-                              className="bg-gray-100 text-gray-800 px-3 py-1 rounded text-sm font-poppins border border-blue-300"
-                            >
-                              {skill.name}
-                            </span>
-                          ))}
+                          .map((skill) => {
+                            const badgeClass = templateData.badgeColor;
+                            return (
+                              <span
+                                key={skill.id}
+                                className={`${badgeClass} px-3 py-1 rounded text-sm font-poppins`}
+                              >
+                                {skill.name}
+                              </span>
+                            );
+                          })}
                       </div>
                     </div>
                   )}
