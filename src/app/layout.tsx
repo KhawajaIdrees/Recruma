@@ -32,7 +32,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} ${montserrat.variable}`}>
-      <body className="font-montserrat min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-teal-50">
+      <body className="font-montserrat min-h-screen bg-[var(--background)] text-[var(--foreground)]">
         {children}
       </body>
     </html>
