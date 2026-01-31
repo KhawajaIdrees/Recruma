@@ -464,7 +464,6 @@ function ResumeBuilderContent() {
       summary,
     };
     localStorage.setItem("resumeData", JSON.stringify(resumeData));
-    alert("Resume saved successfully!");
   };
 
   const handleGenerateWithAI = async () => {
@@ -598,7 +597,6 @@ function ResumeBuilderContent() {
 
         setShowAiModal(false);
         setAiPrompt("");
-        alert("Resume generated successfully! Review and edit as needed.");
       } else {
         throw new Error("Invalid response from AI");
       }
