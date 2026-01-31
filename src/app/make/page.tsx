@@ -1262,11 +1262,11 @@ function ResumeBuilderContent() {
 
                   {/* Skills Preview */}
                   {skills.some((skill) => skill.name) && (
-                    <div>
-                      <h2 className={`text-lg font-semibold text-slate-900 mb-3 font-montserrat border-b ${colors.border} pb-1`}>
+                    <div className="mt-6">
+                      <h2 className={`text-lg font-semibold text-slate-900 mb-4 font-montserrat border-b ${colors.border} pb-2`}>
                         Skills
                       </h2>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-3 items-center">
                         {skills
                           .filter((skill) => skill.name)
                           .map((skill) => {
@@ -1274,7 +1274,7 @@ function ResumeBuilderContent() {
                             return (
                               <span
                                 key={skill.id}
-                                className={`${badgeClass} px-3 py-1 rounded text-sm font-poppins`}
+                                className={`${badgeClass} px-4 py-2 rounded-lg text-sm font-semibold font-poppins inline-block whitespace-nowrap`}
                               >
                                 {skill.name}
                               </span>
@@ -1390,17 +1390,17 @@ function ResumeBuilderContent() {
 
                   {/* Skills Preview */}
                   {skills.some((skill) => skill.name) && (
-                    <div>
-                      <h2 className="text-lg font-semibold text-slate-900 mb-3 font-montserrat border-b pb-1">
+                    <div className="mt-6">
+                      <h2 className="text-lg font-semibold text-slate-900 mb-4 font-montserrat border-b pb-2">
                         Skills
                       </h2>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-3 items-center">
                         {skills
                           .filter((skill) => skill.name)
                           .map((skill) => (
                             <span
                               key={skill.id}
-                              className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-poppins"
+                              className="bg-indigo-100 text-indigo-800 px-4 py-2 rounded-lg text-sm font-semibold font-poppins inline-block whitespace-nowrap"
                             >
                               {skill.name}
                             </span>
