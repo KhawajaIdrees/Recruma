@@ -254,6 +254,53 @@ function ResumeBuilderContent() {
       clone.style.padding = "1in";
       clone.style.visibility = "visible";
       clone.style.display = "block";
+      
+      // Apply template colors to cloned element
+      const applyTemplateStylesInline = (element: HTMLElement) => {
+        const colorMap: { [key: string]: string } = {
+          'border-purple-300': 'border-color: rgb(216, 180, 254)',
+          'border-blue-300': 'border-color: rgb(147, 197, 253)',
+          'border-indigo-300': 'border-color: rgb(165, 180, 252)',
+          'border-orange-300': 'border-color: rgb(253, 186, 116)',
+          'border-amber-300': 'border-color: rgb(252, 191, 73)',
+          'border-cyan-300': 'border-color: rgb(165, 243, 252)',
+          'border-gray-300': 'border-color: rgb(209, 213, 219)',
+          'text-purple-600': 'color: rgb(147, 51, 234)',
+          'text-blue-600': 'color: rgb(37, 99, 235)',
+          'text-indigo-600': 'color: rgb(79, 70, 229)',
+          'text-orange-600': 'color: rgb(234, 88, 12)',
+          'text-amber-600': 'color: rgb(217, 119, 6)',
+          'text-cyan-600': 'color: rgb(8, 145, 178)',
+          'text-gray-600': 'color: rgb(75, 85, 99)',
+          'bg-purple-100': 'background-color: rgb(245, 240, 255); color: rgb(147, 51, 234)',
+          'bg-blue-100': 'background-color: rgb(239, 246, 255); color: rgb(37, 99, 235)',
+          'bg-indigo-100': 'background-color: rgb(238, 242, 255); color: rgb(79, 70, 229)',
+          'bg-orange-100': 'background-color: rgb(255, 237, 213); color: rgb(234, 88, 12)',
+          'bg-amber-100': 'background-color: rgb(254, 243, 199); color: rgb(217, 119, 6)',
+          'bg-cyan-100': 'background-color: rgb(207, 250, 254); color: rgb(8, 145, 178)',
+          'bg-gray-100': 'background-color: rgb(243, 244, 246); color: rgb(75, 85, 99)',
+        };
+
+        element.querySelectorAll('*').forEach((el: Element) => {
+          const htmlEl = el as HTMLElement;
+          const classes = htmlEl.className;
+          if (typeof classes === 'string') {
+            Object.entries(colorMap).forEach(([className, style]) => {
+              if (classes.includes(className)) {
+                const existingStyle = htmlEl.getAttribute('style') || '';
+                const styleProperty = style.split(':')[0];
+                const hasProperty = existingStyle.includes(styleProperty);
+                if (!hasProperty) {
+                  htmlEl.setAttribute('style', existingStyle + '; ' + style);
+                }
+              }
+            });
+          }
+        });
+      };
+
+      applyTemplateStylesInline(clone);
+      
       document.body.appendChild(clone);
 
       // Wait for any images to load
