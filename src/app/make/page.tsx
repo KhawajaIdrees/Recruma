@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
@@ -127,6 +127,12 @@ function ResumeBuilderContent() {
   const [aiPrompt, setAiPrompt] = useState("");
   const [showAiModal, setShowAiModal] = useState(false);
 
+  // Refs for scroll containment to prevent scroll-chaining
+  const leftRef = useRef<HTMLDivElement | null>(null);
+  const previewRef = useRef<HTMLDivElement | null>(null);
+  const touchStartLeft = useRef<number | null>(null);
+  const touchStartPreview = useRef<number | null>(null);
+
   const addExperience = () => {
     setExperiences([
       ...experiences,
@@ -204,6 +210,133 @@ function ResumeBuilderContent() {
       ),
     );
   };
+
+  // Prevent scroll-chaining between the left form and the right preview
+  useEffect(() => {
+    const attachGuard = (
+      el: HTMLDivElement | null,
+      touchRef: { current: number | null },
+    ) => {
+      if (!el) return () => {};
+
+      const OVERSCROLL = 3; // px to allow
+      let overscroll = 0;
+      let resetTimer: number | null = null;
+
+      const resetTransform = () => {
+        if (resetTimer) {
+          clearTimeout(resetTimer);
+          resetTimer = null;
+        }
+        if (overscroll !== 0) {
+          el.style.transition = "transform 150ms";
+          el.style.transform = `translateY(0px)`;
+          overscroll = 0;
+          resetTimer = window.setTimeout(() => {
+            el.style.transition = "";
+            resetTimer = null;
+          }, 160) as unknown as number;
+        }
+      };
+
+      const applyOverscroll = (sign: number) => {
+        overscroll = Math.max(-OVERSCROLL, Math.min(OVERSCROLL, overscroll + sign * 2));
+        el.style.transform = `translateY(${overscroll}px)`;
+        if (resetTimer) clearTimeout(resetTimer);
+        resetTimer = window.setTimeout(() => {
+          resetTransform();
+        }, 120) as unknown as number;
+      };
+
+      const onWheel = (e: WheelEvent) => {
+        const delta = e.deltaY;
+        const scrollTop = el.scrollTop;
+        const scrollHeight = el.scrollHeight;
+        const clientHeight = el.clientHeight;
+        const atTop = scrollTop === 0;
+        const atBottom = Math.abs(scrollTop + clientHeight - scrollHeight) <= 1;
+
+        if (scrollHeight <= clientHeight) {
+          // Not scrollable: allow a tiny visual overscroll but prevent page from moving
+          applyOverscroll(Math.sign(delta) || 1);
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
+
+        if ((delta < 0 && atTop) || (delta > 0 && atBottom)) {
+          // Overscroll at boundary: show a small rubber-band and prevent page scroll
+          applyOverscroll(delta > 0 ? 1 : -1);
+          e.preventDefault();
+          e.stopPropagation();
+        } else {
+          // Scrolling within the element: allow internal scroll but stop propagation
+          resetTransform();
+          e.stopPropagation();
+        }
+      };
+
+      const onTouchStart = (e: TouchEvent) => {
+        touchRef.current = e.touches?.[0]?.clientY ?? null;
+        if (resetTimer) {
+          clearTimeout(resetTimer);
+          resetTimer = null;
+        }
+      };
+
+      const onTouchMove = (e: TouchEvent) => {
+        const startY = touchRef.current ?? 0;
+        const currentY = e.touches?.[0]?.clientY ?? 0;
+        const delta = startY - currentY; // positive => scroll down
+        const scrollTop = el.scrollTop;
+        const scrollHeight = el.scrollHeight;
+        const clientHeight = el.clientHeight;
+        const atTop = scrollTop === 0;
+        const atBottom = Math.abs(scrollTop + clientHeight - scrollHeight) <= 1;
+
+        if (scrollHeight <= clientHeight) {
+          applyOverscroll(Math.sign(delta) || 1);
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
+
+        if ((delta < 0 && atTop) || (delta > 0 && atBottom)) {
+          applyOverscroll(delta > 0 ? 1 : -1);
+          e.preventDefault();
+          e.stopPropagation();
+        } else {
+          resetTransform();
+          e.stopPropagation();
+        }
+      };
+
+      const onTouchEnd = () => {
+        resetTransform();
+      };
+
+      el.addEventListener("wheel", onWheel as any, { passive: false });
+      el.addEventListener("touchstart", onTouchStart as any, { passive: true });
+      el.addEventListener("touchmove", onTouchMove as any, { passive: false });
+      el.addEventListener("touchend", onTouchEnd as any, { passive: true });
+
+      return () => {
+        if (resetTimer) clearTimeout(resetTimer);
+        el.removeEventListener("wheel", onWheel as any);
+        el.removeEventListener("touchstart", onTouchStart as any);
+        el.removeEventListener("touchmove", onTouchMove as any);
+        el.removeEventListener("touchend", onTouchEnd as any);
+      };
+    };
+
+    const cleanLeft = attachGuard(leftRef.current, touchStartLeft);
+    const cleanPreview = attachGuard(previewRef.current, touchStartPreview);
+
+    return () => {
+      cleanLeft();
+      cleanPreview();
+    };
+  }, []);
 
   const handleDownload = async () => {
     const downloadBtn = document.querySelector(
@@ -687,9 +820,9 @@ function ResumeBuilderContent() {
 
           <div className="grid lg:grid-cols-2 gap-8 lg:overflow-hidden lg:h-[calc(100vh-200px)]">
             {/* Left Side - Form */}
-            <div className="space-y-6 overflow-y-auto lg:pr-2">
+            <div ref={leftRef} className="space-y-3 overflow-y-auto lg:pr-2 box-border">
               {/* AI Generate Banner */}
-              <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-6 shadow-lg border border-purple-200">
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-4 shadow-lg border border-purple-200">
                 <div className="flex items-center justify-between flex-wrap gap-4">
                   <div className="flex items-center space-x-3">
                     <div className="p-2 bg-white/20 rounded-lg">
@@ -715,7 +848,7 @@ function ResumeBuilderContent() {
               </div>
 
               {/* Template Selection */}
-              <div className={`bg-white rounded-2xl p-6 shadow-lg border-2 ${colors.border}`}>
+              <div className={`bg-white rounded-2xl p-4 shadow-lg border-2 ${colors.border}`}>
                 <h2 className="text-xl font-bold text-slate-900 mb-4 font-montserrat flex items-center justify-between">
                   <span>Select Template</span>
                   <span className="text-sm font-normal text-slate-500">
@@ -769,14 +902,14 @@ function ResumeBuilderContent() {
               </div>
 
               {/* Personal Information */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100 transition-shadow hover:shadow-xl">
+              <div className="bg-white rounded-2xl p-4 shadow-lg border border-blue-100 transition-shadow hover:shadow-xl">
                 <h2 className="text-xl font-bold text-slate-900 mb-4 font-montserrat flex items-center space-x-2">
                   <div className="p-2 bg-indigo-100 rounded-lg">
                     <User className="w-5 h-5 text-indigo-600" />
                   </div>
                   <span>Personal Information</span>
                 </h2>
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <input
                     type="text"
                     placeholder="Full Name"
@@ -787,7 +920,7 @@ function ResumeBuilderContent() {
                         fullName: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-poppins text-slate-900 placeholder:text-slate-400"
+                    className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-poppins text-slate-900 placeholder:text-slate-400"
                   />
                   <input
                     type="email"
@@ -865,7 +998,7 @@ function ResumeBuilderContent() {
               </div>
 
               {/* Professional Summary */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100 transition-shadow hover:shadow-xl">
+              <div className="bg-white rounded-2xl p-4 shadow-lg border border-blue-100 transition-shadow hover:shadow-xl">
                 <h2 className="text-xl font-bold text-slate-900 mb-4 font-montserrat flex items-center space-x-2">
                   <div className="p-2 bg-blue-100 rounded-lg">
                     <svg
@@ -888,13 +1021,13 @@ function ResumeBuilderContent() {
                   placeholder="Write a brief summary of your professional background..."
                   value={summary}
                   onChange={(e) => setSummary(e.target.value)}
-                  rows={5}
-                  className="w-full px-4 py-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-poppins resize-none text-slate-900 placeholder:text-slate-400"
+                  rows={4}
+                  className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-poppins resize-none text-slate-900 placeholder:text-slate-400"
                 />
               </div>
 
               {/* Work Experience */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100 transition-shadow hover:shadow-xl">
+              <div className="bg-white rounded-2xl p-4 shadow-lg border border-blue-100 transition-shadow hover:shadow-xl">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold text-slate-900 font-montserrat flex items-center space-x-2">
                     <div className="p-2 bg-orange-100 rounded-lg">
@@ -1007,7 +1140,7 @@ function ResumeBuilderContent() {
               </div>
 
               {/* Education */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100 transition-shadow hover:shadow-xl">
+              <div className="bg-white rounded-2xl p-4 shadow-lg border border-blue-100 transition-shadow hover:shadow-xl">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold text-slate-900 font-montserrat flex items-center space-x-2">
                     <div className="p-2 bg-purple-100 rounded-lg">
@@ -1099,7 +1232,7 @@ function ResumeBuilderContent() {
               </div>
 
               {/* Skills */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100 transition-shadow hover:shadow-xl">
+              <div className="bg-white rounded-2xl p-4 shadow-lg border border-blue-100 transition-shadow hover:shadow-xl">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold text-slate-900 font-montserrat flex items-center space-x-2">
                     <div className="p-2 bg-yellow-100 rounded-lg">
@@ -1140,9 +1273,9 @@ function ResumeBuilderContent() {
             </div>
 
             {/* Right Side - Preview */}
-            <div className="lg:flex lg:flex-col lg:overflow-hidden">
-              <div className="bg-white rounded-2xl p-8 shadow-2xl border-2 border-indigo-200 overflow-y-auto"
-                   style={{ maxHeight: 'calc(100vh - 200px)', scrollBehavior: 'smooth' }}>
+            <div className="lg:flex lg:flex-col lg:overflow-visible">
+                  <div ref={previewRef} className="bg-white rounded-2xl p-8 shadow-2xl border-2 border-indigo-200 overflow-y-auto pb-1 box-border"
+                    style={{ maxHeight: 'calc(100vh - 200px)', scrollBehavior: 'smooth', boxSizing: 'border-box' }}>
                 <div className="text-center mb-6">
                   <h3 className="text-lg font-semibold text-slate-700 mb-2 font-montserrat">
                     Resume Preview
@@ -1389,7 +1522,8 @@ function ResumeBuilderContent() {
 
                   {/* Skills Preview */}
                   {skills.some((skill) => skill.name) && (
-                    <div className="mt-6">
+                    <div className="mt-6 relative pr-2">
+                      <div className="absolute top-0 right-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 via-pink-500 to-amber-500 rounded-r pointer-events-none"></div>
                       <h2 className="text-lg font-semibold text-slate-900 mb-4 font-montserrat border-b pb-2">
                         Skills
                       </h2>
