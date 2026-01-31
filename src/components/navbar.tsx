@@ -21,7 +21,7 @@ export default function Navbar() {
             </div>
             <Link
               href="/"
-              className="text-white text-2xl sm:text-3xl lg:text-4xl font-bold font-montserrat tracking-tight"
+              className="text-white text-2xl sm:text-3xl lg:text-4xl font-black font-montserrat tracking-tight drop-shadow-lg"
             >
               Recruma
             </Link>
@@ -29,28 +29,28 @@ export default function Navbar() {
 
           {/* Center: Nav Links (Desktop Only) */}
           <div className="hidden lg:flex space-x-8">
-            <Link href="/" className="text-indigo-200 hover:text-white transition-all duration-200 font-medium hover:scale-105 font-montserrat">
+            <Link href="/" className="text-white hover:text-indigo-100 transition-all duration-200 font-semibold hover:scale-105 font-montserrat text-lg">
               Home
             </Link>
-            <Link href="/make" className="text-indigo-200 hover:text-white transition-all duration-200 font-medium hover:scale-105 font-montserrat">
+            <Link href="/make" className="text-white hover:text-indigo-100 transition-all duration-200 font-semibold hover:scale-105 font-montserrat text-lg">
               Create Resume
             </Link>
-            <Link href="/templates" className="text-indigo-200 hover:text-white transition-all duration-200 font-medium hover:scale-105 font-montserrat">
+            <Link href="/templates" className="text-white hover:text-indigo-100 transition-all duration-200 font-semibold hover:scale-105 font-montserrat text-lg">
               Templates
             </Link>
-            <Link href="/about" className="text-indigo-200 hover:text-white transition-all duration-200 font-medium hover:scale-105 font-montserrat">
+            <Link href="/about" className="text-white hover:text-indigo-100 transition-all duration-200 font-semibold hover:scale-105 font-montserrat text-lg">
               About
             </Link>
           </div>
 
           {/* Right: Auth Button (Desktop Only) */}
           <div className="hidden lg:flex items-center space-x-4">
-            <Link href="/login" className="text-indigo-200 hover:text-white transition-all duration-200 font-medium hover:scale-105 font-montserrat">
+            <Link href="/login" className="text-white hover:text-indigo-100 transition-all duration-200 font-semibold hover:scale-105 font-montserrat text-lg">
               Login
             </Link>
             <Link
               href="/signup"
-              className="bg-gradient-to-r from-indigo-600 to-pink-600 text-white px-6 py-3 rounded-full hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl hover:scale-105 font-montserrat"
+              className="bg-gradient-to-r from-indigo-600 to-pink-600 text-white px-6 py-3 rounded-full hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 font-bold shadow-lg hover:shadow-xl hover:scale-105 font-montserrat text-lg"
             >
               Get Started
             </Link>
@@ -73,24 +73,24 @@ export default function Navbar() {
       {isOpen && (
         <div className="lg:hidden bg-[rgba(4,4,12,0.95)] backdrop-blur-sm shadow-xl px-4 pb-6 rounded-b-2xl border-t border-indigo-500/10">
           <div className="py-4 space-y-2">
-            <Link href="/" className="block py-3 text-indigo-200 hover:text-white transition-all duration-200 font-medium border-b border-indigo-900 hover:scale-105 font-montserrat" onClick={() => setIsOpen(false)}>
+            <Link href="/" className="block py-3 text-white hover:text-indigo-100 transition-all duration-200 font-semibold border-b border-indigo-900 hover:scale-105 font-montserrat text-lg" onClick={() => setIsOpen(false)}>
               Home
             </Link>
-            <Link href="/make" className="block py-3 text-indigo-200 hover:text-white transition-all duration-200 font-medium border-b border-indigo-900 hover:scale-105 font-montserrat" onClick={() => setIsOpen(false)}>
+            <Link href="/make" className="block py-3 text-white hover:text-indigo-100 transition-all duration-200 font-semibold border-b border-indigo-900 hover:scale-105 font-montserrat text-lg" onClick={() => setIsOpen(false)}>
               Create Resume
             </Link>
-            <Link href="/templates" className="block py-3 text-indigo-200 hover:text-white transition-all duration-200 font-medium border-b border-indigo-900 hover:scale-105 font-montserrat" onClick={() => setIsOpen(false)}>
+            <Link href="/templates" className="block py-3 text-white hover:text-indigo-100 transition-all duration-200 font-semibold border-b border-indigo-900 hover:scale-105 font-montserrat text-lg" onClick={() => setIsOpen(false)}>
               Templates
             </Link>
-            <Link href="/about" className="block py-3 text-indigo-200 hover:text-white transition-all duration-200 font-medium border-b border-indigo-900 hover:scale-105 font-montserrat" onClick={() => setIsOpen(false)}>
+            <Link href="/about" className="block py-3 text-white hover:text-indigo-100 transition-all duration-200 font-semibold border-b border-indigo-900 hover:scale-105 font-montserrat text-lg" onClick={() => setIsOpen(false)}>
               About
             </Link>
           </div>
           <div className="flex flex-col space-y-3 pt-4">
-            <Link href="/login" className="text-center py-3 text-indigo-200 hover:text-white transition-all duration-200 font-medium hover:scale-105 font-montserrat" onClick={() => setIsOpen(false)}>
+            <Link href="/login" className="text-center py-3 text-white hover:text-indigo-100 transition-all duration-200 font-semibold hover:scale-105 font-montserrat text-lg" onClick={() => setIsOpen(false)}>
               Login
             </Link>
-            <Link href="/signup" className="bg-gradient-to-r from-indigo-600 to-pink-600 text-white text-center px-4 py-3 rounded-full hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 font-semibold hover:scale-105 font-montserrat" onClick={() => setIsOpen(false)}>
+            <Link href="/signup" className="bg-gradient-to-r from-indigo-600 to-pink-600 text-white text-center px-4 py-3 rounded-full hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 font-bold hover:scale-105 font-montserrat text-lg" onClick={() => setIsOpen(false)}>
               Get Started
             </Link>
           </div>
