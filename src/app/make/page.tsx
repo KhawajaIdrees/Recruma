@@ -257,7 +257,8 @@ function ResumeBuilderContent() {
       
       // Apply template colors to cloned element
       const applyTemplateStylesInline = (element: HTMLElement) => {
-        const colorMap: { [key: string]: string } = {
+        // Get the actual border and text colors from the selected template
+        const borderColorMap: { [key: string]: string } = {
           'border-purple-300': 'border-color: rgb(216, 180, 254)',
           'border-blue-300': 'border-color: rgb(147, 197, 253)',
           'border-indigo-300': 'border-color: rgb(165, 180, 252)',
@@ -265,6 +266,9 @@ function ResumeBuilderContent() {
           'border-amber-300': 'border-color: rgb(252, 191, 73)',
           'border-cyan-300': 'border-color: rgb(165, 243, 252)',
           'border-gray-300': 'border-color: rgb(209, 213, 219)',
+        };
+
+        const textColorMap: { [key: string]: string } = {
           'text-purple-600': 'color: rgb(147, 51, 234)',
           'text-blue-600': 'color: rgb(37, 99, 235)',
           'text-indigo-600': 'color: rgb(79, 70, 229)',
@@ -272,26 +276,58 @@ function ResumeBuilderContent() {
           'text-amber-600': 'color: rgb(217, 119, 6)',
           'text-cyan-600': 'color: rgb(8, 145, 178)',
           'text-gray-600': 'color: rgb(75, 85, 99)',
-          'bg-purple-100': 'background-color: rgb(245, 240, 255); color: rgb(147, 51, 234)',
-          'bg-blue-100': 'background-color: rgb(239, 246, 255); color: rgb(37, 99, 235)',
-          'bg-indigo-100': 'background-color: rgb(238, 242, 255); color: rgb(79, 70, 229)',
-          'bg-orange-100': 'background-color: rgb(255, 237, 213); color: rgb(234, 88, 12)',
-          'bg-amber-100': 'background-color: rgb(254, 243, 199); color: rgb(217, 119, 6)',
-          'bg-cyan-100': 'background-color: rgb(207, 250, 254); color: rgb(8, 145, 178)',
-          'bg-gray-100': 'background-color: rgb(243, 244, 246); color: rgb(75, 85, 99)',
+        };
+
+        const badgeColorMap: { [key: string]: string } = {
+          'bg-purple-100': 'background-color: rgb(245, 240, 255)',
+          'bg-blue-100': 'background-color: rgb(239, 246, 255)',
+          'bg-indigo-100': 'background-color: rgb(238, 242, 255)',
+          'bg-orange-100': 'background-color: rgb(255, 237, 213)',
+          'bg-amber-100': 'background-color: rgb(254, 243, 199)',
+          'bg-cyan-100': 'background-color: rgb(207, 250, 254)',
+          'bg-gray-100': 'background-color: rgb(243, 244, 246)',
+          'text-purple-700': 'color: rgb(126, 34, 206)',
+          'text-blue-700': 'color: rgb(29, 78, 216)',
+          'text-indigo-700': 'color: rgb(67, 56, 202)',
+          'text-orange-700': 'color: rgb(194, 65, 12)',
+          'text-amber-700': 'color: rgb(180, 83, 9)',
+          'text-cyan-700': 'color: rgb(14, 116, 144)',
+          'text-gray-700': 'color: rgb(55, 65, 81)',
         };
 
         element.querySelectorAll('*').forEach((el: Element) => {
           const htmlEl = el as HTMLElement;
           const classes = htmlEl.className;
           if (typeof classes === 'string') {
-            Object.entries(colorMap).forEach(([className, style]) => {
+            // Apply border colors
+            Object.entries(borderColorMap).forEach(([className, style]) => {
               if (classes.includes(className)) {
                 const existingStyle = htmlEl.getAttribute('style') || '';
-                const styleProperty = style.split(':')[0];
-                const hasProperty = existingStyle.includes(styleProperty);
-                if (!hasProperty) {
+                if (!existingStyle.includes('border-color')) {
                   htmlEl.setAttribute('style', existingStyle + '; ' + style);
+                }
+              }
+            });
+
+            // Apply text colors
+            Object.entries(textColorMap).forEach(([className, style]) => {
+              if (classes.includes(className)) {
+                const existingStyle = htmlEl.getAttribute('style') || '';
+                if (!existingStyle.includes('color')) {
+                  htmlEl.setAttribute('style', existingStyle + '; ' + style);
+                }
+              }
+            });
+
+            // Apply badge colors
+            Object.entries(badgeColorMap).forEach(([className, style]) => {
+              if (classes.includes(className)) {
+                const existingStyle = htmlEl.getAttribute('style') || '';
+                if (className.startsWith('bg-') && !existingStyle.includes('background-color')) {
+                  htmlEl.setAttribute('style', existingStyle + '; ' + style);
+                } else if (className.startsWith('text-') && !existingStyle.includes('color')) {
+                  const colorStyle = style;
+                  htmlEl.setAttribute('style', existingStyle + '; ' + colorStyle);
                 }
               }
             });
