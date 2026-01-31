@@ -685,9 +685,9 @@ function ResumeBuilderContent() {
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-8 lg:overflow-hidden lg:h-[calc(100vh-200px)]">
             {/* Left Side - Form */}
-            <div className="space-y-6">
+            <div className="space-y-6 overflow-y-auto lg:pr-2">
               {/* AI Generate Banner */}
               <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-6 shadow-lg border border-purple-200">
                 <div className="flex items-center justify-between flex-wrap gap-4">
@@ -1140,9 +1140,9 @@ function ResumeBuilderContent() {
             </div>
 
             {/* Right Side - Preview */}
-            <div className="lg:sticky lg:top-24 lg:h-[calc(100vh-96px)] lg:overflow-y-auto lg:pr-2">
-              <div className="bg-white rounded-2xl p-8 shadow-2xl border-2 border-indigo-200"
-                   style={{ scrollBehavior: 'smooth' }}>
+            <div className="lg:flex lg:flex-col lg:overflow-hidden">
+              <div className="bg-white rounded-2xl p-8 shadow-2xl border-2 border-indigo-200 overflow-y-auto"
+                   style={{ maxHeight: 'calc(100vh - 200px)', scrollBehavior: 'smooth' }}>
                 <div className="text-center mb-6">
                   <h3 className="text-lg font-semibold text-slate-700 mb-2 font-montserrat">
                     Resume Preview
