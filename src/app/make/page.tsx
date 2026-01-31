@@ -1140,8 +1140,9 @@ function ResumeBuilderContent() {
             </div>
 
             {/* Right Side - Preview */}
-            <div className="lg:sticky lg:top-24 lg:h-screen lg:overflow-y-auto">
-              <div className="bg-white rounded-2xl p-8 shadow-2xl border-2 border-indigo-200">
+            <div className="lg:sticky lg:top-24 lg:h-[calc(100vh-96px)] lg:overflow-y-auto lg:pr-2">
+              <div className="bg-white rounded-2xl p-8 shadow-2xl border-2 border-indigo-200"
+                   style={{ scrollBehavior: 'smooth' }}>
                 <div className="text-center mb-6">
                   <h3 className="text-lg font-semibold text-slate-700 mb-2 font-montserrat">
                     Resume Preview
