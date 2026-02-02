@@ -88,6 +88,28 @@ function ResumeBuilderContent() {
   };
 
   const colors = getTemplateColors();
+  // Keep selectedTemplate in sync with the `template` query param
+  useEffect(() => {
+    const param = searchParams.get("template");
+    const num = param ? parseInt(param) : NaN;
+    if (!isNaN(num) && num !== selectedTemplate) {
+      setSelectedTemplate(num);
+    }
+  }, [searchParams]);
+
+  // Also read directly from window.location on mount for robustness
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const param = params.get("template");
+      const num = param ? parseInt(param) : NaN;
+      if (!isNaN(num) && num !== selectedTemplate) {
+        setSelectedTemplate(num);
+      }
+    } catch (e) {
+      // ignore in non-browser environments
+    }
+  }, []);
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     fullName: "",
     email: "",

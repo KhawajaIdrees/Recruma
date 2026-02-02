@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
 import { Star, Download, Eye, Sparkles, X, ArrowRight } from "lucide-react";
@@ -9,6 +10,7 @@ import Link from "next/link";
 export default function TemplatesPage() {
   const [selectedTemplate, setSelectedTemplate] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
   const handlePreview = (templateNumber: number) => {
     setSelectedTemplate(templateNumber);
@@ -20,7 +22,7 @@ export default function TemplatesPage() {
   const handleUseTemplate = (templateNumber: number) => {
     // Restore body scroll before navigation
     document.body.style.overflow = 'unset';
-    window.location.href = `/make?template=${templateNumber}`;
+    router.push(`/make?template=${templateNumber}`);
   };
 
   const closeModal = () => {
