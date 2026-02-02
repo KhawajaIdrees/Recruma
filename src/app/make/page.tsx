@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
 import {
@@ -88,6 +88,8 @@ function ResumeBuilderContent() {
   };
 
   const colors = getTemplateColors();
+  const router = useRouter();
+
   // Keep selectedTemplate in sync with the `template` query param
   useEffect(() => {
     const param = searchParams.get("template");
@@ -109,6 +111,17 @@ function ResumeBuilderContent() {
     } catch (e) {
       // ignore in non-browser environments
     }
+  }, []);
+
+  // If user navigates away and back, prefer query param, else fall back to saved template
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("selectedTemplate");
+      if (!searchParams.get("template") && saved) {
+        const num = parseInt(saved);
+        if (!isNaN(num) && num !== selectedTemplate) setSelectedTemplate(num);
+      }
+    } catch (e) {}
   }, []);
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     fullName: "",
@@ -760,7 +773,14 @@ function ResumeBuilderContent() {
                   {[1, 2, 3, 4, 5, 6].map((template) => (
                     <button
                       key={template}
-                      onClick={() => setSelectedTemplate(template)}
+                      onClick={() => {
+                        setSelectedTemplate(template);
+                        try {
+                          // persist selection and update URL so downloads use the template
+                          localStorage.setItem("selectedTemplate", String(template));
+                          router.push(`/make?template=${template}`);
+                        } catch (e) {}
+                      }}
                       className={`group relative p-3 border-2 rounded-xl transition-all duration-200 hover:scale-105 ${
                         selectedTemplate === template
                           ? `border-${templateData.accentColor}-600 ${colors.bgLight} ring-2 ring-${templateData.accentColor}-200 shadow-lg`
@@ -1336,7 +1356,7 @@ function ResumeBuilderContent() {
                           <span>{personalInfo.address}</span>
                         )}
                       </div>
-                      <div className="flex flex-wrap justify-center gap-3 text-sm text-blue-600 mt-2 font-poppins">
+                      <div className={`flex flex-wrap justify-center gap-3 text-sm ${colors.text} mt-2 font-poppins`}>
                         {personalInfo.linkedin && <span>LinkedIn</span>}
                         {personalInfo.github && <span>GitHub</span>}
                         {personalInfo.website && <span>Website</span>}
@@ -1434,7 +1454,7 @@ function ResumeBuilderContent() {
                           .map((skill) => (
                             <span
                               key={skill.id}
-                              className="bg-indigo-100 text-indigo-800 px-4 py-2 rounded-lg text-sm font-semibold font-poppins inline-block whitespace-nowrap"
+                              className={`${templateData.badgeColor} px-4 py-2 rounded-lg text-sm font-semibold font-poppins inline-block whitespace-nowrap`}
                             >
                               {skill.name}
                             </span>
