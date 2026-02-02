@@ -93,7 +93,7 @@ export default function SignupPage() {
                     value={formData.name}
                     onChange={handleChange}
                     className="block w-full pl-10 pr-3 py-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-poppins"
-                    placeholder="John Doe"
+                    placeholder="Enter your username"
                     required
                   />
                 </div>
@@ -114,7 +114,7 @@ export default function SignupPage() {
                     value={formData.email}
                     onChange={handleChange}
                     className="block w-full pl-10 pr-3 py-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-poppins"
-                    placeholder="you@example.com"
+                    placeholder="Enter your email address"
                     required
                   />
                 </div>
