@@ -10,11 +10,11 @@ export default function SummarySection({
   onUpdate,
 }: SummarySectionProps) {
   return (
-    <div className="bg-white rounded-2xl p-4 shadow-lg border border-blue-100 transition-shadow hover:shadow-xl">
+    <div className="bg-white rounded-2xl p-4 shadow-lg border border-slate-200 transition-shadow hover:shadow-xl">
       <h2 className="text-xl font-bold text-slate-900 mb-4 font-montserrat flex items-center space-x-2">
-        <div className="p-2 bg-blue-100 rounded-lg">
+        <div className="p-2 bg-slate-100 rounded-lg">
           <svg
-            className="w-5 h-5 text-blue-600"
+            className="w-5 h-5 text-slate-900"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -34,7 +34,7 @@ export default function SummarySection({
         value={summary}
         onChange={(e) => onUpdate(e.target.value)}
         rows={4}
-        className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-poppins resize-none text-slate-900 placeholder:text-slate-400"
+        className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-transparent font-poppins resize-none text-slate-900 placeholder:text-slate-400"
       />
     </div>
   );

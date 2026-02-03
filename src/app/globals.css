@@ -3,24 +3,24 @@
 @tailwind utilities;
 
 :root {
-  --background: linear-gradient(135deg, #0b1020 0%, #0f172a 30%, #0ea5a4 100%);
-  --foreground: #e6f3ff;
-  --color-primary: 79 70 229; /* rgb values for use in Tailwind if needed */
-  --color-secondary: 236 72 153;
-  --color-accent: 14 165 164;
-  --color-surface: 10 12 20;
-  --color-glass: rgba(255,255,255,0.06);
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --color-primary: 15 23 42; /* Deep Blue rgb values */
+  --color-secondary: 255 255 255; /* White rgb values */
+  --color-accent: 15 23 42; /* Deep Blue accent */
+  --color-surface: 255 255 255;
+  --color-glass: rgba(255,255,255,0.95);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ededed;
-    --foreground: #171717;
+    --background: #ffffff;
+    --foreground: #0f172a;
   }
 }
 
 body {
-  background: var(--background);
+  background: #ffffff;
   color: var(--foreground);
   font-family: var(--font-montserrat), var(--font-poppins), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
@@ -48,14 +48,14 @@ body {
 }
 
 @layer utilities {
-  /* Dark mode utilities */
+  /* 2-Color theme: White & Deep Blue */
   .dark {
-    color-scheme: dark;
+    color-scheme: light;
   }
   
   .dark body {
-    background-color: #0f172a;
-    color: #f8fafc;
+    background-color: #ffffff;
+    color: #0f172a;
   }
 }
 
@@ -261,12 +261,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #8b5cf6, #ec4899);
+  background: #0f172a;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #7c3aed, #db2777);
+  background: #1e293b;
 }
 
 /* Dark mode scrollbar */
@@ -275,11 +275,11 @@ body {
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #7c3aed, #db2777);
+  background: #0f172a;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #6d28d9, #be185d);
+  background: #1e293b;
 }
 
 /* Glass morphism effect */

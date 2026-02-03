@@ -14,7 +14,7 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 font-montserrat animate-fade-in-up">
-                About <span className="bg-gradient-to-r from-indigo-600 via-pink-500 to-indigo-600 bg-clip-text text-transparent">Recruma</span>
+                About <span className="text-slate-900">Recruma</span>
               </h1>
               <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto font-poppins animate-fade-in-up stagger-1">
                 We&apos;re on a mission to help professionals create resumes that stand out and get them hired faster.
@@ -28,9 +28,9 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="inline-flex items-center space-x-2 bg-indigo-50 border border-indigo-200 px-4 py-2 rounded-full mb-6">
-                  <Target className="w-5 h-5 text-indigo-600" />
-                  <span className="text-sm font-medium text-indigo-700 font-montserrat">Our Mission</span>
+                <div className="inline-flex items-center space-x-2 bg-slate-100 border border-slate-300 px-4 py-2 rounded-full mb-6">
+                  <Target className="w-5 h-5 text-slate-900" />
+                  <span className="text-sm font-medium text-slate-700 font-montserrat">Our Mission</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-6 font-montserrat">
                   Empowering Your Career Journey
@@ -46,8 +46,8 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-200/20 to-pink-200/20 rounded-3xl blur-3xl"></div>
-                <div className="relative bg-gradient-to-br from-indigo-50 to-pink-50 rounded-3xl p-8 shadow-2xl">
+                <div className="absolute inset-0 bg-slate-200/20 rounded-3xl blur-3xl"></div>
+                <div className="relative bg-slate-100 rounded-3xl p-8 shadow-2xl">
                   <div className="space-y-6">
                     <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg">
                       <h3 className="text-xl font-bold text-slate-900 mb-2 font-montserrat">100K+</h3>
@@ -81,8 +81,8 @@ export default function AboutPage() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-indigo-50 to-pink-50 hover:from-indigo-100 hover:to-pink-100 transition-all duration-300 hover:scale-105">
-                <div className="w-16 h-16 bg-gradient-to-r from-indigo-600 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <div className="text-center p-8 rounded-2xl bg-slate-100 hover:bg-slate-200 transition-all duration-300 hover:scale-105">
+                <div className="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <Lightbulb className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-slate-900 mb-4 font-montserrat">Innovation</h3>
@@ -91,8 +91,8 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-pink-50 to-indigo-50 hover:from-pink-100 hover:to-indigo-100 transition-all duration-300 hover:scale-105">
-                <div className="w-16 h-16 bg-gradient-to-r from-pink-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <div className="text-center p-8 rounded-2xl bg-slate-100 hover:bg-slate-200 transition-all duration-300 hover:scale-105">
+                <div className="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <Users className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-slate-900 mb-4 font-montserrat">User-Centric</h3>
@@ -101,8 +101,8 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-amber-50 to-indigo-50 hover:from-amber-100 hover:to-indigo-100 transition-all duration-300 hover:scale-105">
-                <div className="w-16 h-16 bg-gradient-to-r from-amber-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <div className="text-center p-8 rounded-2xl bg-slate-100 hover:bg-slate-200 transition-all duration-300 hover:scale-105">
+                <div className="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <Zap className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-slate-900 mb-4 font-montserrat">Excellence</h3>
@@ -118,9 +118,9 @@ export default function AboutPage() {
         <section className="py-16 bg-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <div className="inline-flex items-center space-x-2 bg-indigo-50 border border-indigo-200 px-4 py-2 rounded-full mb-6">
-                <Heart className="w-5 h-5 text-indigo-600" />
-                <span className="text-sm font-medium text-indigo-700 font-montserrat">Our Story</span>
+              <div className="inline-flex items-center space-x-2 bg-slate-100 border border-slate-300 px-4 py-2 rounded-full mb-6">
+                <Heart className="w-5 h-5 text-slate-900" />
+                <span className="text-sm font-medium text-slate-900 font-montserrat">Our Story</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-6 font-montserrat">
                 How Recruma Was Born
@@ -149,10 +149,10 @@ export default function AboutPage() {
         {/* CTA Section */}
         <section className="py-16 sm:py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="bg-gradient-to-r from-indigo-50 to-pink-50 rounded-3xl p-12 shadow-2xl">
-              <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-indigo-200 mb-6">
-                <Award className="w-5 h-5 text-indigo-600" />
-                <span className="text-sm font-medium text-indigo-700 font-montserrat">Join Us</span>
+            <div className="bg-slate-100 rounded-3xl p-12 shadow-2xl">
+              <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-slate-300 mb-6">
+                <Award className="w-5 h-5 text-slate-900" />
+                <span className="text-sm font-medium text-slate-900 font-montserrat">Join Us</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 font-montserrat">
                 Ready to Transform Your Career?
@@ -163,13 +163,13 @@ export default function AboutPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="/make"
-                  className="bg-gradient-to-r from-indigo-600 to-pink-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-montserrat inline-flex items-center justify-center"
+                  className="bg-slate-900 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-montserrat inline-flex items-center justify-center"
                 >
                   Start Building Now
                 </a>
                 <a
                   href="/templates"
-                  className="bg-white/90 backdrop-blur-sm text-slate-700 px-8 py-4 rounded-xl text-lg font-semibold border-2 border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all duration-200 font-montserrat inline-flex items-center justify-center"
+                  className="bg-white/90 backdrop-blur-sm text-slate-900 px-8 py-4 rounded-xl text-lg font-semibold border-2 border-slate-300 hover:border-slate-400 hover:bg-slate-50 transition-all duration-200 font-montserrat inline-flex items-center justify-center"
                 >
                   Browse Templates
                 </a>

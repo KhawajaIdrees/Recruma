@@ -9,6 +9,7 @@ export interface TemplateInfo {
   imageIndex: number;
   seoKeywords: string[];
   rating: number;
+  hasProfile: boolean;
 }
 
 export const templates: TemplateInfo[] = [
@@ -23,6 +24,7 @@ export const templates: TemplateInfo[] = [
     imageIndex: 1,
     seoKeywords: ["creative resume", "designer resume", "portfolio resume", "artistic resume template"],
     rating: 4.3,
+    hasProfile: true,
   },
   {
     id: 2,
@@ -35,6 +37,7 @@ export const templates: TemplateInfo[] = [
     imageIndex: 2,
     seoKeywords: ["executive resume", "corporate resume", "manager resume", "business resume template"],
     rating: 4.4,
+    hasProfile: true,
   },
   {
     id: 3,
@@ -47,6 +50,7 @@ export const templates: TemplateInfo[] = [
     imageIndex: 3,
     seoKeywords: ["tech resume", "developer resume", "programmer resume", "IT resume template"],
     rating: 4.5,
+    hasProfile: true,
   },
   {
     id: 4,
@@ -59,6 +63,7 @@ export const templates: TemplateInfo[] = [
     imageIndex: 4,
     seoKeywords: ["marketing resume", "communications resume", "content creator resume", "advertising resume"],
     rating: 4.6,
+    hasProfile: true,
   },
   {
     id: 5,
@@ -71,6 +76,7 @@ export const templates: TemplateInfo[] = [
     imageIndex: 5,
     seoKeywords: ["sales resume", "business development resume", "account manager resume", "B2B resume"],
     rating: 4.7,
+    hasProfile: true,
   },
   {
     id: 6,
@@ -83,6 +89,7 @@ export const templates: TemplateInfo[] = [
     imageIndex: 6,
     seoKeywords: ["general resume", "universal resume", "all-purpose resume", "professional resume template"],
     rating: 4.8,
+    hasProfile: true,
   },
   {
     id: 7,
@@ -92,9 +99,10 @@ export const templates: TemplateInfo[] = [
     colorScheme: "from-gray-600 to-slate-600",
     accentColor: "gray",
     badgeColor: "bg-gray-100 text-gray-700 border-gray-300",
-    imageIndex: 1, // Reuse template 1 but with different styling
+    imageIndex: 1,
     seoKeywords: ["minimalist resume", "clean resume", "modern resume", "simple resume template"],
     rating: 4.9,
+    hasProfile: false,
   },
   {
     id: 8,
@@ -104,9 +112,10 @@ export const templates: TemplateInfo[] = [
     colorScheme: "from-rose-500 to-pink-600",
     accentColor: "rose",
     badgeColor: "bg-rose-100 text-rose-700 border-rose-300",
-    imageIndex: 2, // Reuse template 2 but with different styling
+    imageIndex: 2,
     seoKeywords: ["bold resume", "standout resume", "eye-catching resume", "unique resume template"],
     rating: 4.6,
+    hasProfile: true,
   },
   {
     id: 9,
@@ -116,9 +125,10 @@ export const templates: TemplateInfo[] = [
     colorScheme: "from-stone-600 to-neutral-600",
     accentColor: "stone",
     badgeColor: "bg-stone-100 text-stone-700 border-stone-300",
-    imageIndex: 3, // Reuse template 3 but with different styling
+    imageIndex: 3,
     seoKeywords: ["classic resume", "traditional resume", "conservative resume", "formal resume template"],
     rating: 4.7,
+    hasProfile: false,
   },
   {
     id: 10,
@@ -128,9 +138,10 @@ export const templates: TemplateInfo[] = [
     colorScheme: "from-violet-500 to-purple-600",
     accentColor: "violet",
     badgeColor: "bg-violet-100 text-violet-700 border-violet-300",
-    imageIndex: 4, // Reuse template 4 but with different styling
+    imageIndex: 4,
     seoKeywords: ["freelance resume", "contractor resume", "self-employed resume", "consultant resume"],
     rating: 4.5,
+    hasProfile: true,
   },
   {
     id: 11,
@@ -140,9 +151,10 @@ export const templates: TemplateInfo[] = [
     colorScheme: "from-indigo-600 to-blue-700",
     accentColor: "indigo",
     badgeColor: "bg-indigo-100 text-indigo-700 border-indigo-300",
-    imageIndex: 5, // Reuse template 5 but with different styling
+    imageIndex: 5,
     seoKeywords: ["executive resume", "leadership resume", "C-level resume", "senior executive resume"],
     rating: 4.8,
+    hasProfile: true,
   },
   {
     id: 12,
@@ -152,9 +164,10 @@ export const templates: TemplateInfo[] = [
     colorScheme: "from-indigo-500 to-cyan-500",
     accentColor: "indigo",
     badgeColor: "bg-indigo-100 text-indigo-700 border-indigo-300",
-    imageIndex: 6, // Reuse template 6 but with different styling
+    imageIndex: 6,
     seoKeywords: ["technical resume", "IT expert resume", "software engineer resume", "technical specialist resume"],
     rating: 4.7,
+    hasProfile: false,
   },
 ];
 

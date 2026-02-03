@@ -1,37 +1,37 @@
 "use client";
 
 import Link from "next/link";
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Sparkles } from "lucide-react";
+import { Sparkles, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-[linear-gradient(180deg,#070617,#0f172a)] text-white">
+    <footer className="bg-white text-slate-900 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Company Info */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-pink-500 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center">
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-2xl font-bold font-montserrat">Recruma</h3>
+              <h3 className="text-xl font-bold font-montserrat">Recruma</h3>
             </div>
-            <p className="text-gray-300 leading-relaxed font-poppins">
-              Transform your career with AI-powered resume building. Create professional resumes that stand out and get you hired faster.
+            <p className="text-slate-600 leading-relaxed font-poppins text-sm">
+              Transform your career with AI-powered resume building. Create professional, ATS-friendly resumes that get you noticed and help you land your dream job.
             </p>
             <div className="flex space-x-4">
-              <Link href="#" className="w-10 h-10 bg-white/6 rounded-full flex items-center justify-center hover:bg-white/10 transition-all duration-200 hover:scale-110">
+              <a href="#" className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all duration-200 text-slate-900">
                 <Facebook className="w-5 h-5" />
-              </Link>
-              <Link href="#" className="w-10 h-10 bg-white/6 rounded-full flex items-center justify-center hover:bg-white/10 transition-all duration-200 hover:scale-110">
+              </a>
+              <a href="#" className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all duration-200 text-slate-900">
                 <Twitter className="w-5 h-5" />
-              </Link>
-              <Link href="#" className="w-10 h-10 bg-white/6 rounded-full flex items-center justify-center hover:bg-white/10 transition-all duration-200 hover:scale-110">
+              </a>
+              <a href="#" className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all duration-200 text-slate-900">
                 <Instagram className="w-5 h-5" />
-              </Link>
-              <Link href="#" className="w-10 h-10 bg-white/6 rounded-full flex items-center justify-center hover:bg-white/10 transition-all duration-200 hover:scale-110">
+              </a>
+              <a href="#" className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all duration-200 text-slate-900">
                 <Linkedin className="w-5 h-5" />
-              </Link>
+              </a>
             </div>
           </div>
 
@@ -40,60 +40,23 @@ export default function Footer() {
             <h4 className="text-lg font-semibold font-montserrat">Quick Links</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/templates" className="text-gray-300 hover:text-indigo-200 transition-all duration-200 font-poppins hover:scale-105">
-                  Resume Templates
+                <Link href="/templates" className="text-slate-600 hover:text-slate-900 transition-all duration-200 font-poppins hover:underline">
+                  Templates
                 </Link>
               </li>
               <li>
-                <Link href="/builder" className="text-gray-300 hover:text-indigo-200 transition-all duration-200 font-poppins hover:scale-105">
+                <Link href="/make" className="text-slate-600 hover:text-slate-900 transition-all duration-200 font-poppins hover:underline">
                   Resume Builder
                 </Link>
               </li>
               <li>
-                <Link href="/ai-optimizer" className="text-gray-300 hover:text-indigo-200 transition-all duration-200 font-poppins hover:scale-105">
-                  AI Optimizer
+                <Link href="/about" className="text-slate-600 hover:text-slate-900 transition-all duration-200 font-poppins hover:underline">
+                  About Us
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="text-gray-300 hover:text-indigo-200 transition-all duration-200 font-poppins hover:scale-105">
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-gray-300 hover:text-indigo-200 transition-all duration-200 font-poppins hover:scale-105">
-                  Career Tips
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div className="space-y-6">
-            <h4 className="text-lg font-semibold font-montserrat">Support</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/help" className="text-gray-300 hover:text-indigo-200 transition-all duration-200 font-poppins hover:scale-105">
-                  Help Center
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-300 hover:text-indigo-200 transition-all duration-200 font-poppins hover:scale-105">
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="text-gray-300 hover:text-indigo-200 transition-all duration-200 font-poppins hover:scale-105">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link href="/tutorials" className="text-gray-300 hover:text-indigo-200 transition-all duration-200 font-poppins hover:scale-105">
-                  Tutorials
-                </Link>
-              </li>
-              <li>
-                <Link href="/feedback" className="text-gray-300 hover:text-indigo-200 transition-all duration-200 font-poppins hover:scale-105">
-                  Feedback
+                <Link href="/contact" className="text-slate-600 hover:text-slate-900 transition-all duration-200 font-poppins hover:underline">
+                  Contact
                 </Link>
               </li>
             </ul>
@@ -103,36 +66,49 @@ export default function Footer() {
           <div className="space-y-6">
             <h4 className="text-lg font-semibold font-montserrat">Contact Info</h4>
             <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-indigo-400" />
-                <span className="text-gray-300 font-poppins">hello@recruma.com</span>
+              <div className="flex items-start space-x-3">
+                <Mail className="w-5 h-5 text-slate-900 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-xs text-slate-500 font-poppins uppercase">Email</p>
+                  <a href="mailto:hello@recruma.com" className="text-slate-600 hover:text-slate-900 font-poppins transition-all duration-200">
+                    hello@recruma.com
+                  </a>
+                </div>
               </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-indigo-400" />
-                <span className="text-gray-300 font-poppins">+1 (555) 123-4567</span>
+              <div className="flex items-start space-x-3">
+                <Phone className="w-5 h-5 text-slate-900 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-xs text-slate-500 font-poppins uppercase">Phone</p>
+                  <a href="tel:+15551234567" className="text-slate-600 hover:text-slate-900 font-poppins transition-all duration-200">
+                    +1 (555) 123-4567
+                  </a>
+                </div>
               </div>
-              <div className="flex items-center space-x-3">
-                <MapPin className="w-5 h-5 text-indigo-400" />
-                <span className="text-gray-300 font-poppins">San Francisco, CA</span>
+              <div className="flex items-start space-x-3">
+                <MapPin className="w-5 h-5 text-slate-900 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-xs text-slate-500 font-poppins uppercase">Location</p>
+                  <p className="text-slate-600 font-poppins">San Francisco, CA</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-700 mt-12 pt-8">
+        <div className="border-t border-slate-200 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-gray-400 text-sm font-poppins">
+            <div className="text-slate-500 text-sm font-poppins">
               © 2024 Recruma. All rights reserved.
             </div>
-            <div className="flex space-x-6 text-sm">
-              <Link href="/privacy" className="text-gray-400 hover:text-green-100 transition-all duration-200 font-poppins hover:scale-105">
+            <div className="flex space-x-6 text-sm flex-wrap justify-center md:justify-end gap-y-2">
+              <Link href="/privacy" className="text-slate-500 hover:text-slate-900 transition-all duration-200 font-poppins hover:underline">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="text-gray-400 hover:text-green-100 transition-all duration-200 font-poppins hover:scale-105">
+              <Link href="/terms" className="text-slate-500 hover:text-slate-900 transition-all duration-200 font-poppins hover:underline">
                 Terms of Service
               </Link>
-              <Link href="/cookies" className="text-gray-400 hover:text-green-100 transition-all duration-200 font-poppins hover:scale-105">
+              <Link href="/cookies" className="text-slate-500 hover:text-slate-900 transition-all duration-200 font-poppins hover:underline">
                 Cookie Policy
               </Link>
             </div>

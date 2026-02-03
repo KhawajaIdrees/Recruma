@@ -33,3 +33,8 @@ export interface Skill {
   name: string;
 }
 
+export interface ProfilePicture {
+  url: string;
+  base64?: string;
+}
+

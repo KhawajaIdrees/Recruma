@@ -56,10 +56,10 @@ export default function SignupPage() {
       <Navbar />
       <main className="min-h-screen pt-24 pb-16">
         <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-blue-200">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-slate-300">
             {/* Header */}
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-indigo-600 to-pink-500 rounded-2xl mb-4 shadow-lg">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-900 rounded-2xl mb-4 shadow-lg">
                 <Sparkles className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-3xl font-bold text-slate-900 mb-2 font-montserrat">
@@ -73,7 +73,7 @@ export default function SignupPage() {
             {/* Signup Form */}
             <form onSubmit={handleSubmit} className="space-y-5">
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm font-poppins">
+                <div className="bg-slate-100 border border-slate-300 text-slate-900 px-4 py-3 rounded-lg text-sm font-poppins">
                   {error}
                 </div>
               )}
@@ -92,7 +92,7 @@ export default function SignupPage() {
                     type="text"
                     value={formData.name}
                     onChange={handleChange}
-                    className="block w-full pl-10 pr-3 py-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-poppins"
+                    className="block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-transparent font-poppins"
                     placeholder="Enter your username"
                     required
                   />
@@ -113,7 +113,7 @@ export default function SignupPage() {
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="block w-full pl-10 pr-3 py-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-poppins"
+                    className="block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-transparent font-poppins"
                     placeholder="Enter your email address"
                     required
                   />
@@ -134,7 +134,7 @@ export default function SignupPage() {
                     type="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="block w-full pl-10 pr-3 py-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-poppins"
+                    className="block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-transparent font-poppins"
                     placeholder="••••••••"
                     required
                   />
@@ -156,7 +156,7 @@ export default function SignupPage() {
                     type="password"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="block w-full pl-10 pr-3 py-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-poppins"
+                    className="block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-transparent font-poppins"
                     placeholder="••••••••"
                     required
                   />
@@ -169,15 +169,15 @@ export default function SignupPage() {
                   type="checkbox"
                   checked={agreeToTerms}
                   onChange={(e) => setAgreeToTerms(e.target.checked)}
-                  className="mt-1 rounded border-blue-300 text-blue-600 focus:ring-blue-500"
+                  className="mt-1 rounded border-slate-300 text-slate-900 focus:ring-slate-900"
                 />
                 <label htmlFor="terms" className="ml-2 text-sm text-slate-600 font-poppins">
                   I agree to the{" "}
-                  <Link href="/terms" className="text-blue-600 hover:text-blue-700 font-medium">
+                  <Link href="/terms" className="text-slate-900 hover:text-slate-700 font-medium">
                     Terms of Service
                   </Link>{" "}
                   and{" "}
-                  <Link href="/privacy" className="text-blue-600 hover:text-blue-700 font-medium">
+                  <Link href="/privacy" className="text-slate-900 hover:text-slate-700 font-medium">
                     Privacy Policy
                   </Link>
                 </label>
@@ -185,7 +185,7 @@ export default function SignupPage() {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-indigo-600 to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-indigo-700 hover:to-pink-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-montserrat flex items-center justify-center space-x-2"
+                className="w-full bg-slate-900 text-white py-3 rounded-lg font-semibold hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-montserrat flex items-center justify-center space-x-2"
               >
                 <span>Create Account</span>
                 <ArrowRight className="w-5 h-5" />
@@ -194,14 +194,14 @@ export default function SignupPage() {
 
             {/* Divider */}
             <div className="my-6 flex items-center">
-              <div className="flex-1 border-t border-blue-300"></div>
+              <div className="flex-1 border-t border-slate-300"></div>
               <span className="px-4 text-sm text-slate-500 font-poppins">OR</span>
-              <div className="flex-1 border-t border-blue-300"></div>
+              <div className="flex-1 border-t border-slate-300"></div>
             </div>
 
             {/* Social Signup */}
             <div className="space-y-3">
-              <button className="w-full bg-white border-2 border-blue-300 text-slate-700 py-3 rounded-lg font-medium hover:bg-blue-50 transition-all duration-200 font-poppins flex items-center justify-center space-x-2">
+              <button className="w-full bg-white border-2 border-slate-300 text-slate-700 py-3 rounded-lg font-medium hover:bg-slate-50 transition-all duration-200 font-poppins flex items-center justify-center space-x-2">
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                   <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -217,7 +217,7 @@ export default function SignupPage() {
               Already have an account?{" "}
               <Link
                 href="/login"
-                className="text-blue-600 hover:text-blue-700 font-semibold"
+                className="text-slate-900 hover:text-slate-700 font-semibold"
               >
                 Sign in
               </Link>

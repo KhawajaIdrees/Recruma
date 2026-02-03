@@ -1,6 +1,6 @@
 "use client";
 
-import { PersonalInfo, Experience, Education, Skill } from "./types";
+import { PersonalInfo, Experience, Education, Skill, ProfilePicture } from "./types";
 import { templates } from "@/lib/templateData";
 import { getTemplateColors } from "@/lib/colorUtils";
 
@@ -11,6 +11,7 @@ interface ResumePreviewProps {
   skills: Skill[];
   summary: string;
   template: number;
+  profile?: ProfilePicture | null;
 }
 
 export default function ResumePreview({
@@ -20,12 +21,25 @@ export default function ResumePreview({
   skills,
   summary,
   template,
+  profile,
 }: ResumePreviewProps) {
   const templateData = templates.find(t => t.id === template) || templates[0];
   const colors = getTemplateColors(templateData.accentColor);
+  const showProfile = templateData.hasProfile && profile;
 
   const content = (
     <>
+      {/* Profile Picture */}
+      {showProfile && (
+        <div className="text-center mb-6">
+          <img
+            src={profile!.url}
+            alt="Profile"
+            className="w-24 h-24 rounded-full mx-auto object-cover border-4 border-slate-200 shadow-lg"
+          />
+        </div>
+      )}
+
       {/* Personal Info Preview */}
       {personalInfo.fullName && (
         <div className={`text-center mb-6 border-b-2 ${colors.border} pb-4`}>
