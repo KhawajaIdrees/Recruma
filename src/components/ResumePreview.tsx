@@ -2,6 +2,7 @@
 
 import { PersonalInfo, Experience, Education, Skill } from "./types";
 import { templates } from "@/lib/templateData";
+import { getTemplateColors } from "@/lib/colorUtils";
 
 interface ResumePreviewProps {
   personalInfo: PersonalInfo;
@@ -21,33 +22,10 @@ export default function ResumePreview({
   template,
 }: ResumePreviewProps) {
   const templateData = templates.find(t => t.id === template) || templates[0];
-  
-  // Map accent colors to Tailwind classes for borders and headings
-  const getTemplateColors = () => {
-    switch(templateData.accentColor) {
-      case 'purple':
-        return { border: 'border-purple-300', text: 'text-purple-600' };
-      case 'blue':
-        return { border: 'border-blue-300', text: 'text-blue-600' };
-      case 'indigo':
-        return { border: 'border-indigo-300', text: 'text-indigo-600' };
-      case 'orange':
-        return { border: 'border-orange-300', text: 'text-orange-600' };
-      case 'amber':
-        return { border: 'border-amber-300', text: 'text-amber-600' };
-      case 'cyan':
-        return { border: 'border-cyan-300', text: 'text-cyan-600' };
-      case 'gray':
-        return { border: 'border-gray-300', text: 'text-gray-600' };
-      default:
-        return { border: 'border-blue-300', text: 'text-blue-600' };
-    }
-  };
+  const colors = getTemplateColors(templateData.accentColor);
 
-  const colors = getTemplateColors();
-
-  return (
-    <div id="resume-preview" className="resume-print bg-white p-8 max-w-4xl mx-auto shadow-lg" style={{ minHeight: '11in' }}>
+  const content = (
+    <>
       {/* Personal Info Preview */}
       {personalInfo.fullName && (
         <div className={`text-center mb-6 border-b-2 ${colors.border} pb-4`}>
@@ -152,6 +130,20 @@ export default function ResumePreview({
           <p>Start filling out the form to see your resume preview here</p>
         </div>
       )}
+    </>
+  );
+
+  return (
+    <div className="max-w-4xl mx-auto">
+      {/* Hidden print version used by the PDF generator */}
+      <div id="resume-preview-print" className="hidden print:block resume-print bg-white p-8" style={{ width: '8.5in', minHeight: '11in' }}>
+        {content}
+      </div>
+
+      {/* Visible preview for screen */}
+      <div id="resume-preview" className="resume-print bg-white p-8 shadow-lg" style={{ minHeight: '11in' }}>
+        {content}
+      </div>
     </div>
   );
 }
