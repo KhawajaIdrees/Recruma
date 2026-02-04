@@ -398,6 +398,97 @@ a:focus-visible {
 .stagger-5 { animation-delay: 0.5s; }
 
 /* Hover animations */
+
+/* Template-specific resume styles (templates 1-6) */
+.resume-print {
+  color: #0f172a;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.template-1 {
+  --accent: #7c3aed;
+  --accent-rgb: 124,58,237;
+  --accent-bg: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(236,72,153,0.08));
+}
+.template-1 h1 { letter-spacing: -0.5px; }
+.template-1 .resume-section-title { color: var(--accent); font-weight: 700; }
+.template-1 .resume-skill-badge { background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 1px solid rgba(var(--accent-rgb),0.2); }
+
+.template-2 {
+  --accent: #2563eb;
+  --accent-rgb: 37,99,235;
+  --accent-bg: transparent;
+}
+.template-2 h1 { font-size: 1.75rem; letter-spacing: 0.5px; }
+.template-2 .resume-section-title { color: var(--accent); border-bottom: 2px solid var(--accent); }
+.template-2 .resume-skill-badge { background: rgba(var(--accent-rgb),0.08); color: #1e40af; border: 1px solid rgba(var(--accent-rgb),0.2); }
+
+.template-3 {
+  --accent: #6366f1;
+  --accent-rgb: 99,102,241;
+  --accent-bg: transparent;
+}
+.template-3 h1 { font-size: 1.625rem; }
+.template-3 aside { padding-right: 1.5rem; border-right: 1px solid #e2e8f0; }
+.template-3 aside h3 { color: var(--accent); }
+.template-3 .resume-section-title { color: var(--accent); font-weight: 600; }
+.template-3 .resume-skill-badge { background: rgba(var(--accent-rgb),0.08); color: #4f46e5; border: 1px solid rgba(var(--accent-rgb),0.2); }
+
+.template-4 {
+  --accent: #f97316;
+  --accent-rgb: 249,115,22;
+  --accent-bg: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(239,68,68,0.08));
+}
+.template-4 h1 { font-size: 1.875rem; letter-spacing: -0.5px; color: white; }
+.template-4 .resume-section-title { color: var(--accent); font-weight: 700; }
+.template-4 .resume-skill-badge { background: rgba(var(--accent-rgb),0.1); color: #c2410c; border: 1px solid rgba(var(--accent-rgb),0.2); }
+
+.template-5 {
+  --accent: #f59e0b;
+  --accent-rgb: 245,158,11;
+  --accent-bg: transparent;
+}
+.template-5 h1 { font-size: 1.75rem; font-weight: 700; }
+.template-5 .resume-section-title { color: var(--accent); font-weight: 700; }
+.template-5 .resume-skill-badge { background: var(--accent); color: white; border: none; font-weight: 600; }
+.template-5 span[style*="background"] { padding: 0.5rem 1rem; border-radius: 9999px; }
+
+.template-6 {
+  --accent: #06b6d4;
+  --accent-rgb: 6,182,212;
+  --accent-bg: transparent;
+}
+.template-6 h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5px; }
+.template-6 .resume-section-title { color: #1f2937; font-weight: 600; border-bottom: 1px solid #e5e7eb; }
+.template-6 .resume-skill-badge { background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+
+/* Universal helpers for all templates */
+.template-1, .template-2, .template-3, .template-4, .template-5, .template-6 {
+  -webkit-print-color-adjust: exact;
+}
+
+/* Section titles common styling */
+.resume-section-title {
+  transition: color 0.2s ease, border-color 0.2s ease;
+  font-family: var(--font-montserrat), sans-serif;
+  margin-bottom: 0.75rem;
+}
+
+/* Profile picture sizing per template */
+.template-1 .resume-profile-pic { width: 128px; height: 128px; border-radius: 9999px; }
+.template-2 .resume-profile-pic { width: 80px; height: 80px; border-radius: 12px; }
+.template-3 .resume-profile-pic { width: 100%; aspect-ratio: 1; border-radius: 8px; }
+.template-4 .resume-profile-pic { width: 112px; height: 112px; border-radius: 9999px; }
+.template-5 .resume-profile-pic { width: 80px; height: 80px; border-radius: 8px; }
+.template-6 .resume-profile-pic { width: 96px; height: 96px; border-radius: 8px; }
+
+/* Print-friendly tweaks */
+@media print {
+  .resume-print { box-shadow: none !important; page-break-inside: avoid; }
+  .template-1, .template-2, .template-3, .template-4, .template-5, .template-6 { -webkit-print-color-adjust: exact; }
+  .resume-skill-badge { -webkit-print-color-adjust: exact; }
+}
 .hover-lift:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);

@@ -54,18 +54,35 @@ export async function POST(req: Request) {
     // Error Accumulator
     const errorLog: string[] = [];
 
+    // Per-model timeout (ms) - configurable via env var
+    const MODEL_TIMEOUT = process.env.GEN_TIMEOUT_MS ? parseInt(process.env.GEN_TIMEOUT_MS) : 10000;
+
     // Loop through models
     for (const modelName of FREE_MODELS) {
       try {
         console.log(`Attempting generation with: ${modelName}`);
 
-        const response = await openai.chat.completions.create({
-          model: modelName,
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: prompt },
-          ],
-        });
+        // Use AbortController to limit wait time per-model
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => {
+          try {
+            controller.abort();
+          } catch (e) {}
+        }, MODEL_TIMEOUT);
+
+        let response;
+        try {
+          response = await openai.chat.completions.create({
+            model: modelName,
+            messages: [
+              { role: "system", content: systemPrompt },
+              { role: "user", content: prompt },
+            ],
+            signal: controller.signal,
+          } as any);
+        } finally {
+          clearTimeout(timeoutId);
+        }
 
         const content = response.choices[0].message.content || "{}";
         const cleanedContent = cleanJsonString(content);
@@ -84,10 +101,15 @@ export async function POST(req: Request) {
           continue;
         }
       } catch (modelError: unknown) {
-        const errorMessage =
-          modelError instanceof Error ? modelError.message : "Unknown error";
-        console.warn(`❌ ${modelName} failed: ${errorMessage}`);
-        errorLog.push(`${modelName}: ${errorMessage}`);
+        const errorMessage = modelError instanceof Error ? modelError.message : "Unknown error";
+        // If aborted, provide clearer message
+        if (modelError && typeof modelError === 'object' && (modelError as any).name === 'AbortError') {
+          console.warn(`⏱️ ${modelName} timed out after ${MODEL_TIMEOUT}ms`);
+          errorLog.push(`${modelName}: timed out after ${MODEL_TIMEOUT}ms`);
+        } else {
+          console.warn(`❌ ${modelName} failed: ${errorMessage}`);
+          errorLog.push(`${modelName}: ${errorMessage}`);
+        }
         continue;
       }
     }

@@ -396,6 +396,9 @@ function ResumeBuilderContent() {
     }
   }, []);
 
+  // Require minimal personal info before allowing template selection
+  const canSelectTemplate = Boolean(personalInfo.fullName && (personalInfo.email || personalInfo.phone));
+
   return (
     <>
       <Navbar />
@@ -470,23 +473,28 @@ function ResumeBuilderContent() {
               {/* Template Selection Card */}
               <div className="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
                 <h2 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat">Select Template</h2>
+                {!canSelectTemplate && (
+                  <p className="text-xs text-rose-600 mb-3 font-poppins">Enter your full name and either email or phone to enable template selection.</p>
+                )}
                 <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-3">
                   {[1, 2, 3, 4, 5, 6].map((template) => (
                     <button
                       key={template}
                       onClick={() => {
+                        if (!canSelectTemplate) return;
                         setSelectedTemplate(template);
                         try {
                           localStorage.setItem("selectedTemplate", String(template));
                           router.push(`/make?template=${template}`);
                         } catch (e) {}
                       }}
+                      disabled={!canSelectTemplate}
                       className={`group relative p-2 border-2 rounded-lg transition-all duration-200 hover:scale-105 ${
                         selectedTemplate === template
                           ? "border-slate-900 bg-slate-50 shadow-md ring-2 ring-slate-200"
                           : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
-                      }`}
-                      title={`Template ${template}`}
+                      } ${!canSelectTemplate ? 'opacity-50 cursor-not-allowed hover:scale-100' : ''}`}
+                      title={!canSelectTemplate ? 'Complete name and email or phone to enable' : `Template ${template}`}
                     >
                       <div className="bg-slate-50 rounded p-1 overflow-hidden aspect-square">
                         <img
@@ -615,7 +623,7 @@ function ResumeBuilderContent() {
                     skills={skills}
                     summary={summary}
                     profile={profile}
-                    template={selectedTemplate}
+                    template={Number(selectedTemplate)}
                   />
                 </div>
               </div>
