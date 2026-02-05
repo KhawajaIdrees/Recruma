@@ -183,7 +183,6 @@ export default function ResumePreview({
     </div>
   );
 
-  // Template renderer for all 12 templates
   const RenderTemplate = () => {
     switch (templateData.id) {
       case 1: // Creative Professional

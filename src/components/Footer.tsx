@@ -6,7 +6,7 @@ import { Sparkles, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin }
 export default function Footer() {
   return (
     <footer className="bg-white text-slate-900 border-t border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Company Info */}
           <div className="space-y-6">
@@ -96,24 +96,14 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-slate-200 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-slate-500 text-sm font-poppins">
-              © 2024 Recruma. All rights reserved.
-            </div>
-            <div className="flex space-x-6 text-sm flex-wrap justify-center md:justify-end gap-y-2">
-              <Link href="/privacy" className="text-slate-500 hover:text-slate-900 transition-all duration-200 font-poppins hover:underline">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="text-slate-500 hover:text-slate-900 transition-all duration-200 font-poppins hover:underline">
-                Terms of Service
-              </Link>
-              <Link href="/cookies" className="text-slate-500 hover:text-slate-900 transition-all duration-200 font-poppins hover:underline">
-                Cookie Policy
-              </Link>
-            </div>
-          </div>
-        </div>
+       <div className="border-t border-slate-200 pt-8">
+  <div className="flex justify-center items-center">
+    <div className="text-slate-500 text-sm font-poppins">
+      © 2024 Recruma. All rights reserved.
+    </div>
+  </div>
+</div>
+
       </div>
     </footer>
   );

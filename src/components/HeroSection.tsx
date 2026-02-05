@@ -30,12 +30,12 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up">
-              <button className="group bg-slate-900 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 hover:scale-105 font-montserrat animate-float">
+              <button className="group bg-slate-900 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 hover:scale-105 font-montserrat ">
                 <span>Start Building</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
               </button>
               
-              <button className="bg-white text-slate-900 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold border-2 border-slate-900 hover:bg-slate-50 transition-all duration-200 flex items-center justify-center space-x-2 hover:scale-105 font-montserrat animate-float">
+              <button className="bg-white text-slate-900 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold border-2 border-slate-900 hover:bg-slate-50 transition-all duration-200 flex items-center justify-center space-x-2 hover:scale-105 font-montserrat ">
                 <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-slate-900" />
                 <span>View Templates</span>
               </button>
@@ -65,7 +65,7 @@ const HeroSection = () => {
             <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-slate-300/20">
               <div className="space-y-6">
                 {/* Floating Card 1 */}
-                <div className="bg-slate-900 rounded-xl p-4 shadow-lg animate-float">
+                <div className="bg-slate-900 rounded-xl p-4 shadow-lg ">
                   <div className="flex items-center space-x-3">
                     <FileText className="w-6 h-6 text-white" />
                     <div>
@@ -76,7 +76,7 @@ const HeroSection = () => {
                 </div>
 
                 {/* Floating Card 2 */}
-                <div className="bg-slate-800 rounded-xl p-4 shadow-lg animate-float" style={{ animationDelay: '0.5s' }}>
+                <div className="bg-slate-800 rounded-xl p-4 shadow-lg ">
                   <div className="flex items-center space-x-3">
                     <Download className="w-6 h-6 text-white" />
                     <div>
@@ -87,7 +87,7 @@ const HeroSection = () => {
                 </div>
 
                 {/* Floating Card 3 */}
-                <div className="bg-slate-700 rounded-xl p-4 shadow-lg animate-float" style={{ animationDelay: '1s' }}>
+                <div className="bg-slate-700 rounded-xl p-4 shadow-lg ">
                   <div className="flex items-center space-x-3">
                     <TrendingUp className="w-6 h-6 text-white" />
                     <div>
