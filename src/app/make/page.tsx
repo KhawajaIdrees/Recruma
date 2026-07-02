@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
-import { Save, Download, ArrowLeft, Sparkles } from "lucide-react";
+import { Save, Download, ArrowLeft, Sparkles, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { templates } from "@/lib/templateData";
 import ResumePreview from "@/components/ResumePreview";
@@ -18,6 +18,13 @@ import type { PersonalInfo, Experience, Education, Skill, ProfilePicture } from 
 import { getTemplateColors } from "@/lib/colorUtils";
 import { generateResumePDF } from "@/lib/pdfGenerator";
 
+const SAMPLE_AI_PROMPT = `My name is Richard Sanchez and I am a Marketing Manager based in 123 Anywhere St., Any City at phone +123-456-7890, email hello@reallygreatsite.com, and website www.reallygreatsite.com. I am a results-driven marketing professional with 8+ years of experience building brand awareness, leading cross-functional campaigns, and driving measurable revenue growth across B2B and B2C markets. I specialize in digital marketing strategy, content development, and data-driven campaign optimization.
+
+I currently work at Borcelle Studio as Marketing Manager & Specialist from 2030 to Present, where I lead integrated marketing campaigns across social, email, and paid channels; manage a $500K annual marketing budget and improve ROI by 35%; and collaborate with sales and product teams to launch new offerings. Before that, I was Marketing Manager at Fauget Studio from 2025 to 2029, where I developed brand positioning, grew social engagement by 120%, and managed PR and partnership initiatives. I also worked as Marketing Specialist at Studio Shodwe from 2024 to 2025, supporting campaign execution, market research, and client reporting.
+
+I have a Master of Business Management from Wardiere University School of Business (2029-2031) with GPA 3.8/4.0, and a Bachelor of Commerce in Marketing from Wardiere University (2025-2029) with GPA 3.6/4.0.
+
+My skills include Project Management, Public Relations, Teamwork, Time Management, Leadership, Effective Communication, Critical Thinking, Digital Marketing, SEO, Google Analytics, Content Strategy, and Brand Development. I speak English (Fluent), French (Fluent), Spanish (Intermediate), and German (Basic). I am seeking a senior marketing leadership role where I can drive brand growth and mentor high-performing teams.`;
 
 function ResumeBuilderContent() {
   const searchParams = useSearchParams();
@@ -101,6 +108,7 @@ function ResumeBuilderContent() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
   const [showAiModal, setShowAiModal] = useState(false);
+  const [templateDropdownOpen, setTemplateDropdownOpen] = useState(false);
 
   // Refs for scroll containment to prevent scroll-chaining
   const leftRef = useRef<HTMLDivElement | null>(null);
@@ -354,30 +362,14 @@ function ResumeBuilderContent() {
       }
       // Inside src/app/make/page.tsx -> handleGenerateWithAI function
     } catch (error) {
-      // 1. Log the full error to the console instead of Alerting
-      console.error("=============== RESUME GENERATION ERROR ===============");
-      console.error(error);
+      console.error("Resume generation error:", error);
 
-      let errorMessage = "Unknown error";
+      let errorMessage = "Failed to generate resume. Please try again.";
       if (error instanceof Error) {
         errorMessage = error.message;
-
-        // Try to parse JSON details if present in the error message
-        try {
-          const detailsMatch = errorMessage.match(/Details:\s*(.+)/);
-          if (detailsMatch) {
-            console.error("--- Error Details JSON ---");
-            const detailsStr = detailsMatch[1];
-            console.error(detailsStr); // Log just the JSON part
-          }
-        } catch (e) {
-          // Ignore parsing errors
-        }
       }
-      console.error("=====================================================");
 
-      // Optional: You can set a state here to show a small red text in the UI instead
-      // setUiError("Failed to generate. Check console for details.");
+      alert(errorMessage);
     } finally {
       setIsGenerating(false);
     }
@@ -450,76 +442,99 @@ function ResumeBuilderContent() {
         </div>
 
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid lg:grid-cols-[1fr_450px] gap-6 lg:overflow-hidden lg:h-[calc(100vh-180px)]">
+          <div className="grid lg:grid-cols-2 gap-4 lg:overflow-hidden lg:h-[calc(100vh-180px)]">
             {/* Left Side - Form */}
-            <div ref={leftRef} className="space-y-4 overflow-y-auto lg:pr-3 box-border pb-8">
-              {/* Quick Actions Card */}
-              <div className="bg-slate-900 rounded-xl p-5 text-white shadow-md">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="font-semibold text-lg font-montserrat mb-1">Need Help?</h3>
-                    <p className="text-slate-300 text-sm font-poppins">Use AI to automatically fill your resume</p>
-                  </div>
-                  <button
-                    onClick={() => setShowAiModal(true)}
-                    className="flex items-center space-x-2 bg-white text-slate-900 px-4 py-2 rounded-lg font-semibold hover:bg-slate-100 transition-all whitespace-nowrap flex-shrink-0"
-                  >
-                    <Sparkles className="w-4 h-4" />
-                    <span>Generate</span>
-                  </button>
-                </div>
-              </div>
-
+            <div ref={leftRef} className="space-y-4 overflow-y-auto lg:pr-2 min-h-0 pb-8">
               {/* Template Selection Card */}
-              <div className="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+              <div className="bg-white rounded-xl p-5 shadow-sm border border-slate-200 relative z-0">
                 <h2 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat">Select Template</h2>
                 {!canSelectTemplate && (
                   <p className="text-xs text-rose-600 mb-3 font-poppins">Enter your full name and either email or phone to enable template selection.</p>
                 )}
-                <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-3">
-                  {[1, 2, 3, 4, 5, 6].map((template) => (
-                    <button
-                      key={template}
-                      onClick={() => {
-                        if (!canSelectTemplate) return;
-                        setSelectedTemplate(template);
-                        try {
-                          localStorage.setItem("selectedTemplate", String(template));
-                          router.push(`/make?template=${template}`);
-                        } catch (e) {}
+
+                <button
+                  type="button"
+                  onClick={() => canSelectTemplate && setTemplateDropdownOpen((open) => !open)}
+                  disabled={!canSelectTemplate}
+                  className={`w-full flex items-center gap-3 p-3 border-2 rounded-lg transition-all duration-200 ${
+                    selectedTemplate
+                      ? "border-slate-900 bg-slate-50 shadow-md ring-2 ring-slate-200"
+                      : "border-slate-200 bg-white hover:border-slate-300"
+                  } ${!canSelectTemplate ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:shadow-sm"}`}
+                >
+                  <div className="bg-slate-50 rounded p-1 overflow-hidden w-16 h-16 shrink-0">
+                    <img
+                      src={`/template${selectedTemplate}.png`}
+                      alt={`Template ${selectedTemplate}`}
+                      className="w-full h-full object-contain"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "/template1.png";
                       }}
-                      disabled={!canSelectTemplate}
-                      className={`group relative p-2 border-2 rounded-lg transition-all duration-200 hover:scale-105 ${
-                        selectedTemplate === template
-                          ? "border-slate-900 bg-slate-50 shadow-md ring-2 ring-slate-200"
-                          : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
-                      } ${!canSelectTemplate ? 'opacity-50 cursor-not-allowed hover:scale-100' : ''}`}
-                      title={!canSelectTemplate ? 'Complete name and email or phone to enable' : `Template ${template}`}
-                    >
-                      <div className="bg-slate-50 rounded p-1 overflow-hidden aspect-square">
-                        <img
-                          src={`/template${template}.png`}
-                          alt={`Template ${template}`}
-                          className="w-full h-full object-contain"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src = "/template1.png";
-                          }}
-                        />
-                      </div>
-                      {selectedTemplate === template && (
-                        <div className="absolute -top-1 -right-1 bg-slate-900 rounded-full w-4 h-4 flex items-center justify-center shadow-lg">
-                          <svg
-                            className="w-2.5 h-2.5 text-white"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
+                    />
+                  </div>
+                  <div className="flex-1 text-left min-w-0">
+                    <p className="text-sm font-semibold text-slate-900 font-montserrat">
+                      Template {selectedTemplate}
+                    </p>
+                    <p className="text-xs text-slate-500 font-poppins truncate">{templateData.name}</p>
+                  </div>
+                  <ChevronDown
+                    className={`w-5 h-5 text-slate-600 shrink-0 transition-transform duration-200 ${
+                      templateDropdownOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                {templateDropdownOpen && canSelectTemplate && (
+                  <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-slate-200">
+                    {[1, 2, 3, 4, 5, 6].map((template) => (
+                      <button
+                        key={template}
+                        type="button"
+                        onClick={() => {
+                          setSelectedTemplate(template);
+                          setTemplateDropdownOpen(false);
+                          try {
+                            localStorage.setItem("selectedTemplate", String(template));
+                            router.push(`/make?template=${template}`);
+                          } catch (e) {}
+                        }}
+                        className={`group relative p-2 border-2 rounded-lg transition-all duration-200 hover:scale-105 ${
+                          selectedTemplate === template
+                            ? "border-slate-900 bg-slate-50 shadow-md ring-2 ring-slate-200"
+                            : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
+                        }`}
+                        title={`Template ${template}`}
+                      >
+                        <div className="bg-slate-50 rounded p-1 overflow-hidden aspect-square">
+                          <img
+                            src={`/template${template}.png`}
+                            alt={`Template ${template}`}
+                            className="w-full h-full object-contain"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = "/template1.png";
+                            }}
+                          />
                         </div>
-                      )}
-                    </button>
-                  ))}
-                </div>
+                        {selectedTemplate === template && (
+                          <div className="absolute -top-1 -right-1 bg-slate-900 rounded-full w-4 h-4 flex items-center justify-center shadow-lg">
+                            <svg
+                              className="w-2.5 h-2.5 text-white"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Form Sections - Organized with better hierarchy */}
@@ -608,14 +623,17 @@ function ResumeBuilderContent() {
             </div>
 
             {/* Right Side - Preview */}
-            <div className="lg:flex lg:flex-col">
-              <div ref={previewRef} className="bg-white rounded-xl shadow-md border border-slate-200 overflow-y-auto pb-2 box-border flex-1"
-                style={{ maxHeight: 'calc(100vh - 180px)', scrollBehavior: 'smooth', boxSizing: 'border-box' }}>
-                <div className="sticky top-0 bg-white border-b border-slate-200 p-5 rounded-t-xl">
+            <div className="lg:sticky lg:top-[11rem] lg:z-30 lg:self-start lg:flex lg:flex-col min-h-0 lg:h-[calc(100vh-11rem)] isolate">
+              <div
+                ref={previewRef}
+                className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-y-auto flex flex-col flex-1 min-h-0 relative z-30"
+                style={{ scrollBehavior: "smooth", maxHeight: "calc(100vh - 11rem)" }}
+              >
+                <div className="sticky top-0 bg-white border-b border-slate-200 p-4 rounded-t-xl z-20 shrink-0">
                   <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wide font-montserrat">Resume Preview</h3>
                   <p className="text-xs text-slate-500 mt-1">Template {selectedTemplate}</p>
                 </div>
-                <div className="p-8">
+                <div className="p-3 flex justify-center relative z-10">
                   <ResumePreview
                     personalInfo={personalInfo}
                     experiences={experiences}
@@ -655,10 +673,17 @@ function ResumeBuilderContent() {
               Describe your professional background, experience, education, and
               skills. Our AI will generate a complete resume for you.
             </p>
+            <button
+              type="button"
+              onClick={() => setAiPrompt(SAMPLE_AI_PROMPT)}
+              className="mb-3 text-sm text-slate-700 hover:text-slate-900 font-medium font-poppins underline underline-offset-2"
+            >
+              Use sample prompt (marketing manager example)
+            </button>
             <textarea
               value={aiPrompt}
               onChange={(e) => setAiPrompt(e.target.value)}
-              placeholder="Example: I'm a software engineer with 5 years of experience in web development. I have worked at Tech Corp as a Senior Developer from 2020 to 2023, where I built React applications and led a team of 3 developers. I have a Bachelor's degree in Computer Science from State University (2016-2020). My skills include JavaScript, React, Node.js, TypeScript, and AWS. I'm looking for a full-stack developer position."
+              placeholder="Describe your name, contact info, work history, education, skills, and career goals..."
               rows={8}
               className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-transparent font-poppins resize-none mb-4 text-slate-900 placeholder:text-slate-400"
             />

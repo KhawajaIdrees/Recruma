@@ -404,90 +404,112 @@ a:focus-visible {
   color: #0f172a;
   font-size: 14px;
   line-height: 1.5;
+  font-family: var(--font-poppins), "Segoe UI", sans-serif;
 }
 
+.resume-print svg {
+  display: block;
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+.resume-print .contact-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+.resume-print img.resume-profile-img,
+.resume-print aside img[src] {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Template 1 — Navy header + gray sidebar + timeline */
 .template-1 {
-  --accent: #7c3aed;
-  --accent-rgb: 124,58,237;
-  --accent-bg: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(236,72,153,0.08));
+  --accent: #2c3e5a;
+  --accent-rgb: 44, 62, 90;
+  --accent-bg: #2c3e5a;
+  --accent-light: #e2e8f0;
 }
-.template-1 h1 { letter-spacing: -0.5px; }
-.template-1 .resume-section-title { color: var(--accent); font-weight: 700; }
-.template-1 .resume-skill-badge { background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 1px solid rgba(var(--accent-rgb),0.2); }
 
+/* Template 2 — Slate blue bar header */
 .template-2 {
-  --accent: #2563eb;
-  --accent-rgb: 37,99,235;
-  --accent-bg: transparent;
+  --accent: #3d5a73;
+  --accent-rgb: 61, 90, 115;
+  --accent-bg: #3d5a73;
+  --accent-light: #cbd5e1;
 }
-.template-2 h1 { font-size: 1.75rem; letter-spacing: 0.5px; }
-.template-2 .resume-section-title { color: var(--accent); border-bottom: 2px solid var(--accent); }
-.template-2 .resume-skill-badge { background: rgba(var(--accent-rgb),0.08); color: #1e40af; border: 1px solid rgba(var(--accent-rgb),0.2); }
 
+/* Template 3 — Charcoal header + arched photo */
 .template-3 {
-  --accent: #6366f1;
-  --accent-rgb: 99,102,241;
-  --accent-bg: transparent;
+  --accent: #3d3d3d;
+  --accent-rgb: 61, 61, 61;
+  --accent-bg: #d1d5db;
+  --accent-light: #e5e7eb;
 }
-.template-3 h1 { font-size: 1.625rem; }
-.template-3 aside { padding-right: 1.5rem; border-right: 1px solid #e2e8f0; }
-.template-3 aside h3 { color: var(--accent); }
-.template-3 .resume-section-title { color: var(--accent); font-weight: 600; }
-.template-3 .resume-skill-badge { background: rgba(var(--accent-rgb),0.08); color: #4f46e5; border: 1px solid rgba(var(--accent-rgb),0.2); }
 
+/* Template 4 — Minimal timeline layout */
 .template-4 {
-  --accent: #f97316;
-  --accent-rgb: 249,115,22;
-  --accent-bg: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(239,68,68,0.08));
+  --accent: #2c3e50;
+  --accent-rgb: 44, 62, 80;
+  --accent-bg: #2c3e50;
+  --accent-light: #e2e8f0;
 }
-.template-4 h1 { font-size: 1.875rem; letter-spacing: -0.5px; color: white; }
-.template-4 .resume-section-title { color: var(--accent); font-weight: 700; }
-.template-4 .resume-skill-badge { background: rgba(var(--accent-rgb),0.1); color: #c2410c; border: 1px solid rgba(var(--accent-rgb),0.2); }
 
+/* Template 5 — Blue sidebar with skill bars */
 .template-5 {
-  --accent: #f59e0b;
-  --accent-rgb: 245,158,11;
-  --accent-bg: transparent;
+  --accent: #2563eb;
+  --accent-rgb: 37, 99, 235;
+  --accent-bg: #2563eb;
+  --accent-light: #dbeafe;
 }
-.template-5 h1 { font-size: 1.75rem; font-weight: 700; }
-.template-5 .resume-section-title { color: var(--accent); font-weight: 700; }
-.template-5 .resume-skill-badge { background: var(--accent); color: white; border: none; font-weight: 600; }
-.template-5 span[style*="background"] { padding: 0.5rem 1rem; border-radius: 9999px; }
 
+/* Template 6 — Single column purple */
 .template-6 {
-  --accent: #06b6d4;
-  --accent-rgb: 6,182,212;
+  --accent: #7c5cbf;
+  --accent-rgb: 124, 92, 191;
   --accent-bg: transparent;
+  --accent-light: #ddd6fe;
 }
-.template-6 h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5px; }
-.template-6 .resume-section-title { color: #1f2937; font-weight: 600; border-bottom: 1px solid #e5e7eb; }
-.template-6 .resume-skill-badge { background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+
+.template-1 h1,
+.template-2 h1,
+.template-3 h1,
+.template-4 h1,
+.template-5 h1,
+.template-6 h1 {
+  font-family: var(--font-montserrat), sans-serif;
+}
 
 /* Universal helpers for all templates */
-.template-1, .template-2, .template-3, .template-4, .template-5, .template-6 {
+.template-1,
+.template-2,
+.template-3,
+.template-4,
+.template-5,
+.template-6 {
   -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
-
-/* Section titles common styling */
-.resume-section-title {
-  transition: color 0.2s ease, border-color 0.2s ease;
-  font-family: var(--font-montserrat), sans-serif;
-  margin-bottom: 0.75rem;
-}
-
-/* Profile picture sizing per template */
-.template-1 .resume-profile-pic { width: 128px; height: 128px; border-radius: 9999px; }
-.template-2 .resume-profile-pic { width: 80px; height: 80px; border-radius: 12px; }
-.template-3 .resume-profile-pic { width: 100%; aspect-ratio: 1; border-radius: 8px; }
-.template-4 .resume-profile-pic { width: 112px; height: 112px; border-radius: 9999px; }
-.template-5 .resume-profile-pic { width: 80px; height: 80px; border-radius: 8px; }
-.template-6 .resume-profile-pic { width: 96px; height: 96px; border-radius: 8px; }
 
 /* Print-friendly tweaks */
 @media print {
-  .resume-print { box-shadow: none !important; page-break-inside: avoid; }
-  .template-1, .template-2, .template-3, .template-4, .template-5, .template-6 { -webkit-print-color-adjust: exact; }
-  .resume-skill-badge { -webkit-print-color-adjust: exact; }
+  .resume-print {
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+  .template-1,
+  .template-2,
+  .template-3,
+  .template-4,
+  .template-5,
+  .template-6 {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }
 .hover-lift:hover {
   transform: translateY(-5px);
