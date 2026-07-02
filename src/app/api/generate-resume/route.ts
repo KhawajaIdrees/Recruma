@@ -1,6 +1,10 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
 
+interface ResumeGenerationResponse {
+  choices: Array<{ message: { content: string } }>;
+}
+
 // 1. Check for API Key
 const apiKey = process.env.OPENROUTER_API_KEY;
 
@@ -70,16 +74,18 @@ export async function POST(req: Request) {
           } catch (e) {}
         }, MODEL_TIMEOUT);
 
-        let response;
+        let response: ResumeGenerationResponse;
         try {
-          response = await openai.chat.completions.create({
-            model: modelName,
-            messages: [
-              { role: "system", content: systemPrompt },
-              { role: "user", content: prompt },
-            ],
-            signal: controller.signal,
-          } as any);
+          response = (await openai.chat.completions.create(
+            {
+              model: modelName,
+              messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: prompt },
+              ],
+            },
+            { signal: controller.signal },
+          )) as ResumeGenerationResponse;
         } finally {
           clearTimeout(timeoutId);
         }
@@ -103,7 +109,12 @@ export async function POST(req: Request) {
       } catch (modelError: unknown) {
         const errorMessage = modelError instanceof Error ? modelError.message : "Unknown error";
         // If aborted, provide clearer message
-        if (modelError && typeof modelError === 'object' && (modelError as any).name === 'AbortError') {
+        if (
+          modelError &&
+          typeof modelError === "object" &&
+          "name" in modelError &&
+          (modelError as { name?: string }).name === "AbortError"
+        ) {
           console.warn(`⏱️ ${modelName} timed out after ${MODEL_TIMEOUT}ms`);
           errorLog.push(`${modelName}: timed out after ${MODEL_TIMEOUT}ms`);
         } else {
