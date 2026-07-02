@@ -69,41 +69,55 @@ function ResumeBuilderContent() {
       }
     } catch (e) {}
   }, []);
-  const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
-    fullName: "",
-    email: "",
-    phone: "",
-    address: "",
-    linkedin: "",
-    github: "",
-    website: "",
-  });
-  const [experiences, setExperiences] = useState<Experience[]>([
-    {
-      id: "init-exp-1",
-      company: "",
-      position: "",
-      startDate: "",
-      endDate: "",
-      description: "",
-      current: false,
-    },
-  ]);
-  const [educations, setEducations] = useState<Education[]>([
-    {
-      id: "init-edu-1",
-      school: "",
-      degree: "",
-      field: "",
-      startDate: "",
-      endDate: "",
-      gpa: "",
-    },
-  ]);
-  const [skills, setSkills] = useState<Skill[]>([
-    { id: "init-skill-1", name: "" },
-  ]);
-  const [summary, setSummary] = useState("");
+const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
+  fullName: "John Doe",
+  email: "john.doe@example.com",
+  phone: "(123) 456-7890",
+  address: "New York, NY",
+  linkedin: "linkedin.com/in/johndoe",
+  github: "github.com/johndoe",
+  website: "johndoe.dev",
+});
+const [experiences, setExperiences] = useState<Experience[]>([
+  {
+    id: "init-exp-1",
+    company: "Tech Solutions Inc.",
+    position: "Senior Software Engineer",
+    startDate: "2020-01",
+    endDate: "2023-12",
+    description: "Developed and maintained web applications using React and Node.js. Led a team of 3 developers and implemented CI/CD pipelines.",
+    current: false,
+  },
+  {
+    id: "init-exp-2",
+    company: "Startup XYZ",
+    position: "Full Stack Developer",
+    startDate: "2018-06",
+    endDate: "2019-12",
+    description: "Built responsive web applications and RESTful APIs. Collaborated with designers to create user-friendly interfaces.",
+    current: false,
+  },
+]);
+const [educations, setEducations] = useState<Education[]>([
+  {
+    id: "init-edu-1",
+    school: "Stanford University",
+    degree: "Bachelor of Science",
+    field: "Computer Science",
+    startDate: "2014",
+    endDate: "2018",
+    gpa: "3.8",
+  },
+]);
+const [skills, setSkills] = useState<Skill[]>([
+  { id: "init-skill-1", name: "JavaScript" },
+  { id: "init-skill-2", name: "React" },
+  { id: "init-skill-3", name: "Node.js" },
+  { id: "init-skill-4", name: "TypeScript" },
+  { id: "init-skill-5", name: "Python" },
+  { id: "init-skill-6", name: "AWS" },
+]);
+const [summary, setSummary] = useState("Experienced software engineer with 5+ years in full-stack development. Passionate about building scalable web applications and mentoring junior developers. Proven track record of delivering high-quality software solutions in agile environments.");
   const [profile, setProfile] = useState<ProfilePicture | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
