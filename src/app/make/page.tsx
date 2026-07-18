@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
@@ -123,12 +123,6 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
   const [showAiModal, setShowAiModal] = useState(false);
   const [templateDropdownOpen, setTemplateDropdownOpen] = useState(false);
 
-  // Refs for scroll containment to prevent scroll-chaining
-  const leftRef = useRef<HTMLDivElement | null>(null);
-  const previewRef = useRef<HTMLDivElement | null>(null);
-  const touchStartLeft = useRef<number | null>(null);
-  const touchStartPreview = useRef<number | null>(null);
-
   const addExperience = () => {
     setExperiences([
       ...experiences,
@@ -206,12 +200,6 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
       ),
     );
   };
-
-  // Prevent scroll-chaining between the left form and the right preview
-  useEffect(() => {
-    // Scroll guards disabled - sections now scroll freely
-    return () => {};
-  }, []);
 
   const handleDownload = async () => {
     if (
@@ -465,9 +453,9 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
         </div>
 
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid lg:grid-cols-2 gap-4 lg:overflow-hidden lg:h-[calc(100vh-180px)]">
+          <div className="grid lg:grid-cols-2 gap-6 items-start">
             {/* Left Side - Form */}
-            <div ref={leftRef} className="space-y-4 overflow-y-auto lg:pr-2 min-h-0 pb-8">
+            <div className="space-y-4 pb-8">
               {/* Template Selection Card */}
               <div className="bg-white rounded-xl p-5 shadow-sm border border-slate-200 relative z-0">
                 <h2 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat">Select Template</h2>
@@ -646,17 +634,13 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
             </div>
 
             {/* Right Side - Preview */}
-            <div className="lg:sticky lg:top-[11rem] lg:z-30 lg:self-start lg:flex lg:flex-col min-h-0 lg:h-[calc(100vh-11rem)] isolate">
-              <div
-                ref={previewRef}
-                className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-y-auto flex flex-col flex-1 min-h-0 relative z-30"
-                style={{ scrollBehavior: "smooth", maxHeight: "calc(100vh - 11rem)" }}
-              >
-                <div className="sticky top-0 bg-white border-b border-slate-200 p-4 rounded-t-xl z-20 shrink-0">
+            <div className="lg:sticky lg:top-28 self-start">
+              <div className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden flex flex-col max-h-[calc(100vh-8rem)]">
+                <div className="bg-white border-b border-slate-200 p-4 shrink-0">
                   <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wide font-montserrat">Resume Preview</h3>
                   <p className="text-xs text-slate-500 mt-1">Template {selectedTemplate}</p>
                 </div>
-                <div className="p-3 flex justify-center relative z-10">
+                <div className="p-3 flex justify-center overflow-y-auto">
                   <ResumePreview
                     personalInfo={personalInfo}
                     experiences={experiences}
