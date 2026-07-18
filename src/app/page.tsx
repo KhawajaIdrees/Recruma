@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/navbar";
 import HeroSection from "@/components/HeroSection";
+import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import { Star, Download, Eye, Sparkles } from "lucide-react";
 
@@ -133,6 +134,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <FAQSection />
       </main>
       <Footer />
     </>
