@@ -1,30 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Navbar from "@/components/navbar";
 import HeroSection from "@/components/HeroSection";
 import Footer from "@/components/Footer";
-import { Star, Download, Eye, Sparkles, X } from "lucide-react";
+import { Star, Download, Eye, Sparkles } from "lucide-react";
 
 export default function Home() {
-  const [selectedTemplate, setSelectedTemplate] = useState<number | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
-
-  const handlePreview = (templateNumber: number) => {
-    setSelectedTemplate(templateNumber);
-    setIsModalOpen(true);
-  };
 
   const handleUseTemplate = (templateNumber: number) => {
     router.push(`/make?template=${templateNumber}`);
-    closeModal();
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedTemplate(null);
   };
 
   return (
@@ -61,13 +48,6 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="absolute bottom-4 left-4 right-4 flex space-x-2">
                         <button 
-                          onClick={() => handlePreview(template)}
-                          className="flex-1 bg-white/90 backdrop-blur-sm text-gray-800 px-3 sm:px-4 py-2 rounded-lg font-medium hover:bg-white transition-all duration-200 flex items-center justify-center space-x-2 text-sm sm:text-base hover:scale-105 animate-wiggle"
-                        >
-                          <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
-                          <span>Preview</span>
-                        </button>
-                        <button 
                           onClick={() => handleUseTemplate(template)}
                           className="flex-1 bg-slate-900 text-white px-3 sm:px-4 py-2 rounded-lg font-medium hover:bg-slate-800 transition-all duration-200 flex items-center justify-center space-x-2 text-sm sm:text-base hover:scale-105 animate-wiggle"
                         >
@@ -98,9 +78,12 @@ export default function Home() {
             </div>
             
                 <div className="text-center">
-              <button className="bg-slate-900 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-montserrat animate-float hover-glow">
+              <Link
+                href="/templates"
+                className="inline-block bg-slate-900 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-montserrat animate-float hover-glow"
+              >
                 View All Templates
-              </button>
+              </Link>
             </div>
           </div>
         </section>
@@ -152,115 +135,6 @@ export default function Home() {
         </section>
       </main>
       <Footer />
-
-      {/* Template Preview Modal */}
-      {isModalOpen && selectedTemplate && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in-up">
-          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl animate-scale-in">
-            <div className="flex items-center justify-between p-6 border-b border-slate-300">
-              <h2 className="text-2xl font-bold text-slate-900 font-montserrat">
-                Template {selectedTemplate} Preview
-              </h2>
-              <button
-                onClick={closeModal}
-                className="p-2 hover:bg-slate-100 rounded-lg transition-colors duration-200 hover:scale-110"
-              >
-                <X className="w-6 h-6 text-slate-600" />
-              </button>
-            </div>
-            
-            <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
-              <div className="space-y-6">
-                {/* Template Image */}
-                <div className="relative bg-slate-100 rounded-2xl p-6 border border-slate-300">
-                  <div className="relative max-w-4xl mx-auto">
-                    <img
-                      src={`/template${selectedTemplate}.png`}
-                      alt={`Template ${selectedTemplate} Preview`}
-                      className="w-full h-auto rounded-xl shadow-2xl border-2 border-white/50 object-contain max-h-[60vh] mx-auto"
-                      style={{ 
-                        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-                        filter: 'drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1))'
-                      }}
-                    />
-                    <div className="absolute top-4 right-4">
-                      <div className="bg-slate-900 text-white px-4 py-2 rounded-full text-sm font-medium animate-pulse shadow-lg">
-                        <Eye className="w-4 h-4 inline mr-2" />
-                        Preview
-                      </div>
-                    </div>
-                    {/* Decorative elements */}
-                    <div className="absolute -top-2 -left-2 w-4 h-4 bg-slate-400 rounded-full animate-pulse"></div>
-                    <div className="absolute -bottom-2 -right-2 w-3 h-3 bg-slate-400 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
-                  </div>
-                </div>
-                
-                {/* Template Details */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4 font-montserrat">
-                      Template Features
-                    </h3>
-                    <ul className="space-y-2 text-gray-600 font-poppins">
-                      <li className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-slate-900 rounded-full"></div>
-                        <span>Professional layout</span>
-                      </li>
-                      <li className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-slate-900 rounded-full"></div>
-                        <span>ATS-optimized</span>
-                      </li>
-                      <li className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-slate-900 rounded-full"></div>
-                        <span>Clean typography</span>
-                      </li>
-                      <li className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-slate-900 rounded-full"></div>
-                        <span>Responsive design</span>
-                      </li>
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4 font-montserrat">
-                      Perfect For
-                    </h3>
-                    <p className="text-gray-600 font-poppins mb-4">
-                      {selectedTemplate === 1 ? 'Creative professionals, designers, and artists looking to showcase their portfolio and creative skills.' :
-                       selectedTemplate === 2 ? 'Corporate executives, managers, and business professionals seeking a sophisticated and authoritative look.' :
-                       selectedTemplate === 3 ? 'Technology professionals, developers, and IT specialists who want to highlight technical skills and achievements.' :
-                       selectedTemplate === 4 ? 'Marketing professionals, content creators, and communications specialists focusing on brand and campaign work.' :
-                       selectedTemplate === 5 ? 'Sales professionals, account managers, and business development specialists emphasizing results and relationships.' :
-                       'General professionals across various industries looking for a clean, modern, and versatile design.'}
-                    </p>
-                    <div className="flex items-center space-x-2">
-                      <Star className="w-4 h-4 text-orange-400 fill-current" />
-                      <span className="text-sm text-gray-600 font-poppins">Rating: 4.{selectedTemplate + 2}/5</span>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-300">
-                  <button 
-                    onClick={() => handleUseTemplate(selectedTemplate!)}
-                    className="flex-1 bg-slate-900 text-white px-6 py-3 rounded-xl font-semibold hover:bg-slate-800 transition-all duration-200 hover:scale-105 font-montserrat animate-float"
-                  >
-                    <Download className="w-4 h-4 inline mr-2" />
-                    Use This Template
-                  </button>
-                  <button 
-                    onClick={closeModal}
-                    className="flex-1 bg-slate-100 text-slate-700 px-6 py-3 rounded-xl font-semibold hover:bg-slate-200 transition-all duration-200 font-montserrat"
-                  >
-                    Close Preview
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

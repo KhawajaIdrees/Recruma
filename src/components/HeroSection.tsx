@@ -1,6 +1,7 @@
 // components/HeroSection.tsx
 "use client";
 
+import Link from "next/link";
 import { ArrowRight, Star, Zap, CheckCircle, FileText, Download, Sparkles, TrendingUp } from "lucide-react";
 
 const HeroSection = () => {
@@ -30,15 +31,21 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up">
-              <button className="group bg-slate-900 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 hover:scale-105 font-montserrat ">
+              <Link
+                href="/make"
+                className="group bg-slate-900 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 hover:scale-105 font-montserrat "
+              >
                 <span>Start Building</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
               
-              <button className="bg-white text-slate-900 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold border-2 border-slate-900 hover:bg-slate-50 transition-all duration-200 flex items-center justify-center space-x-2 hover:scale-105 font-montserrat ">
+              <Link
+                href="/templates"
+                className="bg-white text-slate-900 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold border-2 border-slate-900 hover:bg-slate-50 transition-all duration-200 flex items-center justify-center space-x-2 hover:scale-105 font-montserrat "
+              >
                 <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-slate-900" />
                 <span>View Templates</span>
-              </button>
+              </Link>
             </div>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6 text-sm text-slate-600 font-poppins animate-fade-in-up">

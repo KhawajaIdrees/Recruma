@@ -99,7 +99,7 @@ export default function Footer() {
        <div className="border-t border-slate-200 pt-8">
   <div className="flex justify-center items-center">
     <div className="text-slate-500 text-sm font-poppins">
-      © 2024 Recruma. All rights reserved.
+      © 2026 Recruma. All rights reserved.
     </div>
   </div>
 </div>
