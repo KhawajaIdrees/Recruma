@@ -40,7 +40,7 @@ export default function FAQSection() {
 
   return (
     <section className="py-16 sm:py-20 bg-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 text-center mb-10 sm:mb-14 font-montserrat">
           Frequently asked questions from Recruma
         </h2>
