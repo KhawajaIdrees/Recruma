@@ -80,7 +80,7 @@ export default function Home() {
                 <div className="text-center">
               <Link
                 href="/templates"
-                className="inline-block bg-slate-900 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-montserrat animate-float hover-glow"
+                className="inline-block bg-slate-900 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 font-montserrat"
               >
                 View All Templates
               </Link>
@@ -103,7 +103,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
               <div className="text-center p-6 sm:p-8 rounded-2xl bg-slate-100 hover:bg-slate-200 transition-all duration-300 hover:scale-105 animate-fade-in-up stagger-1 hover-lift">
                 <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-900 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
-                  <Star className="w-6 h-6 sm:w-8 sm:h-8 text-white animate-pulse" />
+                  <Star className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4 font-montserrat">AI-Powered Optimization</h3>
                 <p className="text-gray-600 text-sm sm:text-base font-poppins">
@@ -113,7 +113,7 @@ export default function Home() {
               
               <div className="text-center p-6 sm:p-8 rounded-2xl bg-slate-100 hover:bg-slate-200 transition-all duration-300 hover:scale-105 animate-fade-in-up stagger-2 hover-lift">
                 <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-900 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 ">
-                  <Download className="w-6 h-6 sm:w-8 sm:h-8 text-white animate-pulse" />
+                  <Download className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4 font-montserrat">Instant Download</h3>
                 <p className="text-gray-600 text-sm sm:text-base font-poppins">
@@ -123,7 +123,7 @@ export default function Home() {
               
               <div className="text-center p-6 sm:p-8 rounded-2xl bg-slate-100 hover:bg-slate-200 transition-all duration-300 hover:scale-105 animate-fade-in-up stagger-3 hover-lift">
                 <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-900 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
-                  <Eye className="w-6 h-6 sm:w-8 sm:h-8 text-white animate-pulse" />
+                  <Eye className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4 font-montserrat">ATS-Friendly</h3>
                 <p className="text-gray-600 text-sm sm:text-base font-poppins">

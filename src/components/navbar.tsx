@@ -13,11 +13,8 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-20">
           {/* Left: Logo + Name */}
           <div className="flex items-center space-x-3">
-            <div className="relative">
-              <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center shadow-lg border border-white">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full animate-pulse"></div>
+            <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center shadow-lg border border-white">
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
             <Link
               href="/"
