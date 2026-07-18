@@ -5,7 +5,6 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
 import { Save, Download, ArrowLeft, Sparkles, ChevronDown } from "lucide-react";
-import Link from "next/link";
 import { templates } from "@/lib/templateData";
 import ResumePreview from "@/components/ResumePreview";
 import PersonalInfoSection from "@/components/PersonalInfoSection";
@@ -405,6 +404,15 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
   // Require minimal personal info before allowing template selection
   const canSelectTemplate = Boolean(personalInfo.fullName && (personalInfo.email || personalInfo.phone));
 
+  const handleBack = () => {
+    // Return to the previous page (home, templates, about, etc.)
+    if (typeof window !== "undefined" && window.history.length > 1) {
+      router.back();
+    } else {
+      router.push("/");
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -414,13 +422,14 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <Link
-                  href="/templates"
+                <button
+                  type="button"
+                  onClick={handleBack}
                   className="flex items-center space-x-2 text-slate-500 hover:text-slate-700 transition-colors p-2 hover:bg-slate-100 rounded-lg"
                 >
                   <ArrowLeft className="w-5 h-5" />
                   <span className="font-medium font-poppins">Back</span>
-                </Link>
+                </button>
                 <div className="h-6 w-px bg-slate-900"></div>
                 <div>
                   <h1 className="text-lg font-semibold text-slate-900 font-montserrat">Resume Builder</h1>
@@ -510,7 +519,7 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
                           setTemplateDropdownOpen(false);
                           try {
                             localStorage.setItem("selectedTemplate", String(template));
-                            router.push(`/make?template=${template}`);
+                            router.replace(`/make?template=${template}`);
                           } catch (e) {}
                         }}
                         className={`group relative p-2 border-2 rounded-lg transition-all duration-200 hover:scale-105 ${
