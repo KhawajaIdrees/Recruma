@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
-import { Save, Download, ArrowLeft, Sparkles, ChevronDown } from "lucide-react";
+import { Save, Download, ArrowLeft, ChevronDown } from "lucide-react";
 import { templates } from "@/lib/templateData";
 import ResumePreview from "@/components/ResumePreview";
 import PersonalInfoSection from "@/components/PersonalInfoSection";
@@ -518,7 +518,6 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
                   onClick={() => setShowAiModal(true)}
                   className="w-full sm:w-auto flex items-center justify-center space-x-1.5 bg-slate-900 text-white px-3 sm:px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-all duration-200 font-poppins shadow-sm hover:shadow-md whitespace-nowrap"
                 >
-                  <Sparkles className="w-4 h-4" />
                   <span>AI Generate</span>
                 </button>
                 <button
@@ -667,9 +666,8 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold text-slate-900 font-montserrat flex items-center space-x-2">
-                <Sparkles className="w-6 h-6 text-slate-900" />
-                <span>Generate Resume with AI</span>
+              <h2 className="text-2xl font-bold text-slate-900 font-montserrat">
+                Generate Resume with AI
               </h2>
               <button
                 onClick={() => {

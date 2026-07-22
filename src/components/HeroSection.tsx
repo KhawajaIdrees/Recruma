@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Star, Zap, CheckCircle, FileText, Download, Sparkles, TrendingUp } from "lucide-react";
+import { ArrowRight, Star, Zap, CheckCircle, FileText, Download, TrendingUp } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -104,16 +104,7 @@ const HeroSection = () => {
                   </div>
                 </div>
 
-                {/* Sparkles Animation */}
-                <div className="absolute top-4 right-4">
-                  <Sparkles className="w-8 h-8 text-slate-600 animate-pulse" />
-                </div>
-                <div className="absolute bottom-4 left-4">
-                  <Sparkles className="w-6 h-6 text-slate-500 animate-pulse" style={{ animationDelay: '0.3s' }} />
-                </div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <Sparkles className="w-4 h-4 text-slate-400 animate-pulse" style={{ animationDelay: '0.6s' }} />
-                </div>
+
               </div>
             </div>
           </div>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
-import { Mail, Lock, User, ArrowRight, Sparkles } from "lucide-react";
+import { Mail, Lock, User, ArrowRight } from "lucide-react";
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -60,7 +60,7 @@ export default function SignupPage() {
             {/* Header */}
             <div className="text-center mb-8">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-900 rounded-2xl mb-4 shadow-lg">
-                <Sparkles className="w-8 h-8 text-white" />
+                  <span className="text-white text-xl font-bold">R</span>
               </div>
               <h1 className="text-3xl font-bold text-slate-900 mb-2 font-montserrat">
                 Create Account

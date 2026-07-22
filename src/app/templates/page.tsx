@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
-import { Star, Download, Sparkles, ArrowRight } from "lucide-react";
+import { Star, Download, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function TemplatesPage() {
@@ -59,9 +59,7 @@ export default function TemplatesPage() {
                       </button>
                     </div>
                   </div>
-                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Sparkles className="w-4 h-4 text-slate-900 animate-pulse" />
-                  </div>
+
                 </div>
                 <div className="p-4 sm:p-6">
                   <div className="flex items-center justify-between mb-2">

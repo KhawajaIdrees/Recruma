@@ -6,7 +6,7 @@ import Navbar from "@/components/navbar";
 import HeroSection from "@/components/HeroSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
-import { Star, Download, Eye, Sparkles } from "lucide-react";
+import { Star, Download, Eye } from "lucide-react";
 
 export default function Home() {
   const router = useRouter();
@@ -58,9 +58,7 @@ export default function Home() {
                       </div>
                     </div>
                     {/* Floating sparkles */}
-                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <Sparkles className="w-4 h-4 text-slate-900 animate-pulse" />
-                    </div>
+
                   </div>
                   <div className="p-4 sm:p-6 border-t border-slate-300">
                     <div className="flex items-center justify-between mb-2">
