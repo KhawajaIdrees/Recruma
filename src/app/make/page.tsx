@@ -710,7 +710,7 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
                   </>
                 ) : (
                   <>
-                    <Sparkles className="w-5 h-5" />
+                    
                     <span>Generate Resume</span>
                   </>
                 )}
