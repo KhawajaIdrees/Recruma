@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="">
+      <main className="overflow-x-hidden">
         <HeroSection />
         
         {/* Template Showcase Section */}

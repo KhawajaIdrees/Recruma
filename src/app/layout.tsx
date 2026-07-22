@@ -1,5 +1,5 @@
 // app/layout.tsx
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Inter, Poppins, Montserrat } from "next/font/google";
 
@@ -25,14 +25,19 @@ export const metadata: Metadata = {
   description: "Create stunning professional resumes with AI-powered optimization. Choose from beautiful templates and get hired faster.",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable} ${montserrat.variable}`}>
-      <body className="font-montserrat min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+    <html lang="en" className={`${inter.variable} ${poppins.variable} ${montserrat.variable} overflow-x-hidden`}>
+      <body className="font-montserrat min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--foreground)]">
         {children}
       </body>
     </html>

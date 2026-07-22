@@ -19,10 +19,19 @@
   }
 }
 
+html {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   background: #ffffff;
   color: var(--foreground);
   font-family: var(--font-montserrat), var(--font-poppins), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 @layer base {
@@ -330,6 +339,12 @@ body {
   .container {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 16px;
   }
 }
 

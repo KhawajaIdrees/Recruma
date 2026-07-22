@@ -122,11 +122,11 @@ function ContactRow({
   return (
     <div className="space-y-2.5">
       {items.map(({ key, icon, value }) => (
-        <div key={key} className="flex items-center gap-2.5 leading-normal">
-          <span className="contact-icon-wrap flex items-center justify-center w-4 h-4 shrink-0 overflow-visible">
+        <div key={key} className="flex items-start gap-2.5 leading-snug">
+          <span className="contact-icon-wrap flex items-center justify-center w-4 h-4 mt-0.5 shrink-0 overflow-visible">
             {icon}
           </span>
-          <span className={`${resolvedTextClass} break-all`}>{value}</span>
+          <span className={`${resolvedTextClass} break-words`}>{value}</span>
         </div>
       ))}
     </div>
@@ -136,15 +136,14 @@ function ContactRow({
 function SidebarSection({
   title,
   children,
-  titleClass = "text-xs font-bold uppercase tracking-wide text-slate-800 border-b border-slate-400 pb-1 mb-2",
 }: {
   title: string;
   children: React.ReactNode;
-  titleClass?: string;
 }) {
   return (
     <div>
-      <h3 className={titleClass}>{title}</h3>
+      <h3 className="text-xs font-bold uppercase tracking-wide text-slate-800">{title}</h3>
+      <div className="w-full border-b border-slate-400 mt-1.5 mb-3" />
       {children}
     </div>
   );
@@ -152,17 +151,26 @@ function SidebarSection({
 
 function SkillBulletList({
   skills,
-  className = "text-xs text-slate-700 space-y-0.5",
+  className = "text-xs text-slate-700",
+  columns = 1,
 }: {
   skills: Skill[];
   className?: string;
+  columns?: 1 | 2;
 }) {
   const filtered = skills.filter((s) => s.name);
   if (!filtered.length) return null;
   return (
-    <ul className={`list-disc pl-4 ${className}`}>
+    <ul
+      className={`${className} ${
+        columns === 2 ? "grid grid-cols-2 gap-x-2 gap-y-1.5" : "space-y-1.5"
+      }`}
+    >
       {filtered.map((s) => (
-        <li key={s.id}>{s.name}</li>
+        <li key={s.id} className="flex items-start gap-1.5 min-w-0">
+          <span className="mt-[0.4em] w-1.5 h-1.5 rounded-full bg-slate-700 shrink-0" />
+          <span className="leading-snug break-words">{s.name}</span>
+        </li>
       ))}
     </ul>
   );
@@ -233,8 +241,8 @@ function TimelineSection({
   className?: string;
 }) {
   return (
-    <div className={`flex gap-3 ${className}`}>
-      <div className="shrink-0 w-6 flex justify-center">
+    <div className={`flex gap-3 items-start ${className}`}>
+      <div className="shrink-0 pt-0.5">
         <div
           className="timeline-icon w-6 h-6 rounded-full flex items-center justify-center text-white"
           style={{ background: "var(--accent)" }}
@@ -297,7 +305,7 @@ export default function ResumePreview({
                 </SidebarSection>
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
-                    <SkillBulletList skills={skills} />
+                    <SkillBulletList skills={skills} columns={2} />
                   </SidebarSection>
                 )}
               </aside>
@@ -386,10 +394,7 @@ export default function ResumePreview({
 
             <div className="grid grid-cols-[34%_1fr]">
               <aside className="bg-slate-100 px-6 py-7 space-y-6">
-                <SidebarSection
-                  title="Contact"
-                  titleClass="text-xs font-bold uppercase tracking-wide border-b border-slate-400 pb-1.5 mb-2.5"
-                >
+                <SidebarSection title="Contact">
                   <ContactRow personalInfo={personalInfo} iconColor="text-slate-600" />
                 </SidebarSection>
 
@@ -417,7 +422,7 @@ export default function ResumePreview({
 
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
-                    <SkillBulletList skills={skills} />
+                    <SkillBulletList skills={skills} columns={2} />
                   </SidebarSection>
                 )}
               </aside>
@@ -507,7 +512,7 @@ export default function ResumePreview({
 
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
-                    <SkillBulletList skills={skills} />
+                    <SkillBulletList skills={skills} columns={2} />
                   </SidebarSection>
                 )}
 
@@ -572,8 +577,8 @@ export default function ResumePreview({
       // Template 4 — Clean header with timeline divider (AHMDD SAAH style)
       case 4:
         return (
-          <div className="template-layout-4 px-7 py-6">
-            <header className="text-center border-b-2 border-slate-300 pb-5 mb-6">
+          <div className="template-layout-4 px-8 py-7">
+            <header className="text-center pb-5 mb-6">
               {personalInfo.fullName && (
                 <h1 className="text-2xl font-bold uppercase tracking-wide text-slate-800">
                   {personalInfo.fullName}
@@ -582,26 +587,29 @@ export default function ResumePreview({
               {jobTitle && (
                 <p className="text-sm uppercase tracking-[0.2em] text-slate-600 mt-1.5">{jobTitle}</p>
               )}
+              <div className="w-full border-b-2 border-slate-300 mt-5" />
             </header>
 
-            <div className="grid grid-cols-[32%_1fr] gap-6">
-              <aside className="py-1 space-y-6 border-r border-slate-200 pr-6">
+            <div className="grid grid-cols-[36%_1fr] gap-0 items-stretch min-h-[620px]">
+              <aside className="pr-6 border-r border-slate-300 space-y-7">
                 <SidebarSection title="Contact">
                   <ContactRow personalInfo={personalInfo} />
                 </SidebarSection>
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
-                    <SkillBulletList skills={skills} />
+                    <SkillBulletList skills={skills} columns={2} />
                   </SidebarSection>
                 )}
               </aside>
 
-              <main className="py-1 min-w-0">
+              <main className="pl-6 min-w-0">
                 {summary && (
                   <TimelineSection
                     icon={<User className="w-3.5 h-3.5" />}
                     titleNode={
-                      <h2 className="text-sm font-bold uppercase tracking-wide mb-2">Profile</h2>
+                      <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1.5 mb-3 w-full">
+                        Profile
+                      </h2>
                     }
                   >
                     <p className="text-xs text-slate-600 leading-relaxed">{summary}</p>
@@ -612,7 +620,7 @@ export default function ResumePreview({
                   <TimelineSection
                     icon={<Briefcase className="w-3.5 h-3.5" />}
                     titleNode={
-                      <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1.5 mb-3.5">
+                      <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1.5 mb-3.5 w-full">
                         Work Experience
                       </h2>
                     }
@@ -640,7 +648,7 @@ export default function ResumePreview({
                   <TimelineSection
                     icon={<GraduationCap className="w-3.5 h-3.5" />}
                     titleNode={
-                      <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1.5 mb-3.5">
+                      <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1.5 mb-3.5 w-full">
                         Education
                       </h2>
                     }
@@ -942,18 +950,21 @@ export default function ResumePreview({
   }`;
 
   return (
-    <div className="w-full relative">
+    <div className="w-full relative max-w-full overflow-hidden">
       <div
         id="resume-preview-print"
         aria-hidden="true"
-        className={printClasses}
+        className={`${printClasses} sr-only-print`}
         style={{
-          position: "fixed",
-          left: "-10000px",
-          top: 0,
-          width: "816px",
-          zIndex: -1,
-          pointerEvents: "none",
+          position: "absolute",
+          width: "1px",
+          height: "1px",
+          padding: 0,
+          margin: "-1px",
+          overflow: "hidden",
+          clip: "rect(0, 0, 0, 0)",
+          whiteSpace: "nowrap",
+          border: 0,
         }}
       >
         <RenderTemplate />
@@ -961,8 +972,8 @@ export default function ResumePreview({
 
       <div
         id="resume-preview"
-        className={`${printClasses} relative z-0`}
-        style={{ width: "100%", maxWidth: "8.5in" }}
+        className={`${printClasses} relative z-0 w-full max-w-full`}
+        style={{ maxWidth: "8.5in" }}
       >
         <RenderTemplate />
       </div>

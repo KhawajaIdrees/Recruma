@@ -407,34 +407,35 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
       <main className="min-h-screen bg-slate-50 pt-20 pb-12 no-print">
         {/* Top Header Bar */}
         <div className="sticky top-20 z-40 bg-white border-b border-slate-200 shadow-sm no-print">
-          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                 <button
                   type="button"
                   onClick={handleBack}
-                  className="flex items-center space-x-2 text-slate-500 hover:text-slate-700 transition-colors p-2 hover:bg-slate-100 rounded-lg"
+                  className="flex items-center space-x-1.5 text-slate-500 hover:text-slate-700 transition-colors p-2 hover:bg-slate-100 rounded-lg shrink-0"
                 >
                   <ArrowLeft className="w-5 h-5" />
-                  <span className="font-medium font-poppins">Back</span>
+                  <span className="font-medium font-poppins text-sm sm:text-base">Back</span>
                 </button>
-                <div className="h-6 w-px bg-slate-900"></div>
-                <div>
-                  <h1 className="text-lg font-semibold text-slate-900 font-montserrat">Resume Builder</h1>
-                  <p className="text-xs text-slate-500 font-poppins">Template {selectedTemplate} • Customize your resume</p>
+                <div className="h-6 w-px bg-slate-300 shrink-0" />
+                <div className="min-w-0">
+                  <h1 className="text-base sm:text-lg font-semibold text-slate-900 font-montserrat truncate">Resume Builder</h1>
+                  <p className="text-xs text-slate-500 font-poppins truncate">Template {selectedTemplate} • Customize your resume</p>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                 <button
                   onClick={() => setShowAiModal(true)}
-                  className="flex items-center space-x-2 bg-slate-900 text-white px-4 py-2 rounded-lg font-medium hover:bg-slate-800 transition-all duration-200 font-poppins shadow-sm hover:shadow-md whitespace-nowrap"
+                  className="flex items-center space-x-1.5 bg-slate-900 text-white px-3 sm:px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-all duration-200 font-poppins shadow-sm hover:shadow-md whitespace-nowrap"
                 >
                   <Sparkles className="w-4 h-4" />
-                  <span>AI Generate</span>
+                  <span className="hidden sm:inline">AI Generate</span>
+                  <span className="sm:hidden">AI</span>
                 </button>
                 <button
                   onClick={handleSave}
-                  className="flex items-center space-x-2 bg-white border border-slate-300 text-slate-700 px-4 py-2 rounded-lg font-medium hover:bg-slate-50 transition-all duration-200 font-poppins whitespace-nowrap"
+                  className="flex items-center space-x-1.5 bg-white border border-slate-300 text-slate-700 px-3 sm:px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition-all duration-200 font-poppins whitespace-nowrap"
                 >
                   <Save className="w-4 h-4" />
                   <span>Save</span>
@@ -442,10 +443,11 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
                 <button
                   data-download-btn
                   onClick={handleDownload}
-                  className="flex items-center space-x-2 bg-slate-900 text-white px-5 py-2 rounded-lg font-semibold hover:bg-slate-800 transition-all duration-200 font-montserrat shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                  className="flex items-center space-x-1.5 bg-slate-900 text-white px-3 sm:px-5 py-2 rounded-lg text-sm font-semibold hover:bg-slate-800 transition-all duration-200 font-montserrat shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                 >
                   <Download className="w-4 h-4" />
-                  <span>Download PDF</span>
+                  <span className="hidden sm:inline">Download PDF</span>
+                  <span className="sm:hidden">PDF</span>
                 </button>
               </div>
             </div>
@@ -634,13 +636,13 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
             </div>
 
             {/* Right Side - Preview */}
-            <div className="lg:sticky lg:top-28 self-start">
+            <div className="lg:sticky lg:top-28 self-start w-full min-w-0">
               <div className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden flex flex-col max-h-[calc(100vh-8rem)]">
                 <div className="bg-white border-b border-slate-200 p-4 shrink-0">
                   <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wide font-montserrat">Resume Preview</h3>
                   <p className="text-xs text-slate-500 mt-1">Template {selectedTemplate}</p>
                 </div>
-                <div className="p-3 flex justify-center overflow-y-auto">
+                <div className="p-3 flex justify-center overflow-x-auto overflow-y-auto max-w-full">
                   <ResumePreview
                     personalInfo={personalInfo}
                     experiences={experiences}

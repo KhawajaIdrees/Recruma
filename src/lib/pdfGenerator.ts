@@ -24,10 +24,17 @@ export async function generateResumePDF(
     clone.style.left = "-9999px";
     clone.style.top = "0";
     clone.style.width = "8.5in";
+    clone.style.height = "auto";
     clone.style.backgroundColor = "#ffffff";
-    clone.style.padding = "1in";
+    clone.style.padding = "0.45in";
     clone.style.visibility = "visible";
     clone.style.display = "block";
+    clone.style.boxSizing = "border-box";
+    clone.style.overflow = "visible";
+    clone.style.clip = "auto";
+    clone.style.clipPath = "none";
+    clone.style.margin = "0";
+    clone.style.whiteSpace = "normal";
 
     // Apply Tailwind -> RGB inline styles for PDF
     applyTemplateStyles(clone);
@@ -57,15 +64,17 @@ export async function generateResumePDF(
     const imgHeight = canvas.height;
     const ratio = imgWidth / imgHeight;
 
-    let finalWidth = pdfWidth - 0.2;
+    let finalWidth = pdfWidth - 0.15;
     let finalHeight = finalWidth / ratio;
 
-    if (finalHeight > pdfHeight - 0.2) {
-      finalHeight = pdfHeight - 0.2;
+    if (finalHeight > pdfHeight - 0.15) {
+      finalHeight = pdfHeight - 0.15;
       finalWidth = finalHeight * ratio;
     }
 
-    pdf.addImage(imgData, "PNG", 0.1, 0.1, finalWidth, finalHeight);
+    const offsetX = (pdfWidth - finalWidth) / 2;
+    const offsetY = (pdfHeight - finalHeight) / 2;
+    pdf.addImage(imgData, "PNG", offsetX, offsetY, finalWidth, finalHeight);
 
     const filename = personalFullName ? `${personalFullName.replace(/\s+/g, "_")}_Resume.pdf` : "Resume.pdf";
     pdf.save(filename);

@@ -17,7 +17,7 @@ const HeroSection = () => {
                 <span className="text-sm font-medium text-slate-900 font-montserrat">AI-Powered Resume Builder</span>
               </div>
               
-              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight font-montserrat animate-fade-in-up">
+              <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold leading-tight font-montserrat animate-fade-in-up">
                 Create stunning resumes with{" "}
                 <span className="text-slate-900">
                   Recruma
