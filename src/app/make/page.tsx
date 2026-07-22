@@ -513,10 +513,10 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
                   <p className="text-xs text-slate-500 font-poppins truncate">Template {selectedTemplate} • Customize your resume</p>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
                 <button
                   onClick={() => setShowAiModal(true)}
-                  className="flex items-center space-x-1.5 bg-slate-900 text-white px-3 sm:px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-all duration-200 font-poppins shadow-sm hover:shadow-md whitespace-nowrap"
+                  className="w-full sm:w-auto flex items-center justify-center space-x-1.5 bg-slate-900 text-white px-3 sm:px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-all duration-200 font-poppins shadow-sm hover:shadow-md whitespace-nowrap"
                 >
                   <Sparkles className="w-4 h-4" />
                   <span className="hidden sm:inline">AI Generate</span>
@@ -524,7 +524,7 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
                 </button>
                 <button
                   onClick={handleSave}
-                  className="flex items-center space-x-1.5 bg-white border border-slate-300 text-slate-700 px-3 sm:px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition-all duration-200 font-poppins whitespace-nowrap"
+                  className="w-full sm:w-auto flex items-center justify-center space-x-1.5 bg-white border border-slate-300 text-slate-700 px-3 sm:px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition-all duration-200 font-poppins whitespace-nowrap"
                 >
                   <Save className="w-4 h-4" />
                   <span>Save</span>
@@ -532,7 +532,7 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
                 <button
                   data-download-btn
                   onClick={handleDownload}
-                  className="flex items-center space-x-1.5 bg-slate-900 text-white px-3 sm:px-5 py-2 rounded-lg text-sm font-semibold hover:bg-slate-800 transition-all duration-200 font-montserrat shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                  className="w-full sm:w-auto flex items-center justify-center space-x-1.5 bg-slate-900 text-white px-3 sm:px-5 py-2 rounded-lg text-sm font-semibold hover:bg-slate-800 transition-all duration-200 font-montserrat shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                 >
                   <Download className="w-4 h-4" />
                   <span className="hidden sm:inline">Download PDF</span>
@@ -641,12 +641,12 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
 
             {/* Right Side - Preview */}
             <div className="lg:sticky lg:top-28 self-start w-full min-w-0">
-              <div className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden flex flex-col max-h-[calc(100vh-8rem)]">
+              <div className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden flex flex-col lg:max-h-[calc(100vh-8rem)]">
                 <div className="bg-white border-b border-slate-200 p-4 shrink-0">
                   <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wide font-montserrat">Resume Preview</h3>
                   <p className="text-xs text-slate-500 mt-1">Template {selectedTemplate}</p>
                 </div>
-                <div className="p-3 flex justify-center overflow-x-auto overflow-y-auto max-w-full">
+                <div className="p-3 flex justify-center lg:overflow-x-auto lg:overflow-y-auto max-w-full">
                   <ResumePreview
                     personalInfo={personalInfo}
                     experiences={experiences}
