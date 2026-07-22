@@ -519,8 +519,7 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
                   className="w-full sm:w-auto flex items-center justify-center space-x-1.5 bg-slate-900 text-white px-3 sm:px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-all duration-200 font-poppins shadow-sm hover:shadow-md whitespace-nowrap"
                 >
                   <Sparkles className="w-4 h-4" />
-                  <span className="hidden sm:inline">AI Generate</span>
-                  <span className="sm:hidden">AI</span>
+                  <span>AI Generate</span>
                 </button>
                 <button
                   onClick={handleSave}
@@ -535,8 +534,7 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
                   className="w-full sm:w-auto flex items-center justify-center space-x-1.5 bg-slate-900 text-white px-3 sm:px-5 py-2 rounded-lg text-sm font-semibold hover:bg-slate-800 transition-all duration-200 font-montserrat shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                 >
                   <Download className="w-4 h-4" />
-                  <span className="hidden sm:inline">Download PDF</span>
-                  <span className="sm:hidden">PDF</span>
+                  <span>Download PDF</span>
                 </button>
               </div>
             </div>
@@ -544,9 +542,6 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
         </div>
 
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="lg:hidden mb-6">
-            <TemplateSelectionCard />
-          </div>
           <div className="grid lg:grid-cols-2 gap-6 items-start">
             {/* Left Side - Form */}
             <div className="space-y-4 pb-8">
@@ -637,6 +632,10 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
                   />
                 </div>
               </div>
+            </div>
+
+            <div className="lg:hidden">
+              <TemplateSelectionCard />
             </div>
 
             {/* Right Side - Preview */}
