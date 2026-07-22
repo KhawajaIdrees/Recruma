@@ -392,6 +392,95 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
   // Require minimal personal info before allowing template selection
   const canSelectTemplate = Boolean(personalInfo.fullName && (personalInfo.email || personalInfo.phone));
 
+  const TemplateSelectionCard = () => (
+    <div className="bg-white rounded-xl p-5 shadow-sm border border-slate-200 relative z-0">
+      <h2 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat">Select Template</h2>
+      {!canSelectTemplate && (
+        <p className="text-xs text-rose-600 mb-3 font-poppins">
+          Enter your full name and either email or phone to enable template selection.
+        </p>
+      )}
+
+      <button
+        type="button"
+        onClick={() => canSelectTemplate && setTemplateDropdownOpen((open) => !open)}
+        disabled={!canSelectTemplate}
+        className={`w-full flex items-center gap-3 p-3 border-2 rounded-lg transition-all duration-200 ${
+          selectedTemplate
+            ? "border-slate-900 bg-slate-50 shadow-md ring-2 ring-slate-200"
+            : "border-slate-200 bg-white hover:border-slate-300"
+        } ${!canSelectTemplate ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:shadow-sm"}`}
+      >
+        <div className="bg-slate-50 rounded p-1 overflow-hidden w-16 h-16 shrink-0">
+          <img
+            src={`/template${selectedTemplate}.png`}
+            alt={`Template ${selectedTemplate}`}
+            className="w-full h-full object-contain"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = "/template1.png";
+            }}
+          />
+        </div>
+        <div className="flex-1 text-left min-w-0">
+          <p className="text-sm font-semibold text-slate-900 font-montserrat">Template {selectedTemplate}</p>
+          <p className="text-xs text-slate-500 font-poppins truncate">{templateData.name}</p>
+        </div>
+        <ChevronDown
+          className={`w-5 h-5 text-slate-600 shrink-0 transition-transform duration-200 ${
+            templateDropdownOpen ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      {templateDropdownOpen && canSelectTemplate && (
+        <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-slate-200">
+          {[1, 2, 3, 4, 5, 6].map((template) => (
+            <button
+              key={template}
+              type="button"
+              onClick={() => {
+                setSelectedTemplate(template);
+                setTemplateDropdownOpen(false);
+                try {
+                  localStorage.setItem("selectedTemplate", String(template));
+                  router.replace(`/make?template=${template}`);
+                } catch (e) {}
+              }}
+              className={`group relative p-2 border-2 rounded-lg transition-all duration-200 hover:scale-105 ${
+                selectedTemplate === template
+                  ? "border-slate-900 bg-slate-50 shadow-md ring-2 ring-slate-200"
+                  : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
+              }`}
+              title={`Template ${template}`}
+            >
+              <div className="bg-slate-50 rounded p-1 overflow-hidden aspect-square">
+                <img
+                  src={`/template${template}.png`}
+                  alt={`Template ${template}`}
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "/template1.png";
+                  }}
+                />
+              </div>
+              {selectedTemplate === template && (
+                <div className="absolute -top-1 -right-1 bg-slate-900 rounded-full w-4 h-4 flex items-center justify-center shadow-lg">
+                  <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+
   const handleBack = () => {
     // Return to the previous page (home, templates, about, etc.)
     if (typeof window !== "undefined" && window.history.length > 1) {
@@ -455,99 +544,14 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
         </div>
 
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="lg:hidden mb-6">
+            <TemplateSelectionCard />
+          </div>
           <div className="grid lg:grid-cols-2 gap-6 items-start">
             {/* Left Side - Form */}
             <div className="space-y-4 pb-8">
-              {/* Template Selection Card */}
-              <div className="bg-white rounded-xl p-5 shadow-sm border border-slate-200 relative z-0">
-                <h2 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat">Select Template</h2>
-                {!canSelectTemplate && (
-                  <p className="text-xs text-rose-600 mb-3 font-poppins">Enter your full name and either email or phone to enable template selection.</p>
-                )}
-
-                <button
-                  type="button"
-                  onClick={() => canSelectTemplate && setTemplateDropdownOpen((open) => !open)}
-                  disabled={!canSelectTemplate}
-                  className={`w-full flex items-center gap-3 p-3 border-2 rounded-lg transition-all duration-200 ${
-                    selectedTemplate
-                      ? "border-slate-900 bg-slate-50 shadow-md ring-2 ring-slate-200"
-                      : "border-slate-200 bg-white hover:border-slate-300"
-                  } ${!canSelectTemplate ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:shadow-sm"}`}
-                >
-                  <div className="bg-slate-50 rounded p-1 overflow-hidden w-16 h-16 shrink-0">
-                    <img
-                      src={`/template${selectedTemplate}.png`}
-                      alt={`Template ${selectedTemplate}`}
-                      className="w-full h-full object-contain"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = "/template1.png";
-                      }}
-                    />
-                  </div>
-                  <div className="flex-1 text-left min-w-0">
-                    <p className="text-sm font-semibold text-slate-900 font-montserrat">
-                      Template {selectedTemplate}
-                    </p>
-                    <p className="text-xs text-slate-500 font-poppins truncate">{templateData.name}</p>
-                  </div>
-                  <ChevronDown
-                    className={`w-5 h-5 text-slate-600 shrink-0 transition-transform duration-200 ${
-                      templateDropdownOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-
-                {templateDropdownOpen && canSelectTemplate && (
-                  <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-slate-200">
-                    {[1, 2, 3, 4, 5, 6].map((template) => (
-                      <button
-                        key={template}
-                        type="button"
-                        onClick={() => {
-                          setSelectedTemplate(template);
-                          setTemplateDropdownOpen(false);
-                          try {
-                            localStorage.setItem("selectedTemplate", String(template));
-                            router.replace(`/make?template=${template}`);
-                          } catch (e) {}
-                        }}
-                        className={`group relative p-2 border-2 rounded-lg transition-all duration-200 hover:scale-105 ${
-                          selectedTemplate === template
-                            ? "border-slate-900 bg-slate-50 shadow-md ring-2 ring-slate-200"
-                            : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
-                        }`}
-                        title={`Template ${template}`}
-                      >
-                        <div className="bg-slate-50 rounded p-1 overflow-hidden aspect-square">
-                          <img
-                            src={`/template${template}.png`}
-                            alt={`Template ${template}`}
-                            className="w-full h-full object-contain"
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).src = "/template1.png";
-                            }}
-                          />
-                        </div>
-                        {selectedTemplate === template && (
-                          <div className="absolute -top-1 -right-1 bg-slate-900 rounded-full w-4 h-4 flex items-center justify-center shadow-lg">
-                            <svg
-                              className="w-2.5 h-2.5 text-white"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </div>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                )}
+              <div className="hidden lg:block">
+                <TemplateSelectionCard />
               </div>
 
               {/* Form Sections - Organized with better hierarchy */}
