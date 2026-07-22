@@ -66,7 +66,6 @@ export default function Home() {
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="text-base sm:text-lg font-semibold text-slate-900 font-montserrat">Template {template}</h3>
                       <div className="flex items-center space-x-1">
-                        <Star className="w-3 h-3 sm:w-4 sm:h-4 text-orange-400 fill-current animate-pulse" />
                         <span className="text-xs sm:text-sm text-slate-600 font-poppins">4.{template + 2}</span>
                       </div>
                     </div>
