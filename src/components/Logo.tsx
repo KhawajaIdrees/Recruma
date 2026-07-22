@@ -26,7 +26,7 @@ export default function Logo({
     <div className={`flex items-center gap-2 sm:gap-3 min-w-0 ${className}`}>
       <div className={`${box} shrink-0 flex items-center justify-center`}>
         <Image
-          src="/logo.png"
+          src="/logo.svg"
           alt="Recruma logo"
           width={img}
           height={img}
