@@ -23,6 +23,11 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "Recruma - AI-Powered Resume Builder",
   description: "Create stunning professional resumes with AI-powered optimization. Choose from beautiful templates and get hired faster.",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export const viewport: Viewport = {
