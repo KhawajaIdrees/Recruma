@@ -31,29 +31,17 @@ export default function Navbar() {
             >
               Templates
             </Link>
-            <a 
-              href="#features" 
-              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-montserrat"
-            >
-              Features
-            </a>
-            <a 
-              href="#how-it-works" 
+            <Link 
+              href="/how-it-works" 
               className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-montserrat"
             >
               How It Works
-            </a>
-            <a 
-              href="#pricing" 
-              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-montserrat"
-            >
-              Pricing
-            </a>
+            </Link>
             <Link 
-              href="/blog" 
+              href="/about" 
               className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-montserrat"
             >
-              Blog
+              About Us
             </Link>
           </div>
 
@@ -74,10 +62,10 @@ export default function Navbar() {
             </Link>
             
             <Link
-              href="/signup"
+              href="/make"
               className="bg-[#0f172a] text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-slate-800 transition-colors shadow-sm font-poppins"
             >
-              Get Started
+              Create Resume
             </Link>
           </div>
 
@@ -117,33 +105,19 @@ export default function Navbar() {
           >
             Templates
           </Link>
-          <a
-            href="#features"
-            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-montserrat"
-            onClick={() => setIsOpen(false)}
-          >
-            Features
-          </a>
-          <a
-            href="#how-it-works"
+          <Link
+            href="/how-it-works"
             className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-montserrat"
             onClick={() => setIsOpen(false)}
           >
             How It Works
-          </a>
-          <a
-            href="#pricing"
-            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-montserrat"
-            onClick={() => setIsOpen(false)}
-          >
-            Pricing
-          </a>
+          </Link>
           <Link
-            href="/blog"
+            href="/about"
             className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-montserrat"
             onClick={() => setIsOpen(false)}
           >
-            Blog
+            About Us
           </Link>
           <div className="pt-4 flex flex-col space-y-2">
             <Link
@@ -154,11 +128,11 @@ export default function Navbar() {
               Log In
             </Link>
             <Link
-              href="/signup"
+              href="/make"
               className="w-full text-center bg-[#0f172a] text-white py-2.5 rounded-lg font-medium text-sm font-poppins"
               onClick={() => setIsOpen(false)}
             >
-              Get Started
+              Create Resume
             </Link>
           </div>
         </div>

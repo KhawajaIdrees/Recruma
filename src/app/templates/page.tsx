@@ -52,7 +52,7 @@ export default function TemplatesPage() {
                     <div className="absolute bottom-4 left-4 right-4 flex space-x-2">
                       <button 
                         onClick={() => handleUseTemplate(template)}
-                        className="flex-1 bg-slate-900 text-white px-3 sm:px-4 py-2 rounded-lg font-medium hover:bg-slate-800 transition-all duration-200 flex items-center justify-center space-x-2 text-sm sm:text-base hover:scale-105 shadow-lg"
+                        className="flex-1 bg-slate-900 text-white px-3 sm:px-4 py-2 rounded-lg font-medium hover:bg-slate-800 transition-all duration-200 flex items-center justify-center space-x-2 text-sm sm:text-base hover:scale-105 shadow-lg font-poppins"
                       >
                         <Download className="w-3 h-3 sm:w-4 sm:h-4" />
                         <span>Use</span>
