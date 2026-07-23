@@ -152,7 +152,7 @@ export default function HeroSection() {
                   {/* Name & Header */}
                   <div>
                     <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-montserrat">
-                      Muhammad Idrees
+                      Khawaja Idrees
                     </h2>
                     <p className="text-slate-600 font-medium text-xs sm:text-sm mt-0.5">
                       Full Stack Developer
