@@ -210,29 +210,18 @@ export default function Home() {
                         loading="eager"
                       />
                       
-                      {/* Desktop Hover Overlay with Action Buttons */}
-                      <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover/card:opacity-100 transition-opacity duration-200 hidden sm:flex flex-col items-center justify-center gap-2.5 p-3 backdrop-blur-[2px]">
+                      {/* Desktop Hover Overlay with Preview Button Only */}
+                      <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-200 hidden sm:flex items-center justify-center p-3 backdrop-blur-[2px]">
                         <button
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedTemplate(tpl);
                           }}
-                          className="w-full bg-white text-slate-900 text-xs font-bold py-2 px-3 rounded-xl shadow-md hover:bg-slate-100 transition-colors flex items-center justify-center gap-1.5 font-montserrat"
+                          className="bg-white text-slate-900 text-xs font-bold py-2.5 px-4 rounded-xl shadow-lg hover:bg-slate-100 hover:scale-105 transition-all flex items-center justify-center gap-1.5 font-montserrat"
                         >
-                          <Eye className="w-3.5 h-3.5" />
+                          <Eye className="w-4 h-4 text-slate-800" />
                           <span>Preview writing</span>
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleUseTemplate(tpl.id);
-                          }}
-                          className="w-full bg-[#0f172a] text-white text-xs font-bold py-2 px-3 rounded-xl shadow-md hover:bg-slate-800 transition-colors flex items-center justify-center font-montserrat"
-                        >
-                          <span>Use Template</span>
                         </button>
                       </div>
 

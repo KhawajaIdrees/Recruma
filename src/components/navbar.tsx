@@ -20,6 +20,12 @@ export default function Navbar() {
           {/* Center: Nav Links (Desktop) */}
           <div className="hidden md:flex items-center space-x-8">
             <Link 
+              href="/" 
+              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-poppins"
+            >
+              Home
+            </Link>
+            <Link 
               href="/templates" 
               className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-poppins"
             >
@@ -97,6 +103,13 @@ export default function Navbar() {
       {/* Mobile Dropdown */}
       {isOpen && (
         <div className="md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+          <Link
+            href="/"
+            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-poppins"
+            onClick={() => setIsOpen(false)}
+          >
+            Home
+          </Link>
           <Link
             href="/templates"
             className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-poppins"
