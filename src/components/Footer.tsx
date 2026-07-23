@@ -1,108 +1,187 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Twitter, Linkedin, Instagram, Github } from "lucide-react";
 import Logo from "@/components/Logo";
 
 export default function Footer() {
   return (
-    <footer className="bg-white text-slate-900 border-t border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          {/* Company Info */}
-          <div className="space-y-6">
-            <div className="flex items-center">
-              <Logo size="md" />
-            </div>
-            <p className="text-slate-600 leading-relaxed font-poppins text-sm">
-              Transform your career with AI-powered resume building. Create professional, ATS-friendly resumes that get you noticed and help you land your dream job.
+    <footer className="bg-white text-slate-900 border-t border-slate-200/80 pt-16 pb-12 font-poppins">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Top 5 Columns Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-8 lg:gap-12 pb-12">
+          
+          {/* Brand Column (Col 1: 4/12 span) */}
+          <div className="col-span-2 md:col-span-4 space-y-4">
+            <Logo size="md" />
+            <p className="text-slate-500 text-xs sm:text-sm leading-relaxed max-w-sm">
+              AI-powered resume builder to help you create professional resumes that get you hired.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all duration-200 text-slate-900">
-                <Facebook className="w-5 h-5" />
+            
+            {/* Social Icons */}
+            <div className="flex items-center space-x-3 pt-2">
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded-lg border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-slate-100 transition-colors"
+                aria-label="Twitter"
+              >
+                <Twitter className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all duration-200 text-slate-900">
-                <Twitter className="w-5 h-5" />
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded-lg border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-slate-100 transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all duration-200 text-slate-900">
-                <Instagram className="w-5 h-5" />
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded-lg border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-slate-100 transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all duration-200 text-slate-900">
-                <Linkedin className="w-5 h-5" />
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded-lg border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-slate-100 transition-colors"
+                aria-label="GitHub"
+              >
+                <Github className="w-4 h-4" />
               </a>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-6">
-            <h4 className="text-lg font-semibold font-montserrat">Quick Links</h4>
-            <ul className="space-y-3">
+          {/* Column 2: Product */}
+          <div className="col-span-1 md:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider font-montserrat">
+              Product
+            </h4>
+            <ul className="space-y-2 text-xs sm:text-sm text-slate-600">
               <li>
-                <Link href="/templates" className="text-slate-600 hover:text-slate-900 transition-all duration-200 font-poppins hover:underline">
+                <Link href="/templates" className="hover:text-slate-900 transition-colors">
                   Templates
                 </Link>
               </li>
               <li>
-                <Link href="/make" className="text-slate-600 hover:text-slate-900 transition-all duration-200 font-poppins hover:underline">
-                  Resume Builder
-                </Link>
+                <a href="#features" className="hover:text-slate-900 transition-colors">
+                  Features
+                </a>
               </li>
               <li>
-                <Link href="/about" className="text-slate-600 hover:text-slate-900 transition-all duration-200 font-poppins hover:underline">
-                  About Us
-                </Link>
+                <a href="#pricing" className="hover:text-slate-900 transition-colors">
+                  Pricing
+                </a>
               </li>
               <li>
-                <Link href="/contact" className="text-slate-600 hover:text-slate-900 transition-all duration-200 font-poppins hover:underline">
-                  Contact
+                <Link href="/make" className="hover:text-slate-900 transition-colors">
+                  AI Optimization
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Contact Info */}
-          <div className="space-y-6">
-            <h4 className="text-lg font-semibold font-montserrat">Contact Info</h4>
-            <div className="space-y-4">
-              <div className="flex items-start space-x-3">
-                <Mail className="w-5 h-5 text-slate-900 mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-xs text-slate-500 font-poppins uppercase">Email</p>
-                  <a href="mailto:hello@recruma.com" className="text-slate-600 hover:text-slate-900 font-poppins transition-all duration-200">
-                    hello@recruma.com
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <Phone className="w-5 h-5 text-slate-900 mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-xs text-slate-500 font-poppins uppercase">Phone</p>
-                  <a href="tel:+15551234567" className="text-slate-600 hover:text-slate-900 font-poppins transition-all duration-200">
-                    +1 (555) 123-4567
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-slate-900 mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-xs text-slate-500 font-poppins uppercase">Location</p>
-                  <p className="text-slate-600 font-poppins">San Francisco, CA</p>
-                </div>
-              </div>
-            </div>
+          {/* Column 3: Company */}
+          <div className="col-span-1 md:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider font-montserrat">
+              Company
+            </h4>
+            <ul className="space-y-2 text-xs sm:text-sm text-slate-600">
+              <li>
+                <Link href="/about" className="hover:text-slate-900 transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-slate-900 transition-colors">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <a href="#careers" className="hover:text-slate-900 transition-colors">
+                  Careers
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-slate-900 transition-colors">
+                  Contact
+                </a>
+              </li>
+            </ul>
           </div>
+
+          {/* Column 4: Resources */}
+          <div className="col-span-1 md:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider font-montserrat">
+              Resources
+            </h4>
+            <ul className="space-y-2 text-xs sm:text-sm text-slate-600">
+              <li>
+                <a href="#tips" className="hover:text-slate-900 transition-colors">
+                  Resume Tips
+                </a>
+              </li>
+              <li>
+                <a href="#cover-letter" className="hover:text-slate-900 transition-colors">
+                  Cover Letter
+                </a>
+              </li>
+              <li>
+                <a href="#career-advice" className="hover:text-slate-900 transition-colors">
+                  Career Advice
+                </a>
+              </li>
+              <li>
+                <a href="#help" className="hover:text-slate-900 transition-colors">
+                  Help Center
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 5: Legal */}
+          <div className="col-span-1 md:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider font-montserrat">
+              Legal
+            </h4>
+            <ul className="space-y-2 text-xs sm:text-sm text-slate-600">
+              <li>
+                <a href="#privacy" className="hover:text-slate-900 transition-colors">
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="#terms" className="hover:text-slate-900 transition-colors">
+                  Terms of Service
+                </a>
+              </li>
+              <li>
+                <a href="#refund" className="hover:text-slate-900 transition-colors">
+                  Refund Policy
+                </a>
+              </li>
+            </ul>
+          </div>
+
         </div>
 
-        {/* Bottom Bar */}
-       <div className="border-t border-slate-200 pt-8">
-  <div className="flex justify-center items-center">
-    <div className="text-slate-500 text-sm font-poppins">
-      © 2026 Recruma. All rights reserved.
-    </div>
-  </div>
-</div>
+        {/* Bottom Divider & Copyright */}
+        <div className="border-t border-slate-200/80 pt-6 flex justify-center text-center">
+          <p className="text-slate-400 text-xs font-poppins">
+            © 2026 Recruma. All rights reserved.
+          </p>
+        </div>
 
       </div>
     </footer>
   );
-} 
+}
+ 

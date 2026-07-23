@@ -2,55 +2,90 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Moon } from "lucide-react";
 import Logo from "@/components/Logo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-white fixed top-0 left-0 right-0 z-50 border-b border-slate-200">
-      <div className="w-full px-4 sm:px-6 lg:px-8">
+    <nav className="bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-slate-200/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Left: Logo + Name */}
-          <div className="flex items-center min-w-0">
+          {/* Left: Logo */}
+          <div className="flex items-center">
             <Logo size="md" />
           </div>
 
-          {/* Center: Nav Links (Desktop Only) */}
-          <div className="hidden lg:flex space-x-6">
-            <Link href="/" className="text-slate-900 hover:text-slate-700 transition-all duration-200 font-medium hover:scale-105 font-montserrat text-base">
-              Home
-            </Link>
-            <Link href="/make" className="text-slate-900 hover:text-slate-700 transition-all duration-200 font-medium hover:scale-105 font-montserrat text-base">
-              Create Resume
-            </Link>
-            <Link href="/templates" className="text-slate-900 hover:text-slate-700 transition-all duration-200 font-medium hover:scale-105 font-montserrat text-base">
+          {/* Center: Nav Links (Desktop) */}
+          <div className="hidden md:flex items-center space-x-8">
+            <Link 
+              href="/templates" 
+              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-poppins"
+            >
               Templates
             </Link>
-            <Link href="/about" className="text-slate-900 hover:text-slate-700 transition-all duration-200 font-medium hover:scale-105 font-montserrat text-base">
-              About
+            <a 
+              href="#features" 
+              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-poppins"
+            >
+              Features
+            </a>
+            <a 
+              href="#how-it-works" 
+              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-poppins"
+            >
+              How It Works
+            </a>
+            <a 
+              href="#pricing" 
+              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-poppins"
+            >
+              Pricing
+            </a>
+            <Link 
+              href="/blog" 
+              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-poppins"
+            >
+              Blog
             </Link>
           </div>
 
-          {/* Right: Auth Button (Desktop Only) */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <Link href="/login" className="text-slate-900 hover:text-slate-700 transition-all duration-200 font-medium hover:scale-105 font-montserrat text-base">
-              Login
+          {/* Right: Actions (Desktop) */}
+          <div className="hidden md:flex items-center space-x-3">
+            <button 
+              className="p-2 text-slate-700 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
+              aria-label="Toggle theme"
+            >
+              <Moon className="w-5 h-5" />
+            </button>
+            
+            <Link
+              href="/login"
+              className="border border-slate-300 text-slate-900 px-4 py-2 rounded-lg font-medium text-sm hover:bg-slate-50 transition-colors font-poppins"
+            >
+              Log In
             </Link>
+            
             <Link
               href="/signup"
-              className="bg-slate-900 text-white px-5 py-2 rounded-full hover:bg-slate-800 transition-all duration-200 font-semibold shadow font-montserrat text-base"
+              className="bg-[#0f172a] text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-slate-800 transition-colors shadow-sm font-poppins"
             >
               Get Started
             </Link>
           </div>
 
-          {/* Mobile: Hamburger */}
-          <div className="lg:hidden flex items-center space-x-3">
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center space-x-2">
+            <button 
+              className="p-2 text-slate-700 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
+              aria-label="Toggle theme"
+            >
+              <Moon className="w-5 h-5" />
+            </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-slate-900 hover:text-slate-700 focus:outline-none transition-all duration-200 p-2 hover:scale-110"
+              className="text-slate-900 p-2 rounded-lg hover:bg-slate-100 transition-colors"
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -59,28 +94,57 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Dropdown */}
       {isOpen && (
-        <div className="lg:hidden bg-white shadow-xl px-4 pb-6 rounded-b-2xl border-t border-slate-200">
-          <div className="py-4 space-y-2">
-            <Link href="/" className="block py-3 text-slate-900 hover:text-slate-700 transition-all duration-200 font-medium border-b border-slate-200 hover:scale-105 font-montserrat text-base" onClick={() => setIsOpen(false)}>
-              Home
+        <div className="md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+          <Link
+            href="/templates"
+            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-poppins"
+            onClick={() => setIsOpen(false)}
+          >
+            Templates
+          </Link>
+          <a
+            href="#features"
+            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-poppins"
+            onClick={() => setIsOpen(false)}
+          >
+            Features
+          </a>
+          <a
+            href="#how-it-works"
+            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-poppins"
+            onClick={() => setIsOpen(false)}
+          >
+            How It Works
+          </a>
+          <a
+            href="#pricing"
+            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-poppins"
+            onClick={() => setIsOpen(false)}
+          >
+            Pricing
+          </a>
+          <Link
+            href="/blog"
+            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-poppins"
+            onClick={() => setIsOpen(false)}
+          >
+            Blog
+          </Link>
+          <div className="pt-4 flex flex-col space-y-2">
+            <Link
+              href="/login"
+              className="w-full text-center border border-slate-300 text-slate-900 py-2.5 rounded-lg font-medium text-sm font-poppins"
+              onClick={() => setIsOpen(false)}
+            >
+              Log In
             </Link>
-            <Link href="/make" className="block py-3 text-slate-900 hover:text-slate-700 transition-all duration-200 font-medium border-b border-slate-200 hover:scale-105 font-montserrat text-base" onClick={() => setIsOpen(false)}>
-              Create Resume
-            </Link>
-            <Link href="/templates" className="block py-3 text-slate-900 hover:text-slate-700 transition-all duration-200 font-medium border-b border-slate-200 hover:scale-105 font-montserrat text-base" onClick={() => setIsOpen(false)}>
-              Templates
-            </Link>
-            <Link href="/about" className="block py-3 text-slate-900 hover:text-slate-700 transition-all duration-200 font-medium border-b border-slate-200 hover:scale-105 font-montserrat text-base" onClick={() => setIsOpen(false)}>
-              About
-            </Link>
-          </div>
-          <div className="flex flex-col space-y-3 pt-4">
-            <Link href="/login" className="text-center py-3 text-slate-900 hover:text-slate-700 transition-all duration-200 font-medium hover:scale-105 font-montserrat text-base" onClick={() => setIsOpen(false)}>
-              Login
-            </Link>
-            <Link href="/signup" className="bg-slate-900 text-white text-center px-4 py-3 rounded-full hover:bg-slate-800 transition-all duration-200 font-semibold hover:scale-105 font-montserrat text-base" onClick={() => setIsOpen(false)}>
+            <Link
+              href="/signup"
+              className="w-full text-center bg-[#0f172a] text-white py-2.5 rounded-lg font-medium text-sm font-poppins"
+              onClick={() => setIsOpen(false)}
+            >
               Get Started
             </Link>
           </div>
@@ -89,3 +153,4 @@ export default function Navbar() {
     </nav>
   );
 }
+
