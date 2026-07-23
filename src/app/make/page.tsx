@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
+import Image from "next/image";
 import Footer from "@/components/Footer";
 import { Save, Download, ArrowLeft, ChevronDown } from "lucide-react";
 import { templates } from "@/lib/templateData";
@@ -412,13 +413,14 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
         } ${!canSelectTemplate ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:shadow-sm"}`}
       >
         <div className="bg-slate-50 rounded p-1 overflow-hidden w-16 h-16 shrink-0">
-          <img
+          <Image
             src={`/template${selectedTemplate}.png`}
             alt={`Template ${selectedTemplate}`}
             className="w-full h-full object-contain"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = "/template1.png";
-            }}
+            width={64}
+            height={64}
+            unoptimized
+            priority={true}
           />
         </div>
         <div className="flex-1 text-left min-w-0">
@@ -454,13 +456,13 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
               title={`Template ${template}`}
             >
               <div className="bg-slate-50 rounded p-1 overflow-hidden aspect-square">
-                <img
+                <Image
                   src={`/template${template}.png`}
                   alt={`Template ${template}`}
                   className="w-full h-full object-contain"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "/template1.png";
-                  }}
+                  width={250}
+                  height={250}
+                  unoptimized
                 />
               </div>
               {selectedTemplate === template && (

@@ -206,7 +206,6 @@ export default function Home() {
                         src={tpl.image}
                         alt={tpl.name}
                         className="w-full h-full object-cover object-top origin-top group-hover/card:scale-125 transition-transform duration-500 ease-out"
-                        style={{ imageRendering: 'high-quality' }}
                         loading="eager"
                       />
                       
@@ -335,7 +334,6 @@ export default function Home() {
                     src={selectedTemplate.image}
                     alt={selectedTemplate.title}
                     className="h-full w-auto max-h-[68vh] object-contain rounded-xl"
-                    style={{ imageRendering: 'high-quality' }}
                   />
                 </div>
               </div>

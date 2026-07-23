@@ -5,6 +5,11 @@
 :root {
   --background: #ffffff;
   --foreground: #0f172a;
+  /* Default font variables — fallbacks if next/font doesn't set them */
+  --font-poppins: 'Poppins';
+  --font-montserrat: 'Montserrat';
+  --font-inter: 'Inter';
+  --font-jakarta: 'Plus Jakarta Sans';
   --color-primary: 15 23 42; /* Deep Blue rgb values */
   --color-secondary: 255 255 255; /* White rgb values */
   --color-accent: 15 23 42; /* Deep Blue accent */
