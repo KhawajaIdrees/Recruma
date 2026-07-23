@@ -19,20 +19,25 @@ import {
   Award, 
   Star, 
   FileText,
-  Mail
+  Mail,
+  Eye,
+  X,
+  Zap,
+  ZoomIn
 } from "lucide-react";
 
 export default function Home() {
   const router = useRouter();
   const [activeTemplateIndex, setActiveTemplateIndex] = useState(0);
+  const [selectedTemplate, setSelectedTemplate] = useState<{ id: number; name: string; title: string; image: string } | null>(null);
   const [emailInput, setEmailInput] = useState("");
 
   const templates = [
-    { id: 1, name: "Template 1", image: "/template1.png" },
-    { id: 2, name: "Template 2", image: "/template2.png" },
-    { id: 3, name: "Template 3", image: "/template3.png" },
-    { id: 4, name: "Template 4", image: "/template4.png" },
-    { id: 5, name: "Template 5", image: "/template5.png" },
+    { id: 1, name: "Template 1", title: "Richard Sanchez - Executive", image: "/template1.png" },
+    { id: 2, name: "Template 2", title: "Lorna Alvarado - Minimalist", image: "/template2.png" },
+    { id: 3, name: "Template 3", title: "Jonathan Patterson - Corporate", image: "/template3.png" },
+    { id: 4, name: "Template 4", title: "Ahmed Saah - Modern", image: "/template4.png" },
+    { id: 5, name: "Template 5", title: "Daniel Gallego - Creative", image: "/template5.png" },
   ];
 
   const handlePrevTemplate = () => {
@@ -152,7 +157,7 @@ export default function Home() {
                   Designed to make you stand out
                 </h2>
                 <p className="text-slate-600 text-sm sm:text-base">
-                  Choose from a variety of modern and professional templates.
+                  Click on any template to preview writing clearly in full screen.
                 </p>
               </div>
 
@@ -178,29 +183,70 @@ export default function Home() {
               </button>
 
               {/* Templates Showcase Grid/Row */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
                 {templates.map((tpl, idx) => (
                   <div
                     key={tpl.id}
-                    onClick={() => handleUseTemplate(tpl.id)}
-                    className={`bg-white rounded-2xl border transition-all duration-300 overflow-hidden cursor-pointer group/card flex flex-col ${
+                    className={`bg-white rounded-2xl border transition-all duration-300 cursor-pointer group/card flex flex-col p-2.5 sm:p-3 ${
                       idx === activeTemplateIndex
-                        ? "border-slate-900 ring-2 ring-slate-900/10 shadow-xl scale-[1.02]"
-                        : "border-slate-200/80 shadow-sm hover:shadow-lg hover:border-slate-400"
+                        ? "border-slate-900 ring-2 ring-slate-900/10 shadow-2xl scale-[1.02]"
+                        : "border-slate-200/90 shadow-sm hover:shadow-xl hover:border-slate-400"
                     }`}
                   >
-                    {/* Thumbnail Image Container */}
-                    <div className="relative aspect-[3/4] bg-slate-100 overflow-hidden">
+                    {/* Thumbnail Image Frame (A4 Aspect Ratio: 1 / 1.414) */}
+                    <div 
+                      onClick={() => setSelectedTemplate(tpl)}
+                      className="relative aspect-[1/1.414] bg-slate-50 rounded-xl overflow-hidden border border-slate-200/70 shadow-sm flex items-center justify-center group/zoom"
+                    >
                       <img
                         src={tpl.image}
                         alt={tpl.name}
-                        className="w-full h-full object-cover object-top group-hover/card:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover object-top origin-top group-hover/card:scale-125 transition-transform duration-500 ease-out"
+                        style={{ imageRendering: 'high-quality' }}
+                        loading="eager"
                       />
-                      <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover/card:opacity-100 transition-opacity flex items-center justify-center p-4">
-                        <span className="bg-white text-slate-900 text-xs font-bold px-4 py-2 rounded-lg shadow-md font-montserrat">
-                          Use Template
-                        </span>
+                      
+                      {/* Hover Overlay with Action Buttons */}
+                      <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover/card:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center gap-2.5 p-3 backdrop-blur-[2px]">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedTemplate(tpl);
+                          }}
+                          className="w-full bg-white text-slate-900 text-xs font-bold py-2 px-3 rounded-xl shadow-md hover:bg-slate-100 transition-colors flex items-center justify-center gap-1.5 font-montserrat"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>Preview writing</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleUseTemplate(tpl.id);
+                          }}
+                          className="w-full bg-[#0f172a] text-white text-xs font-bold py-2 px-3 rounded-xl shadow-md hover:bg-slate-800 transition-colors flex items-center justify-center gap-1.5 font-montserrat"
+                        >
+                          <Zap className="w-3.5 h-3.5" />
+                          <span>Use Template</span>
+                        </button>
                       </div>
+
+                      {/* Top right quick zoom badge */}
+                      <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm p-1.5 rounded-lg text-slate-700 shadow-sm opacity-80 group-hover/card:opacity-0 transition-opacity">
+                        <ZoomIn className="w-3.5 h-3.5" />
+                      </div>
+                    </div>
+
+                    {/* Template Title & Label */}
+                    <div className="pt-3 px-1 flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-900 font-montserrat truncate">
+                        {tpl.name}
+                      </span>
+                      <span className="text-[10px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full">
+                        Popular
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -232,6 +278,94 @@ export default function Home() {
 
           </div>
         </section>
+
+        {/* ---------------------------------------------------- */}
+        {/* LIGHTBOX PREVIEW MODAL FOR CRYSTAL CLEAR WRITING */}
+        {/* ---------------------------------------------------- */}
+        {selectedTemplate && (
+          <div 
+            className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+            onClick={() => setSelectedTemplate(null)}
+          >
+            <div 
+              className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden relative animate-scale-in"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-white shrink-0">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-slate-100 rounded-xl text-slate-800">
+                    <FileText className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-extrabold text-slate-900 font-montserrat">
+                      {selectedTemplate.title}
+                    </h3>
+                    <p className="text-xs text-slate-500 font-poppins">
+                      Full High-Resolution Readable Preview
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => handleUseTemplate(selectedTemplate.id)}
+                    className="bg-[#0f172a] text-white px-5 py-2 rounded-xl text-xs sm:text-sm font-bold hover:bg-slate-800 transition-colors flex items-center gap-2 font-montserrat shadow-sm"
+                  >
+                    <Zap className="w-4 h-4 text-amber-400" />
+                    <span>Use This Template</span>
+                  </button>
+
+                  <button
+                    onClick={() => setSelectedTemplate(null)}
+                    className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors"
+                    aria-label="Close modal"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Image Body (Full high clarity view) */}
+              <div className="p-6 overflow-y-auto flex justify-center bg-slate-100/60 max-h-[calc(90vh-140px)]">
+                <div className="bg-white p-2 rounded-2xl shadow-xl border border-slate-200 max-w-2xl w-full">
+                  <img
+                    src={selectedTemplate.image}
+                    alt={selectedTemplate.title}
+                    className="w-full h-auto object-contain rounded-xl"
+                    style={{ imageRendering: 'high-quality' }}
+                  />
+                </div>
+              </div>
+
+              {/* Modal Footer */}
+              <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between shrink-0 text-xs text-slate-600">
+                <span>ATS-Friendly & Fully Customizable</span>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => {
+                      const prevIdx = (selectedTemplate.id - 2 + templates.length) % templates.length;
+                      setSelectedTemplate(templates[prevIdx]);
+                    }}
+                    className="px-3 py-1.5 border border-slate-300 rounded-lg hover:bg-white transition-colors"
+                  >
+                    ← Previous
+                  </button>
+                  <button
+                    onClick={() => {
+                      const nextIdx = selectedTemplate.id % templates.length;
+                      setSelectedTemplate(templates[nextIdx]);
+                    }}
+                    className="px-3 py-1.5 border border-slate-300 rounded-lg hover:bg-white transition-colors"
+                  >
+                    Next →
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        )}
 
 
         {/* ---------------------------------------------------- */}
