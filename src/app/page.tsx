@@ -226,9 +226,8 @@ export default function Home() {
                             e.stopPropagation();
                             handleUseTemplate(tpl.id);
                           }}
-                          className="w-full bg-[#0f172a] text-white text-xs font-bold py-2 px-3 rounded-xl shadow-md hover:bg-slate-800 transition-colors flex items-center justify-center gap-1.5 font-montserrat"
+                          className="w-full bg-[#0f172a] text-white text-xs font-bold py-2 px-3 rounded-xl shadow-md hover:bg-slate-800 transition-colors flex items-center justify-center font-montserrat"
                         >
-                          <Zap className="w-3.5 h-3.5" />
                           <span>Use Template</span>
                         </button>
                       </div>
@@ -284,11 +283,11 @@ export default function Home() {
         {/* ---------------------------------------------------- */}
         {selectedTemplate && (
           <div 
-            className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+            className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-hidden"
             onClick={() => setSelectedTemplate(null)}
           >
             <div 
-              className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden relative animate-scale-in"
+              className="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden relative animate-scale-in"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
@@ -302,7 +301,7 @@ export default function Home() {
                       {selectedTemplate.title}
                     </h3>
                     <p className="text-xs text-slate-500 font-poppins">
-                      Full High-Resolution Readable Preview
+                      Full Template Preview
                     </p>
                   </div>
                 </div>
@@ -310,9 +309,8 @@ export default function Home() {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => handleUseTemplate(selectedTemplate.id)}
-                    className="bg-[#0f172a] text-white px-5 py-2 rounded-xl text-xs sm:text-sm font-bold hover:bg-slate-800 transition-colors flex items-center gap-2 font-montserrat shadow-sm"
+                    className="bg-[#0f172a] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold hover:bg-slate-800 transition-colors flex items-center justify-center font-montserrat shadow-sm"
                   >
-                    <Zap className="w-4 h-4 text-amber-400" />
                     <span>Use This Template</span>
                   </button>
 
@@ -326,13 +324,13 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Modal Image Body (Full high clarity view) */}
-              <div className="p-6 overflow-y-auto flex justify-center bg-slate-100/60 max-h-[calc(90vh-140px)]">
-                <div className="bg-white p-2 rounded-2xl shadow-xl border border-slate-200 max-w-2xl w-full">
+              {/* Modal Image Body (Non-scrollable, fits whole template on screen) */}
+              <div className="p-4 sm:p-6 flex items-center justify-center bg-slate-100/60 flex-1 overflow-hidden min-h-0">
+                <div className="bg-white p-2 rounded-2xl shadow-xl border border-slate-200 h-full max-h-[72vh] flex items-center justify-center">
                   <img
                     src={selectedTemplate.image}
                     alt={selectedTemplate.title}
-                    className="w-full h-auto object-contain rounded-xl"
+                    className="h-full w-auto max-h-[68vh] object-contain rounded-xl"
                     style={{ imageRendering: 'high-quality' }}
                   />
                 </div>
