@@ -187,7 +187,7 @@ export default function Home() {
                 {templates.map((tpl, idx) => (
                   <div
                     key={tpl.id}
-                    className={`bg-white rounded-2xl border transition-all duration-300 cursor-pointer group/card flex flex-col p-2.5 sm:p-3 ${
+                    className={`bg-white rounded-2xl border transition-all duration-300 group/card flex flex-col p-2.5 sm:p-3 ${
                       idx === activeTemplateIndex
                         ? "border-slate-900 ring-2 ring-slate-900/10 shadow-2xl scale-[1.02]"
                         : "border-slate-200/90 shadow-sm hover:shadow-xl hover:border-slate-400"
@@ -196,13 +196,11 @@ export default function Home() {
                     {/* Thumbnail Image Frame (A4 Aspect Ratio: 1 / 1.414) */}
                     <div 
                       onClick={() => {
-                        if (typeof window !== "undefined" && window.innerWidth < 640) {
-                          handleUseTemplate(tpl.id);
-                        } else {
+                        if (typeof window !== "undefined" && window.innerWidth >= 640) {
                           setSelectedTemplate(tpl);
                         }
                       }}
-                      className="relative aspect-[1/1.414] bg-slate-50 rounded-xl overflow-hidden border border-slate-200/70 shadow-sm flex items-center justify-center group/zoom"
+                      className="relative aspect-[1/1.414] bg-slate-50 rounded-xl overflow-hidden border border-slate-200/70 shadow-sm flex items-center justify-center group/zoom cursor-default sm:cursor-pointer"
                     >
                       <img
                         src={tpl.image}
@@ -212,15 +210,15 @@ export default function Home() {
                         loading="eager"
                       />
                       
-                      {/* Hover Overlay with Action Buttons (Preview button hidden on mobile) */}
-                      <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover/card:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center gap-2.5 p-3 backdrop-blur-[2px]">
+                      {/* Desktop Hover Overlay with Action Buttons */}
+                      <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover/card:opacity-100 transition-opacity duration-200 hidden sm:flex flex-col items-center justify-center gap-2.5 p-3 backdrop-blur-[2px]">
                         <button
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedTemplate(tpl);
                           }}
-                          className="hidden sm:flex w-full bg-white text-slate-900 text-xs font-bold py-2 px-3 rounded-xl shadow-md hover:bg-slate-100 transition-colors items-center justify-center gap-1.5 font-montserrat"
+                          className="w-full bg-white text-slate-900 text-xs font-bold py-2 px-3 rounded-xl shadow-md hover:bg-slate-100 transition-colors flex items-center justify-center gap-1.5 font-montserrat"
                         >
                           <Eye className="w-3.5 h-3.5" />
                           <span>Preview writing</span>
@@ -244,14 +242,25 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* Template Title & Label */}
-                    <div className="pt-3 px-1 flex items-center justify-between">
-                      <span className="text-xs font-bold text-slate-900 font-montserrat truncate">
-                        {tpl.name}
-                      </span>
-                      <span className="text-[10px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full">
-                        Popular
-                      </span>
+                    {/* Template Title & Action Button */}
+                    <div className="pt-3 px-1 flex flex-col gap-2.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-slate-900 font-montserrat truncate">
+                          {tpl.name}
+                        </span>
+                        <span className="text-[10px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full">
+                          Popular
+                        </span>
+                      </div>
+
+                      {/* Direct Use Template Button (Enables navigation ONLY on button click) */}
+                      <button
+                        type="button"
+                        onClick={() => handleUseTemplate(tpl.id)}
+                        className="w-full bg-[#0f172a] text-white text-xs font-bold py-2 px-3 rounded-xl hover:bg-slate-800 transition-colors flex items-center justify-center font-montserrat shadow-sm"
+                      >
+                        Use Template
+                      </button>
                     </div>
                   </div>
                 ))}
