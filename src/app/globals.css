@@ -41,6 +41,10 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-montserrat), sans-serif;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
 }
 
 @layer base {
