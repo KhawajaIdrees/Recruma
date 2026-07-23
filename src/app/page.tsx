@@ -173,10 +173,10 @@ export default function Home() {
             {/* Template Carousel Container */}
             <div className="relative group">
               
-              {/* Left Slider Arrow */}
+              {/* Left Slider Arrow (Hidden on Mobile) */}
               <button
                 onClick={handlePrevTemplate}
-                className="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:bg-slate-50 hover:scale-105 transition-all"
+                className="hidden md:flex absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white border border-slate-200 shadow-md items-center justify-center text-slate-700 hover:bg-slate-50 hover:scale-105 transition-all"
                 aria-label="Previous template"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -195,7 +195,13 @@ export default function Home() {
                   >
                     {/* Thumbnail Image Frame (A4 Aspect Ratio: 1 / 1.414) */}
                     <div 
-                      onClick={() => setSelectedTemplate(tpl)}
+                      onClick={() => {
+                        if (typeof window !== "undefined" && window.innerWidth < 640) {
+                          handleUseTemplate(tpl.id);
+                        } else {
+                          setSelectedTemplate(tpl);
+                        }
+                      }}
                       className="relative aspect-[1/1.414] bg-slate-50 rounded-xl overflow-hidden border border-slate-200/70 shadow-sm flex items-center justify-center group/zoom"
                     >
                       <img
@@ -206,7 +212,7 @@ export default function Home() {
                         loading="eager"
                       />
                       
-                      {/* Hover Overlay with Action Buttons */}
+                      {/* Hover Overlay with Action Buttons (Preview button hidden on mobile) */}
                       <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover/card:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center gap-2.5 p-3 backdrop-blur-[2px]">
                         <button
                           type="button"
@@ -214,7 +220,7 @@ export default function Home() {
                             e.stopPropagation();
                             setSelectedTemplate(tpl);
                           }}
-                          className="w-full bg-white text-slate-900 text-xs font-bold py-2 px-3 rounded-xl shadow-md hover:bg-slate-100 transition-colors flex items-center justify-center gap-1.5 font-montserrat"
+                          className="hidden sm:flex w-full bg-white text-slate-900 text-xs font-bold py-2 px-3 rounded-xl shadow-md hover:bg-slate-100 transition-colors items-center justify-center gap-1.5 font-montserrat"
                         >
                           <Eye className="w-3.5 h-3.5" />
                           <span>Preview writing</span>
@@ -232,8 +238,8 @@ export default function Home() {
                         </button>
                       </div>
 
-                      {/* Top right quick zoom badge */}
-                      <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm p-1.5 rounded-lg text-slate-700 shadow-sm opacity-80 group-hover/card:opacity-0 transition-opacity">
+                      {/* Top right quick zoom badge (Hidden on mobile) */}
+                      <div className="hidden sm:block absolute top-2 right-2 bg-white/90 backdrop-blur-sm p-1.5 rounded-lg text-slate-700 shadow-sm opacity-80 group-hover/card:opacity-0 transition-opacity">
                         <ZoomIn className="w-3.5 h-3.5" />
                       </div>
                     </div>
@@ -251,10 +257,10 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Right Slider Arrow */}
+              {/* Right Slider Arrow (Hidden on Mobile) */}
               <button
                 onClick={handleNextTemplate}
-                className="absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:bg-slate-50 hover:scale-105 transition-all"
+                className="hidden md:flex absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white border border-slate-200 shadow-md items-center justify-center text-slate-700 hover:bg-slate-50 hover:scale-105 transition-all"
                 aria-label="Next template"
               >
                 <ChevronRight className="w-5 h-5" />
@@ -279,11 +285,11 @@ export default function Home() {
         </section>
 
         {/* ---------------------------------------------------- */}
-        {/* LIGHTBOX PREVIEW MODAL FOR CRYSTAL CLEAR WRITING */}
+        {/* LIGHTBOX PREVIEW MODAL FOR CRYSTAL CLEAR WRITING (DESKTOP & TABLETS ONLY) */}
         {/* ---------------------------------------------------- */}
         {selectedTemplate && (
           <div 
-            className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-hidden"
+            className="hidden sm:flex fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md items-center justify-center p-4 sm:p-6 overflow-hidden"
             onClick={() => setSelectedTemplate(null)}
           >
             <div 
