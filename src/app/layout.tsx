@@ -47,7 +47,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} ${montserrat.variable} ${jakarta.variable} overflow-x-hidden`}>
-      <body className="font-poppins min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--foreground)]">
+      <body className="font-montserrat min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--foreground)]">
         {children}
       </body>
     </html>

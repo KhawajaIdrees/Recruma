@@ -21,37 +21,37 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-8">
             <Link 
               href="/" 
-              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-poppins"
+              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-montserrat"
             >
               Home
             </Link>
             <Link 
               href="/templates" 
-              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-poppins"
+              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-montserrat"
             >
               Templates
             </Link>
             <a 
               href="#features" 
-              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-poppins"
+              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-montserrat"
             >
               Features
             </a>
             <a 
               href="#how-it-works" 
-              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-poppins"
+              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-montserrat"
             >
               How It Works
             </a>
             <a 
               href="#pricing" 
-              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-poppins"
+              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-montserrat"
             >
               Pricing
             </a>
             <Link 
               href="/blog" 
-              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-poppins"
+              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-montserrat"
             >
               Blog
             </Link>
@@ -105,42 +105,42 @@ export default function Navbar() {
         <div className="md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
           <Link
             href="/"
-            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-poppins"
+            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-montserrat"
             onClick={() => setIsOpen(false)}
           >
             Home
           </Link>
           <Link
             href="/templates"
-            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-poppins"
+            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-montserrat"
             onClick={() => setIsOpen(false)}
           >
             Templates
           </Link>
           <a
             href="#features"
-            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-poppins"
+            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-montserrat"
             onClick={() => setIsOpen(false)}
           >
             Features
           </a>
           <a
             href="#how-it-works"
-            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-poppins"
+            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-montserrat"
             onClick={() => setIsOpen(false)}
           >
             How It Works
           </a>
           <a
             href="#pricing"
-            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-poppins"
+            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-montserrat"
             onClick={() => setIsOpen(false)}
           >
             Pricing
           </a>
           <Link
             href="/blog"
-            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-poppins"
+            className="block py-2 text-slate-600 hover:text-slate-900 font-medium text-sm font-montserrat"
             onClick={() => setIsOpen(false)}
           >
             Blog
