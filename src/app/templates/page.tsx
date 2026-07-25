@@ -717,30 +717,18 @@ export default function TemplatesPage() {
                             }}
                           />
 
-                          {/* Hover Overlay with Preview & Use Actions */}
-                          <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2.5 p-4 backdrop-blur-[2px]">
+                          {/* Hover Overlay with Preview Action Only */}
+                          <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4 backdrop-blur-[2px]">
                             <button
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 setPreviewTemplate(template);
                               }}
-                              className="w-full max-w-[160px] bg-white text-slate-900 text-xs font-bold py-2.5 px-4 rounded-xl shadow-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-2 font-montserrat"
+                              className="w-full max-w-[160px] bg-white text-slate-900 text-xs font-bold py-2.5 px-4 rounded-xl shadow-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-2 font-montserrat cursor-pointer"
                             >
                               <Eye className="w-4 h-4 text-slate-800" />
                               <span>Preview Full</span>
-                            </button>
-
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleUseTemplate(template.id);
-                              }}
-                              className="w-full max-w-[160px] bg-slate-900 text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-lg hover:bg-slate-800 transition-all flex items-center justify-center gap-2 font-montserrat"
-                            >
-                              <Download className="w-4 h-4" />
-                              <span>Use Template</span>
                             </button>
                           </div>
 
