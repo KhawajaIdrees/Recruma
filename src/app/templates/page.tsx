@@ -530,152 +530,154 @@ export default function TemplatesPage() {
           </div>
 
           {/* Main Grid: Sidebar + Templates Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
             
             {/* SIDEBAR FILTERS (Desktop & Mobile Drawer) */}
             <aside 
-              className={`lg:col-span-3 bg-slate-50/70 p-5 rounded-2xl border border-slate-200/80 space-y-6 ${
-                isMobileFilterOpen ? "block" : "hidden lg:block"
+              className={`lg:col-span-3 bg-slate-50/70 p-5 sm:p-6 rounded-2xl border border-slate-200/80 flex flex-col justify-between ${
+                isMobileFilterOpen ? "flex" : "hidden lg:flex"
               }`}
             >
-              <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
-                <h3 className="text-xs font-extrabold text-slate-900 tracking-wider uppercase font-montserrat">
-                  FILTER TEMPLATES
-                </h3>
-                {isMobileFilterOpen && (
-                  <button 
-                    onClick={() => setIsMobileFilterOpen(false)}
-                    className="lg:hidden text-slate-500 hover:text-slate-900 p-1"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                )}
-              </div>
-
-              {/* Accordion 1: Categories */}
-              <div className="space-y-3">
-                <button
-                  onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-                  className="flex items-center justify-between w-full text-left"
-                >
-                  <span className="text-xs sm:text-sm font-bold text-slate-900 font-montserrat">Categories</span>
-                  {isCategoryOpen ? (
-                    <ChevronUp className="w-4 h-4 text-slate-400" />
-                  ) : (
-                    <ChevronDown className="w-4 h-4 text-slate-400" />
+              <div className="space-y-6">
+                <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
+                  <h3 className="text-xs font-extrabold text-slate-900 tracking-wider uppercase font-montserrat">
+                    FILTER TEMPLATES
+                  </h3>
+                  {isMobileFilterOpen && (
+                    <button 
+                      onClick={() => setIsMobileFilterOpen(false)}
+                      className="lg:hidden text-slate-500 hover:text-slate-900 p-1"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
                   )}
-                </button>
+                </div>
 
-                {isCategoryOpen && (
-                  <div className="space-y-1 pt-1">
-                    {Object.entries(categoryCounts).map(([cat, count]) => {
-                      const isSelected = selectedCategory === cat;
-                      return (
-                        <button
-                          key={cat}
-                          onClick={() => {
-                            setSelectedCategory(cat);
-                            setVisibleCount(6);
-                          }}
-                          className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs sm:text-sm transition-all ${
-                            isSelected
-                              ? "bg-slate-900 text-white font-medium shadow-xs"
-                              : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-900 font-normal"
-                          }`}
-                        >
-                          <span>{cat}</span>
-                          <span 
-                            className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                              isSelected ? "bg-slate-800 text-white" : "text-slate-400 bg-slate-100"
+                {/* Accordion 1: Categories */}
+                <div className="space-y-3">
+                  <button
+                    onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                    className="flex items-center justify-between w-full text-left"
+                  >
+                    <span className="text-xs sm:text-sm font-bold text-slate-900 font-montserrat">Categories</span>
+                    {isCategoryOpen ? (
+                      <ChevronUp className="w-4 h-4 text-slate-400" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-slate-400" />
+                    )}
+                  </button>
+
+                  {isCategoryOpen && (
+                    <div className="space-y-1 pt-1">
+                      {Object.entries(categoryCounts).map(([cat, count]) => {
+                        const isSelected = selectedCategory === cat;
+                        return (
+                          <button
+                            key={cat}
+                            onClick={() => {
+                              setSelectedCategory(cat);
+                              setVisibleCount(6);
+                            }}
+                            className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs sm:text-sm transition-all ${
+                              isSelected
+                                ? "bg-slate-900 text-white font-medium shadow-xs"
+                                : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-900 font-normal"
                             }`}
                           >
-                            {count}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-
-              {/* Accordion 2: Experience Level */}
-              <div className="space-y-3 pt-2 border-t border-slate-200/60">
-                <button
-                  onClick={() => setIsExpOpen(!isExpOpen)}
-                  className="flex items-center justify-between w-full text-left"
-                >
-                  <span className="text-xs sm:text-sm font-bold text-slate-900 font-montserrat">Experience Level</span>
-                  {isExpOpen ? (
-                    <ChevronUp className="w-4 h-4 text-slate-400" />
-                  ) : (
-                    <ChevronDown className="w-4 h-4 text-slate-400" />
+                            <span>{cat}</span>
+                            <span 
+                              className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                                isSelected ? "bg-slate-800 text-white" : "text-slate-400 bg-slate-100"
+                              }`}
+                            >
+                              {count}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
                   )}
-                </button>
+                </div>
 
-                {isExpOpen && (
-                  <div className="space-y-2 pt-1">
-                    {["All Levels", "Entry Level", "Mid Level", "Senior Level"].map((level) => {
-                      const isChecked = selectedExpLevels.includes(level);
-                      return (
-                        <label
-                          key={level}
-                          className="flex items-center space-x-2.5 cursor-pointer text-xs sm:text-sm text-slate-700 hover:text-slate-900"
-                        >
-                          <input
-                            type="checkbox"
-                            checked={isChecked}
-                            onChange={() => handleExpToggle(level)}
-                            className="w-4 h-4 rounded border-slate-300 text-slate-900 focus:ring-slate-800 accent-slate-900 cursor-pointer"
-                          />
-                          <span className={isChecked ? "font-semibold text-slate-900" : "font-normal text-slate-600"}>
-                            {level}
-                          </span>
-                        </label>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
+                {/* Accordion 2: Experience Level */}
+                <div className="space-y-3 pt-2 border-t border-slate-200/60">
+                  <button
+                    onClick={() => setIsExpOpen(!isExpOpen)}
+                    className="flex items-center justify-between w-full text-left"
+                  >
+                    <span className="text-xs sm:text-sm font-bold text-slate-900 font-montserrat">Experience Level</span>
+                    {isExpOpen ? (
+                      <ChevronUp className="w-4 h-4 text-slate-400" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-slate-400" />
+                    )}
+                  </button>
 
-              {/* Accordion 3: Industries */}
-              <div className="space-y-3 pt-2 border-t border-slate-200/60">
-                <button
-                  onClick={() => setIsIndustryOpen(!isIndustryOpen)}
-                  className="flex items-center justify-between w-full text-left"
-                >
-                  <span className="text-xs sm:text-sm font-bold text-slate-900 font-montserrat">Industries</span>
-                  {isIndustryOpen ? (
-                    <ChevronUp className="w-4 h-4 text-slate-400" />
-                  ) : (
-                    <ChevronDown className="w-4 h-4 text-slate-400" />
+                  {isExpOpen && (
+                    <div className="space-y-2 pt-1">
+                      {["All Levels", "Entry Level", "Mid Level", "Senior Level"].map((level) => {
+                        const isChecked = selectedExpLevels.includes(level);
+                        return (
+                          <label
+                            key={level}
+                            className="flex items-center space-x-2.5 cursor-pointer text-xs sm:text-sm text-slate-700 hover:text-slate-900"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={isChecked}
+                              onChange={() => handleExpToggle(level)}
+                              className="w-4 h-4 rounded border-slate-300 text-slate-900 focus:ring-slate-800 accent-slate-900 cursor-pointer"
+                            />
+                            <span className={isChecked ? "font-semibold text-slate-900" : "font-normal text-slate-600"}>
+                              {level}
+                            </span>
+                          </label>
+                        );
+                      })}
+                    </div>
                   )}
-                </button>
+                </div>
 
-                {isIndustryOpen && (
-                  <div className="pt-1">
-                    <select
-                      value={selectedIndustry}
-                      onChange={(e) => {
-                        setSelectedIndustry(e.target.value);
-                        setVisibleCount(6);
-                      }}
-                      className="w-full bg-white border border-slate-200 rounded-lg p-2.5 text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-slate-400 font-medium cursor-pointer"
-                    >
-                      <option value="All Industries">All Industries</option>
-                      <option value="Technology">Technology</option>
-                      <option value="Executive">Executive</option>
-                      <option value="Design">Design</option>
-                      <option value="Business">Business</option>
-                      <option value="Marketing">Marketing</option>
-                      <option value="Creative">Creative</option>
-                      <option value="Education">Education</option>
-                    </select>
-                  </div>
-                )}
+                {/* Accordion 3: Industries */}
+                <div className="space-y-3 pt-2 border-t border-slate-200/60">
+                  <button
+                    onClick={() => setIsIndustryOpen(!isIndustryOpen)}
+                    className="flex items-center justify-between w-full text-left"
+                  >
+                    <span className="text-xs sm:text-sm font-bold text-slate-900 font-montserrat">Industries</span>
+                    {isIndustryOpen ? (
+                      <ChevronUp className="w-4 h-4 text-slate-400" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-slate-400" />
+                    )}
+                  </button>
+
+                  {isIndustryOpen && (
+                    <div className="pt-1">
+                      <select
+                        value={selectedIndustry}
+                        onChange={(e) => {
+                          setSelectedIndustry(e.target.value);
+                          setVisibleCount(6);
+                        }}
+                        className="w-full bg-white border border-slate-200 rounded-lg p-2.5 text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-slate-400 font-medium cursor-pointer"
+                      >
+                        <option value="All Industries">All Industries</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Executive">Executive</option>
+                        <option value="Design">Design</option>
+                        <option value="Business">Business</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Creative">Creative</option>
+                        <option value="Education">Education</option>
+                      </select>
+                    </div>
+                  )}
+                </div>
               </div>
 
-              {/* Reset Filters Button */}
-              <div className="pt-4 border-t border-slate-200/80">
+              {/* Reset Filters Button (Anchored cleanly at bottom) */}
+              <div className="pt-6 border-t border-slate-200/80 mt-8">
                 <button
                   onClick={handleResetFilters}
                   className="w-full bg-white hover:bg-slate-100 text-slate-700 font-medium py-2.5 px-4 rounded-xl border border-slate-200/90 transition-colors text-xs sm:text-sm flex items-center justify-center space-x-2 shadow-xs"
