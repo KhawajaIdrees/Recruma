@@ -379,8 +379,8 @@ export default function TemplatesPage() {
                   Professional templates designed to showcase your skills and help you land your dream job.
                 </p>
 
-                {/* Feature Cards Row (Centered for Mobile, Tablet & Laptop) */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                {/* Feature Cards Row (Hidden on Mobile view, visible on Tablet & Laptop) */}
+                <div className="hidden sm:grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                   {/* Feature 1 */}
                   <div className="flex flex-col items-center justify-center text-center bg-white p-4 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-md transition-all">
                     <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white mb-2.5 shrink-0">
@@ -755,18 +755,11 @@ export default function TemplatesPage() {
                           </div>
                         </div>
 
-                        {/* Tag Pill & Mobile Action Button */}
+                        {/* Tag Pill */}
                         <div className="pt-2 flex items-center justify-between">
                           <span className="inline-block bg-slate-100 text-slate-700 text-[11px] font-medium px-2.5 py-1 rounded-md border border-slate-200/70">
                             {template.tag}
                           </span>
-
-                          <button
-                            onClick={() => handleUseTemplate(template.id)}
-                            className="sm:hidden text-xs font-bold text-slate-900 hover:text-slate-700 underline underline-offset-2 font-montserrat"
-                          >
-                            Use →
-                          </button>
                         </div>
                       </div>
                     </div>
