@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
+import FeaturesSection from "@/components/FeaturesSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import {
@@ -378,39 +379,33 @@ export default function TemplatesPage() {
                   Professional templates designed to showcase your skills and help you land your dream job.
                 </p>
 
-                {/* Feature Cards Row */}
+                {/* Feature Cards Row (Centered for Mobile, Tablet & Laptop) */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                   {/* Feature 1 */}
-                  <div className="flex items-start space-x-3 bg-white p-3.5 rounded-xl border border-slate-200/70 shadow-xs">
-                    <div className="p-2.5 bg-slate-100/90 rounded-lg text-slate-900 shrink-0">
-                      <LayoutGrid className="w-5 h-5" />
+                  <div className="flex flex-col items-center justify-center text-center bg-white p-4 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-md transition-all">
+                    <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white mb-2.5 shrink-0">
+                      <LayoutGrid className="w-5 h-5 text-white" />
                     </div>
-                    <div>
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 font-montserrat">Modern Designs</h4>
-                      <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-tight">Clean and professional layouts</p>
-                    </div>
+                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 font-montserrat text-center">Modern Designs</h4>
+                    <p className="text-[11px] sm:text-xs text-slate-500 mt-1 leading-normal text-center">Clean and professional layouts</p>
                   </div>
 
                   {/* Feature 2 */}
-                  <div className="flex items-start space-x-3 bg-white p-3.5 rounded-xl border border-slate-200/70 shadow-xs">
-                    <div className="p-2.5 bg-slate-100/90 rounded-lg text-slate-900 shrink-0">
-                      <Smartphone className="w-5 h-5" />
+                  <div className="flex flex-col items-center justify-center text-center bg-white p-4 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-md transition-all">
+                    <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white mb-2.5 shrink-0">
+                      <Smartphone className="w-5 h-5 text-white" />
                     </div>
-                    <div>
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 font-montserrat">ATS Friendly</h4>
-                      <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-tight">Optimized to pass ATS scans</p>
-                    </div>
+                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 font-montserrat text-center">ATS Friendly</h4>
+                    <p className="text-[11px] sm:text-xs text-slate-500 mt-1 leading-normal text-center">Optimized to pass ATS scans</p>
                   </div>
 
                   {/* Feature 3 */}
-                  <div className="flex items-start space-x-3 bg-white p-3.5 rounded-xl border border-slate-200/70 shadow-xs">
-                    <div className="p-2.5 bg-slate-100/90 rounded-lg text-slate-900 shrink-0">
-                      <Palette className="w-5 h-5" />
+                  <div className="flex flex-col items-center justify-center text-center bg-white p-4 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-md transition-all">
+                    <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white mb-2.5 shrink-0">
+                      <Palette className="w-5 h-5 text-white" />
                     </div>
-                    <div>
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 font-montserrat">Easy Customization</h4>
-                      <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-tight">Fully customizable to match your style</p>
-                    </div>
+                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 font-montserrat text-center">Easy Customization</h4>
+                    <p className="text-[11px] sm:text-xs text-slate-500 mt-1 leading-normal text-center">Fully customizable to match your style</p>
                   </div>
                 </div>
               </div>
@@ -869,6 +864,9 @@ export default function TemplatesPage() {
           )}
 
 
+
+          {/* FEATURES SECTION */}
+          <FeaturesSection />
 
           {/* FAQ SECTION */}
           <FAQSection />

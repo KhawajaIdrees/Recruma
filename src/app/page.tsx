@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import HeroSection from "@/components/HeroSection";
+import FeaturesSection from "@/components/FeaturesSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import { 
@@ -82,61 +83,9 @@ export default function Home() {
               </h2>
             </div>
 
-            {/* 4 Feature Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-              
-              {/* Feature 1 */}
-              <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
-                <div className="w-12 h-12 bg-[#0f172a] rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-105 transition-transform">
-                  <Sparkles className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 font-montserrat mb-2">
-                  AI-Powered Suggestions
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  Get smart content suggestions and improve your resume with AI recommendations.
-                </p>
-              </div>
-
-              {/* Feature 2 */}
-              <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
-                <div className="w-12 h-12 bg-[#0f172a] rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-105 transition-transform">
-                  <ShieldCheck className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 font-montserrat mb-2">
-                  ATS Friendly
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  Our templates are optimized to pass ATS scans and get you noticed.
-                </p>
-              </div>
-
-              {/* Feature 3 */}
-              <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
-                <div className="w-12 h-12 bg-[#0f172a] rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-105 transition-transform">
-                  <Edit3 className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 font-montserrat mb-2">
-                  Beautiful Templates
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  Choose from professionally designed templates that stand out.
-                </p>
-              </div>
-
-              {/* Feature 4 */}
-              <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
-                <div className="w-12 h-12 bg-[#0f172a] rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-105 transition-transform">
-                  <Download className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 font-montserrat mb-2">
-                  Instant Download
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  Download your resume in PDF format and apply with confidence.
-                </p>
-              </div>
-
+            {/* 4 Centered Feature Cards Component */}
+            <div className="-mt-6">
+              <FeaturesSection />
             </div>
           </div>
         </section>
