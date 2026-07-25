@@ -425,15 +425,14 @@ export default function TemplatesPage() {
                 </div>
 
                 {/* Overlapping Resume Cards Mockup with Interactive Hover */}
-                <div className="relative w-full max-w-xs sm:max-w-md h-72 sm:h-80 flex items-center justify-center py-4">
+                <div className="relative w-full max-w-xs sm:max-w-md h-72 sm:h-80 flex items-center justify-center py-4 select-none pointer-events-auto">
                   {/* Template Card 1 (Modern Professional) */}
                   <div 
                     onMouseEnter={() => setHoveredHeroCard(1)}
-                    onClick={() => setPreviewTemplate(TEMPLATES_DATA[0])}
-                    className={`absolute transform transition-all duration-300 ease-out cursor-pointer p-2.5 bg-white rounded-xl border border-slate-200/90 overflow-hidden w-56 sm:w-68 h-72 sm:h-80 ${
+                    className={`absolute transform transition-all duration-300 ease-out p-2.5 bg-white rounded-xl border border-slate-200/90 overflow-hidden w-56 sm:w-68 h-72 sm:h-80 ${
                       hoveredHeroCard === 1 
                         ? "z-20 -translate-x-4 sm:-translate-x-6 translate-y-1 -rotate-2 scale-105 shadow-2xl ring-2 ring-slate-900/10" 
-                        : "z-10 -translate-x-2 sm:-translate-x-3 translate-y-3 -rotate-4 scale-95 opacity-90 shadow-md hover:opacity-100"
+                        : "z-10 -translate-x-2 sm:-translate-x-3 translate-y-3 -rotate-4 scale-95 opacity-90 shadow-md"
                     }`}
                   >
                     <img 
@@ -446,11 +445,10 @@ export default function TemplatesPage() {
                   {/* Template Card 2 (Executive Classic) */}
                   <div 
                     onMouseEnter={() => setHoveredHeroCard(2)}
-                    onClick={() => setPreviewTemplate(TEMPLATES_DATA[1])}
-                    className={`absolute transform transition-all duration-300 ease-out cursor-pointer p-2.5 bg-white rounded-xl border border-slate-200/90 overflow-hidden w-56 sm:w-68 h-72 sm:h-80 ${
+                    className={`absolute transform transition-all duration-300 ease-out p-2.5 bg-white rounded-xl border border-slate-200/90 overflow-hidden w-56 sm:w-68 h-72 sm:h-80 ${
                       hoveredHeroCard === 2 
                         ? "z-20 translate-x-4 sm:translate-x-6 -translate-y-1 rotate-2 scale-105 shadow-2xl ring-2 ring-slate-900/10" 
-                        : "z-10 translate-x-2 sm:translate-x-3 -translate-y-3 rotate-5 scale-95 opacity-90 shadow-md hover:opacity-100"
+                        : "z-10 translate-x-2 sm:translate-x-3 -translate-y-3 rotate-5 scale-95 opacity-90 shadow-md"
                     }`}
                   >
                     <img 
