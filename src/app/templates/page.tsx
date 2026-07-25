@@ -4,21 +4,21 @@ import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
-import { 
-  Star, 
-  Download, 
-  ArrowRight, 
-  LayoutGrid, 
-  Smartphone, 
-  Palette, 
-  ChevronDown, 
-  ChevronUp, 
-  RotateCcw, 
-  List, 
-  Filter, 
-  X, 
-  ArrowDown, 
-  FileText, 
+import {
+  Star,
+  Download,
+  ArrowRight,
+  LayoutGrid,
+  Smartphone,
+  Palette,
+  ChevronDown,
+  ChevronUp,
+  RotateCcw,
+  List,
+  Filter,
+  X,
+  ArrowDown,
+  FileText,
   Eye,
   ZoomIn,
   Sparkles,
@@ -360,19 +360,19 @@ export default function TemplatesPage() {
     <>
       <Navbar />
       <main className="min-h-screen pt-20 bg-white font-poppins">
-        
+
         {/* HERO SECTION */}
         <section className="bg-gradient-to-b from-slate-50/80 via-white to-white py-10 sm:py-16 border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              
+
               {/* Left Column: Hero Details */}
               <div className="lg:col-span-7 space-y-6 text-left">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight font-montserrat tracking-tight">
                   Find the Perfect <br className="hidden sm:inline" />
                   Resume Template
                 </h1>
-                
+
                 <p className="text-base sm:text-lg text-slate-600 max-w-xl font-normal leading-relaxed">
                   Professional templates designed to showcase your skills and help you land your dream job.
                 </p>
@@ -429,33 +429,31 @@ export default function TemplatesPage() {
                 {/* Overlapping Resume Cards Mockup with Interactive Hover */}
                 <div className="relative w-full max-w-xs sm:max-w-md h-72 sm:h-80 flex items-center justify-center py-4 select-none pointer-events-auto">
                   {/* Template Card 1 (Modern Professional) */}
-                  <div 
+                  <div
                     onMouseEnter={() => setHoveredHeroCard(1)}
-                    className={`absolute transform transition-all duration-300 ease-out p-2.5 bg-white rounded-xl border border-slate-200/90 overflow-hidden w-56 sm:w-68 h-72 sm:h-80 ${
-                      hoveredHeroCard === 1 
-                        ? "z-20 -translate-x-4 sm:-translate-x-6 translate-y-1 -rotate-2 scale-105 shadow-2xl ring-2 ring-slate-900/10" 
+                    className={`absolute transform transition-all duration-300 ease-out p-2.5 bg-white rounded-xl border border-slate-200/90 overflow-hidden w-56 sm:w-68 h-72 sm:h-80 ${hoveredHeroCard === 1
+                        ? "z-20 -translate-x-4 sm:-translate-x-6 translate-y-1 -rotate-2 scale-105 shadow-2xl ring-2 ring-slate-900/10"
                         : "z-10 -translate-x-2 sm:-translate-x-3 translate-y-3 -rotate-4 scale-95 opacity-90 shadow-md"
-                    }`}
+                      }`}
                   >
-                    <img 
-                      src="/template1.png" 
-                      alt="Modern Professional Resume Preview" 
+                    <img
+                      src="/template1.png"
+                      alt="Modern Professional Resume Preview"
                       className="w-full h-full object-contain object-top rounded shadow-xs"
                     />
                   </div>
 
                   {/* Template Card 2 (Executive Classic) */}
-                  <div 
+                  <div
                     onMouseEnter={() => setHoveredHeroCard(2)}
-                    className={`absolute transform transition-all duration-300 ease-out p-2.5 bg-white rounded-xl border border-slate-200/90 overflow-hidden w-56 sm:w-68 h-72 sm:h-80 ${
-                      hoveredHeroCard === 2 
-                        ? "z-20 translate-x-4 sm:translate-x-6 -translate-y-1 rotate-2 scale-105 shadow-2xl ring-2 ring-slate-900/10" 
+                    className={`absolute transform transition-all duration-300 ease-out p-2.5 bg-white rounded-xl border border-slate-200/90 overflow-hidden w-56 sm:w-68 h-72 sm:h-80 ${hoveredHeroCard === 2
+                        ? "z-20 translate-x-4 sm:translate-x-6 -translate-y-1 rotate-2 scale-105 shadow-2xl ring-2 ring-slate-900/10"
                         : "z-10 translate-x-2 sm:translate-x-3 -translate-y-3 rotate-5 scale-95 opacity-90 shadow-md"
-                    }`}
+                      }`}
                   >
-                    <img 
-                      src="/template2.png" 
-                      alt="Executive Classic Resume Preview" 
+                    <img
+                      src="/template2.png"
+                      alt="Executive Classic Resume Preview"
                       className="w-full h-full object-contain object-top rounded shadow-xs"
                     />
                   </div>
@@ -468,7 +466,7 @@ export default function TemplatesPage() {
 
         {/* MAIN TEMPLATES & FILTER SECTION */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-          
+
           {/* Top Control Bar (Count, Sort, Grid/List view toggle, Mobile Filter Toggle) */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
             <div className="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-start">
@@ -506,22 +504,20 @@ export default function TemplatesPage() {
                 <button
                   onClick={() => setViewMode("grid")}
                   aria-label="Grid View"
-                  className={`p-1.5 rounded-md transition-colors ${
-                    viewMode === "grid" 
-                      ? "bg-slate-900 text-white shadow-xs" 
+                  className={`p-1.5 rounded-md transition-colors ${viewMode === "grid"
+                      ? "bg-slate-900 text-white shadow-xs"
                       : "text-slate-600 hover:text-slate-900"
-                  }`}
+                    }`}
                 >
                   <LayoutGrid className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setViewMode("list")}
                   aria-label="List View"
-                  className={`p-1.5 rounded-md transition-colors ${
-                    viewMode === "list" 
-                      ? "bg-slate-900 text-white shadow-xs" 
+                  className={`p-1.5 rounded-md transition-colors ${viewMode === "list"
+                      ? "bg-slate-900 text-white shadow-xs"
                       : "text-slate-600 hover:text-slate-900"
-                  }`}
+                    }`}
                 >
                   <List className="w-4 h-4" />
                 </button>
@@ -531,12 +527,11 @@ export default function TemplatesPage() {
 
           {/* Main Grid: Sidebar + Templates Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-            
+
             {/* SIDEBAR FILTERS (Desktop & Mobile Drawer) */}
-            <aside 
-              className={`lg:col-span-3 bg-slate-50/70 p-5 sm:p-6 rounded-2xl border border-slate-200/80 flex flex-col justify-between ${
-                isMobileFilterOpen ? "flex" : "hidden lg:flex"
-              }`}
+            <aside
+              className={`lg:col-span-3 bg-slate-50/70 p-5 sm:p-6 rounded-2xl border border-slate-200/80 flex flex-col justify-between ${isMobileFilterOpen ? "flex" : "hidden lg:flex"
+                }`}
             >
               <div className="space-y-6">
                 <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
@@ -544,7 +539,7 @@ export default function TemplatesPage() {
                     FILTER TEMPLATES
                   </h3>
                   {isMobileFilterOpen && (
-                    <button 
+                    <button
                       onClick={() => setIsMobileFilterOpen(false)}
                       className="lg:hidden text-slate-500 hover:text-slate-900 p-1"
                     >
@@ -578,17 +573,15 @@ export default function TemplatesPage() {
                               setSelectedCategory(cat);
                               setVisibleCount(6);
                             }}
-                            className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs sm:text-sm transition-all ${
-                              isSelected
+                            className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs sm:text-sm transition-all ${isSelected
                                 ? "bg-slate-900 text-white font-medium shadow-xs"
                                 : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-900 font-normal"
-                            }`}
+                              }`}
                           >
                             <span>{cat}</span>
-                            <span 
-                              className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                                isSelected ? "bg-slate-800 text-white" : "text-slate-400 bg-slate-100"
-                              }`}
+                            <span
+                              className={`text-xs px-2 py-0.5 rounded-full font-medium ${isSelected ? "bg-slate-800 text-white" : "text-slate-400 bg-slate-100"
+                                }`}
                             >
                               {count}
                             </span>
@@ -690,8 +683,8 @@ export default function TemplatesPage() {
             </aside>
 
             {/* RIGHT SIDE: TEMPLATES SHOWCASE GRID */}
-            <div className="lg:col-span-9 space-y-8">
-              
+            <div className="lg:col-span-9">
+
               {displayedTemplates.length === 0 ? (
                 <div className="text-center py-16 bg-slate-50 rounded-2xl border border-slate-200">
                   <FileText className="w-12 h-12 text-slate-400 mx-auto mb-3" />
@@ -713,7 +706,7 @@ export default function TemplatesPage() {
                       className="group bg-white rounded-2xl border border-slate-200/90 hover:border-slate-400 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between"
                     >
                       {/* Image Preview Box (Full Template Displayed with aspect ratio & object-contain) */}
-                      <div 
+                      <div
                         onClick={() => setPreviewTemplate(template)}
                         className="bg-slate-50 p-3 sm:p-4 relative border-b border-slate-100 flex items-center justify-center h-80 sm:h-96 lg:h-[26rem] overflow-hidden cursor-pointer"
                       >
@@ -803,7 +796,7 @@ export default function TemplatesPage() {
                       key={template.id}
                       className="group bg-white rounded-2xl border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-lg transition-all duration-300 p-4 flex flex-col sm:flex-row items-center gap-6"
                     >
-                      <div 
+                      <div
                         onClick={() => setPreviewTemplate(template)}
                         className="w-full sm:w-48 h-64 bg-slate-50 rounded-xl overflow-hidden border border-slate-200 p-2 shrink-0 relative cursor-pointer flex items-center justify-center"
                       >
@@ -857,22 +850,24 @@ export default function TemplatesPage() {
                 </div>
               )}
 
-              {/* Load More Button */}
-              {visibleCount < filteredTemplates.length && (
-                <div className="pt-6 text-center">
-                  <button
-                    onClick={() => setVisibleCount((prev) => Math.min(prev + 6, filteredTemplates.length))}
-                    className="inline-flex items-center justify-center space-x-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-6 py-3 rounded-xl border border-slate-200/80 transition-all text-sm shadow-xs cursor-pointer font-montserrat"
-                  >
-                    <span>Load More Templates</span>
-                    <ArrowDown className="w-4 h-4 text-slate-600" />
-                  </button>
-                </div>
-              )}
-
             </div>
 
           </div>
+
+          {/* Load More Button (Placed below both sidebar and templates grid, aligned before CTA section) */}
+          {visibleCount < filteredTemplates.length && (
+            <div className="pt-10 text-center">
+              <button
+                onClick={() => setVisibleCount((prev) => Math.min(prev + 6, filteredTemplates.length))}
+                className="inline-flex items-center justify-center space-x-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-6 py-3 rounded-xl border border-slate-200/80 transition-all text-sm shadow-xs cursor-pointer font-montserrat"
+              >
+                <span>Load More Templates</span>
+                <ArrowDown className="w-4 h-4 text-slate-600" />
+              </button>
+            </div>
+          )}
+
+
 
           {/* BOTTOM CTA BANNER SECTION */}
           <div className="mt-16 bg-slate-100/80 border border-slate-200/70 rounded-2xl p-6 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
@@ -904,11 +899,11 @@ export default function TemplatesPage() {
 
       {/* CRYSTAL CLEAR HIGH-RES LIGHTBOX MODAL */}
       {previewTemplate && (
-        <div 
+        <div
           className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-hidden"
           onClick={() => setPreviewTemplate(null)}
         >
-          <div 
+          <div
             className="bg-white rounded-3xl max-w-4xl w-full max-h-[94vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden relative animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
