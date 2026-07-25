@@ -240,11 +240,13 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Hand-drawn curly arrow stroke at bottom right */}
-            <div className="absolute -bottom-8 -right-4 pointer-events-none text-slate-400 hidden sm:block">
-              <svg width="60" height="60" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                <path d="M 20 80 Q 50 10, 80 40 T 70 70" />
-                <path d="M 60 75 L 70 70 L 75 80" />
+            {/* Proper arrow pointing from bottom right corner to upward right top corner */}
+            <div className="absolute -bottom-10 -right-8 pointer-events-none text-slate-700 hidden sm:block">
+              <svg width="85" height="85" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                {/* Curve from bottom right (85,85) pointing up to top right (20,20) */}
+                <path d="M 85 85 C 80 50, 60 25, 20 20" />
+                {/* Arrowhead pointing up-left */}
+                <path d="M 32 12 L 18 20 L 28 32" />
               </svg>
             </div>
 

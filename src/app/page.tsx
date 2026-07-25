@@ -153,13 +153,16 @@ export default function Home() {
                         setActiveTemplateIndex(idx);
                         setSelectedTemplate(tpl);
                       }}
-                      className="relative aspect-[1/1.414] bg-slate-50 rounded-xl overflow-hidden border border-slate-200/70 shadow-sm flex items-center justify-center group/zoom cursor-pointer"
+                      className="relative aspect-[1/1.414] bg-slate-50 rounded-xl overflow-hidden border border-slate-200/70 p-1.5 shadow-sm flex items-center justify-center group/zoom cursor-pointer"
                     >
                       <img
                         src={tpl.image}
                         alt={tpl.name}
-                        className="w-full h-full object-cover object-top origin-top group-hover/card:scale-125 transition-transform duration-500 ease-out"
+                        className="w-full h-full object-contain object-top group-hover/card:scale-105 transition-transform duration-500 ease-out"
                         loading="eager"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = '/template1.png';
+                        }}
                       />
                       
                       {/* Desktop Hover Overlay with Preview Button Only */}
