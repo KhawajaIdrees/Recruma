@@ -14,7 +14,7 @@ export default function HeroSection() {
 
             {/* Top Pill Tag */}
             <div className="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-full border border-slate-200 shadow-sm">
-              <Sparkles className="w-4 h-4 text-slate-700" />
+              
               <span className="text-xs sm:text-sm font-medium text-slate-700 font-poppins">
                 AI-Powered Resume Builder
               </span>
