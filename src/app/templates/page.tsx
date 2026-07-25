@@ -20,7 +20,9 @@ import {
   ArrowDown, 
   FileText, 
   Eye,
-  ZoomIn
+  ZoomIn,
+  Sparkles,
+  ShieldCheck
 } from "lucide-react";
 import Link from "next/link";
 
