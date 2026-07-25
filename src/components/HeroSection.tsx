@@ -8,10 +8,10 @@ export default function HeroSection() {
     <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 overflow-hidden bg-slate-50/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
+
           {/* Left Column: Text & CTA */}
           <div className="lg:col-span-6 space-y-6">
-            
+
             {/* Top Pill Tag */}
             <div className="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-full border border-slate-200 shadow-sm">
               <Sparkles className="w-4 h-4 text-slate-700" />
@@ -40,7 +40,7 @@ export default function HeroSection() {
                 <span>Start Building</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-              
+
               <Link
                 href="/templates"
                 className="bg-white text-slate-900 border border-slate-300 px-6 py-3.5 rounded-xl font-medium text-sm sm:text-base inline-flex items-center gap-2 hover:bg-slate-50 transition-all font-poppins"
@@ -58,14 +58,14 @@ export default function HeroSection() {
                 </span>
                 <span>Free Templates</span>
               </div>
-              
+
               <div className="flex items-center gap-2">
                 <span className="w-4 h-4 rounded-full border border-slate-400 flex items-center justify-center text-[10px] font-bold text-slate-700">
                   <Check className="w-2.5 h-2.5" />
                 </span>
                 <span>AI Optimization</span>
               </div>
-              
+
               <div className="flex items-center gap-2">
                 <span className="w-4 h-4 rounded-full border border-slate-400 flex items-center justify-center text-[10px] font-bold text-slate-700">
                   <Check className="w-2.5 h-2.5" />
@@ -106,10 +106,10 @@ export default function HeroSection() {
 
           {/* Right Column: Interactive Resume Card Replica */}
           <div className="lg:col-span-6 relative flex justify-center lg:justify-end">
-            
+
             {/* Soft decorative background glow & dotted pattern */}
             <div className="absolute -top-10 -right-10 w-48 h-48 bg-blue-100/60 rounded-full blur-3xl -z-10 pointer-events-none" />
-            
+
             {/* Dotted Grid Pattern in Top Right */}
             <div className="absolute -top-6 -right-6 grid grid-cols-6 gap-2 opacity-25 -z-10 hidden sm:grid">
               {Array.from({ length: 24 }).map((_, i) => (
@@ -120,7 +120,7 @@ export default function HeroSection() {
             {/* Resume Card Container */}
             <div className="w-full max-w-[530px] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden text-slate-800 text-xs font-poppins relative">
               <div className="grid grid-cols-12 min-h-[580px]">
-                
+
                 {/* Left Sidebar (Dark Blue/Navy) */}
                 <div className="col-span-2 bg-[#0f172a] text-slate-300 p-3 flex flex-col items-center space-y-6 pt-6">
                   <div className="p-1.5 bg-slate-800 rounded-lg text-white">
@@ -148,7 +148,7 @@ export default function HeroSection() {
 
                 {/* Right Resume Content Area */}
                 <div className="col-span-10 p-5 sm:p-6 space-y-5 bg-white">
-                  
+
                   {/* Name & Header */}
                   <div>
                     <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-montserrat">
@@ -240,16 +240,16 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Proper arrow pointing from bottom right corner to upward right top corner */}
-            <div className="absolute -bottom-10 -right-8 pointer-events-none text-slate-700 hidden sm:block">
-              <svg width="85" height="85" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                {/* Curve from bottom right (85,85) pointing up to top right (20,20) */}
-                <path d="M 85 85 C 80 50, 60 25, 20 20" />
-                {/* Arrowhead pointing up-left */}
-                <path d="M 32 12 L 18 20 L 28 32" />
+            {/* Hand-drawn curly upward arrow at bottom right corner of Khawaja Idrees template card */}
+            <div className="absolute -bottom-12 -right-8 pointer-events-none text-slate-600 hidden sm:block">
+              <svg width="90" height="140" viewBox="0 0 100 140" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                {/* Smooth curling line from loop to upward arrow */}
+                <path d="M 20 120 C 15 100, 20 85, 35 80 C 50 75, 45 95, 55 85 C 70 70, 75 45, 78 20" />
+
+                {/* Arrowhead pointing upward right */}
+                <path d="M 65 35 L 78 20 L 88 32" />
               </svg>
             </div>
-
           </div>
 
         </div>
