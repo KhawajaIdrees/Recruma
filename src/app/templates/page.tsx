@@ -19,7 +19,8 @@ import {
   X, 
   ArrowDown, 
   FileText, 
-  Check 
+  Eye,
+  ZoomIn
 } from "lucide-react";
 import Link from "next/link";
 
@@ -266,12 +267,15 @@ export default function TemplatesPage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [visibleCount, setVisibleCount] = useState<number>(6);
 
+  // High-Res Lightbox Modal State
+  const [previewTemplate, setPreviewTemplate] = useState<TemplateItem | null>(null);
+
   // Accordion Expand/Collapse States for Sidebar
   const [isCategoryOpen, setIsCategoryOpen] = useState<boolean>(true);
   const [isExpOpen, setIsExpOpen] = useState<boolean>(true);
   const [isIndustryOpen, setIsIndustryOpen] = useState<boolean>(true);
 
-  // Mobile Filter Drawer / Toggle state
+  // Mobile Filter Drawer State
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState<boolean>(false);
 
   const handleUseTemplate = (templateNumber: number) => {
@@ -331,7 +335,6 @@ export default function TemplatesPage() {
       if (sortBy === "Newest") {
         return b.id - a.id;
       }
-      // Default: Popular (id order)
       return a.id - b.id;
     });
   }, [selectedCategory, selectedExpLevels, selectedIndustry, sortBy]);
@@ -352,8 +355,9 @@ export default function TemplatesPage() {
     <>
       <Navbar />
       <main className="min-h-screen pt-20 bg-white font-poppins">
+        
         {/* HERO SECTION */}
-        <section className="bg-gradient-to-b from-slate-50/80 via-white to-white py-12 sm:py-16 border-b border-slate-100">
+        <section className="bg-gradient-to-b from-slate-50/80 via-white to-white py-10 sm:py-16 border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               
@@ -369,9 +373,9 @@ export default function TemplatesPage() {
                 </p>
 
                 {/* Feature Cards Row */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                   {/* Feature 1 */}
-                  <div className="flex items-start space-x-3 bg-white p-3.5 rounded-xl border border-slate-200/70 shadow-sm">
+                  <div className="flex items-start space-x-3 bg-white p-3.5 rounded-xl border border-slate-200/70 shadow-xs">
                     <div className="p-2.5 bg-slate-100/90 rounded-lg text-slate-900 shrink-0">
                       <LayoutGrid className="w-5 h-5" />
                     </div>
@@ -382,7 +386,7 @@ export default function TemplatesPage() {
                   </div>
 
                   {/* Feature 2 */}
-                  <div className="flex items-start space-x-3 bg-white p-3.5 rounded-xl border border-slate-200/70 shadow-sm">
+                  <div className="flex items-start space-x-3 bg-white p-3.5 rounded-xl border border-slate-200/70 shadow-xs">
                     <div className="p-2.5 bg-slate-100/90 rounded-lg text-slate-900 shrink-0">
                       <Smartphone className="w-5 h-5" />
                     </div>
@@ -393,7 +397,7 @@ export default function TemplatesPage() {
                   </div>
 
                   {/* Feature 3 */}
-                  <div className="flex items-start space-x-3 bg-white p-3.5 rounded-xl border border-slate-200/70 shadow-sm">
+                  <div className="flex items-start space-x-3 bg-white p-3.5 rounded-xl border border-slate-200/70 shadow-xs">
                     <div className="p-2.5 bg-slate-100/90 rounded-lg text-slate-900 shrink-0">
                       <Palette className="w-5 h-5" />
                     </div>
@@ -410,30 +414,30 @@ export default function TemplatesPage() {
                 {/* Dot background pattern */}
                 <div className="absolute -top-6 -right-6 w-32 h-32 opacity-20 pointer-events-none hidden sm:block">
                   <svg width="120" height="120" fill="none" viewBox="0 0 120 120">
-                    <pattern id="dot-pattern" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+                    <pattern id="dot-pattern-hero" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
                       <circle cx="2" cy="2" r="2" className="text-slate-400" fill="currentColor" />
                     </pattern>
-                    <rect width="120" height="120" fill="url(#dot-pattern)" />
+                    <rect width="120" height="120" fill="url(#dot-pattern-hero)" />
                   </svg>
                 </div>
 
                 {/* Overlapping Resume Cards Mockup */}
-                <div className="relative w-full max-w-sm sm:max-w-md h-64 sm:h-80 flex items-center justify-center">
+                <div className="relative w-full max-w-xs sm:max-w-md h-72 sm:h-80 flex items-center justify-center">
                   {/* Background Resume Card */}
-                  <div className="absolute transform translate-x-6 -translate-y-3 rotate-6 w-52 sm:w-64 h-64 sm:h-80 bg-white rounded-xl shadow-md border border-slate-200/80 p-3 overflow-hidden transition-transform hover:rotate-3 duration-300">
+                  <div className="absolute transform translate-x-5 -translate-y-2 rotate-6 w-52 sm:w-64 h-72 sm:h-80 bg-white rounded-xl shadow-md border border-slate-200 p-2 overflow-hidden">
                     <img 
                       src="/template2.png" 
-                      alt="Resume Background Preview" 
-                      className="w-full h-full object-cover object-top opacity-90 rounded"
+                      alt="Resume Preview Background" 
+                      className="w-full h-full object-contain object-top rounded"
                     />
                   </div>
 
                   {/* Foreground Resume Card */}
-                  <div className="absolute transform -translate-x-4 translate-y-2 -rotate-3 w-56 sm:w-68 h-64 sm:h-80 bg-white rounded-xl shadow-xl border border-slate-200 p-3 overflow-hidden transition-transform hover:rotate-0 duration-300 z-10">
+                  <div className="absolute transform -translate-x-3 translate-y-2 -rotate-3 w-56 sm:w-68 h-72 sm:h-80 bg-white rounded-xl shadow-xl border border-slate-200 p-2 overflow-hidden z-10">
                     <img 
                       src="/template1.png" 
                       alt="Resume Preview Main" 
-                      className="w-full h-full object-cover object-top rounded"
+                      className="w-full h-full object-contain object-top rounded"
                     />
                   </div>
                 </div>
@@ -485,7 +489,7 @@ export default function TemplatesPage() {
                   aria-label="Grid View"
                   className={`p-1.5 rounded-md transition-colors ${
                     viewMode === "grid" 
-                      ? "bg-slate-900 text-white shadow-sm" 
+                      ? "bg-slate-900 text-white shadow-xs" 
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
@@ -496,7 +500,7 @@ export default function TemplatesPage() {
                   aria-label="List View"
                   className={`p-1.5 rounded-md transition-colors ${
                     viewMode === "list" 
-                      ? "bg-slate-900 text-white shadow-sm" 
+                      ? "bg-slate-900 text-white shadow-xs" 
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
@@ -556,7 +560,7 @@ export default function TemplatesPage() {
                           }}
                           className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs sm:text-sm transition-all ${
                             isSelected
-                              ? "bg-slate-900 text-white font-medium shadow-sm"
+                              ? "bg-slate-900 text-white font-medium shadow-xs"
                               : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-900 font-normal"
                           }`}
                         >
@@ -680,41 +684,65 @@ export default function TemplatesPage() {
                   </button>
                 </div>
               ) : viewMode === "grid" ? (
-                /* GRID VIEW (3 Columns on Desktop) */
+                /* GRID VIEW (Full Crisp Template Image Container with object-contain) */
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {displayedTemplates.map((template) => (
                     <div
                       key={template.id}
-                      className="group bg-white rounded-2xl border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between"
+                      className="group bg-white rounded-2xl border border-slate-200/90 hover:border-slate-400 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between"
                     >
-                      {/* Image Preview Box */}
-                      <div className="bg-slate-50/70 p-4 relative border-b border-slate-100 flex justify-center items-center h-72 sm:h-80 overflow-hidden">
-                        <div className="w-full h-full bg-white rounded-lg shadow-sm border border-slate-200/70 overflow-hidden flex items-center justify-center relative">
+                      {/* Image Preview Box (Full Template Displayed with aspect ratio & object-contain) */}
+                      <div 
+                        onClick={() => setPreviewTemplate(template)}
+                        className="bg-slate-50 p-3 sm:p-4 relative border-b border-slate-100 flex items-center justify-center h-80 sm:h-96 lg:h-[26rem] overflow-hidden cursor-pointer"
+                      >
+                        <div className="w-full h-full bg-white rounded-xl shadow-md border border-slate-200/80 p-2 overflow-hidden flex items-center justify-center relative group/img">
                           <img
                             src={template.image}
                             alt={template.name}
-                            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                            loading="lazy"
+                            className="w-full h-full object-contain object-top group-hover/img:scale-105 transition-transform duration-500"
+                            loading="eager"
                             onError={(e) => {
                               (e.target as HTMLImageElement).src = '/template1.png';
                             }}
                           />
-                        </div>
 
-                        {/* Hover Overlay Button */}
-                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
-                          <button
-                            onClick={() => handleUseTemplate(template.id)}
-                            className="bg-slate-900 hover:bg-slate-800 text-white font-medium px-5 py-2.5 rounded-xl shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 flex items-center space-x-2 text-sm"
-                          >
-                            <span>Use Template</span>
-                            <ArrowRight className="w-4 h-4" />
-                          </button>
+                          {/* Hover Overlay with Preview & Use Actions */}
+                          <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2.5 p-4 backdrop-blur-[2px]">
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setPreviewTemplate(template);
+                              }}
+                              className="w-full max-w-[160px] bg-white text-slate-900 text-xs font-bold py-2.5 px-4 rounded-xl shadow-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-2 font-montserrat"
+                            >
+                              <Eye className="w-4 h-4 text-slate-800" />
+                              <span>Preview Full</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleUseTemplate(template.id);
+                              }}
+                              className="w-full max-w-[160px] bg-slate-900 text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-lg hover:bg-slate-800 transition-all flex items-center justify-center gap-2 font-montserrat"
+                            >
+                              <Download className="w-4 h-4" />
+                              <span>Use Template</span>
+                            </button>
+                          </div>
+
+                          {/* Zoom Badge Icon */}
+                          <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm p-1.5 rounded-lg text-slate-700 shadow-sm opacity-80 group-hover/img:opacity-0 transition-opacity">
+                            <ZoomIn className="w-3.5 h-3.5" />
+                          </div>
                         </div>
                       </div>
 
-                      {/* Card Content Footer */}
-                      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                      {/* Card Details Footer */}
+                      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between bg-white">
                         <div>
                           {/* Title & Rating */}
                           <div className="flex items-center justify-between gap-2 mb-1.5">
@@ -729,11 +757,18 @@ export default function TemplatesPage() {
                           </div>
                         </div>
 
-                        {/* Tag Pill */}
-                        <div className="pt-2">
-                          <span className="inline-block bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded-md border border-slate-200/60">
+                        {/* Tag Pill & Mobile Action Button */}
+                        <div className="pt-2 flex items-center justify-between">
+                          <span className="inline-block bg-slate-100 text-slate-700 text-[11px] font-medium px-2.5 py-1 rounded-md border border-slate-200/70">
                             {template.tag}
                           </span>
+
+                          <button
+                            onClick={() => handleUseTemplate(template.id)}
+                            className="sm:hidden text-xs font-bold text-slate-900 hover:text-slate-700 underline underline-offset-2 font-montserrat"
+                          >
+                            Use →
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -747,11 +782,14 @@ export default function TemplatesPage() {
                       key={template.id}
                       className="group bg-white rounded-2xl border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-lg transition-all duration-300 p-4 flex flex-col sm:flex-row items-center gap-6"
                     >
-                      <div className="w-full sm:w-44 h-48 bg-slate-50 rounded-xl overflow-hidden border border-slate-200 shrink-0 relative">
+                      <div 
+                        onClick={() => setPreviewTemplate(template)}
+                        className="w-full sm:w-48 h-64 bg-slate-50 rounded-xl overflow-hidden border border-slate-200 p-2 shrink-0 relative cursor-pointer flex items-center justify-center"
+                      >
                         <img
                           src={template.image}
                           alt={template.name}
-                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-contain object-top group-hover:scale-105 transition-transform duration-300"
                         />
                       </div>
                       <div className="flex-1 space-y-2 text-left w-full">
@@ -777,10 +815,17 @@ export default function TemplatesPage() {
                           </span>
                         </div>
                       </div>
-                      <div className="w-full sm:w-auto shrink-0 pt-2 sm:pt-0">
+                      <div className="w-full sm:w-auto shrink-0 pt-2 sm:pt-0 flex flex-row sm:flex-col gap-2">
+                        <button
+                          onClick={() => setPreviewTemplate(template)}
+                          className="flex-1 sm:flex-none border border-slate-300 text-slate-800 font-medium px-4 py-2 rounded-xl text-xs sm:text-sm hover:bg-slate-50 transition-all flex items-center justify-center gap-1.5"
+                        >
+                          <Eye className="w-4 h-4" />
+                          <span>Preview</span>
+                        </button>
                         <button
                           onClick={() => handleUseTemplate(template.id)}
-                          className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-medium px-5 py-2.5 rounded-xl shadow-md transition-all text-sm flex items-center justify-center space-x-2"
+                          className="flex-1 sm:flex-none bg-slate-900 hover:bg-slate-800 text-white font-medium px-5 py-2.5 rounded-xl shadow-md transition-all text-xs sm:text-sm flex items-center justify-center space-x-2 font-montserrat"
                         >
                           <span>Use Template</span>
                           <ArrowRight className="w-4 h-4" />
@@ -796,7 +841,7 @@ export default function TemplatesPage() {
                 <div className="pt-6 text-center">
                   <button
                     onClick={() => setVisibleCount((prev) => Math.min(prev + 6, filteredTemplates.length))}
-                    className="inline-flex items-center justify-center space-x-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-6 py-3 rounded-xl border border-slate-200/80 transition-all text-sm shadow-xs cursor-pointer"
+                    className="inline-flex items-center justify-center space-x-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-6 py-3 rounded-xl border border-slate-200/80 transition-all text-sm shadow-xs cursor-pointer font-montserrat"
                   >
                     <span>Load More Templates</span>
                     <ArrowDown className="w-4 h-4 text-slate-600" />
@@ -835,6 +880,91 @@ export default function TemplatesPage() {
 
         </section>
       </main>
+
+      {/* CRYSTAL CLEAR HIGH-RES LIGHTBOX MODAL */}
+      {previewTemplate && (
+        <div 
+          className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-hidden"
+          onClick={() => setPreviewTemplate(null)}
+        >
+          <div 
+            className="bg-white rounded-3xl max-w-4xl w-full max-h-[94vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden relative animate-scale-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between bg-white shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-slate-100 rounded-xl text-slate-800">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-extrabold text-slate-900 font-montserrat">
+                    {previewTemplate.numberStr} {previewTemplate.name}
+                  </h3>
+                  <p className="text-xs text-slate-500 font-poppins">
+                    Full High-Resolution Resume Preview
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 sm:gap-3">
+                <button
+                  onClick={() => handleUseTemplate(previewTemplate.id)}
+                  className="bg-[#0f172a] text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold hover:bg-slate-800 transition-colors flex items-center justify-center font-montserrat shadow-sm"
+                >
+                  <span>Use Template</span>
+                </button>
+
+                <button
+                  onClick={() => setPreviewTemplate(null)}
+                  className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors"
+                  aria-label="Close preview"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Image Body (Fits whole template cleanly on screen) */}
+            <div className="p-3 sm:p-6 flex items-center justify-center bg-slate-100/60 flex-1 overflow-auto min-h-0">
+              <div className="bg-white p-2 rounded-2xl shadow-xl border border-slate-200 h-full max-h-[75vh] flex items-center justify-center">
+                <img
+                  src={previewTemplate.image}
+                  alt={previewTemplate.name}
+                  className="h-full w-auto max-h-[72vh] object-contain rounded-xl shadow-xs"
+                />
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="px-5 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between shrink-0 text-xs text-slate-600">
+              <span className="hidden sm:inline">ATS-Friendly & Fully Customizable</span>
+              <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+                <button
+                  onClick={() => {
+                    const prevIdx = (previewTemplate.id - 2 + TEMPLATES_DATA.length) % TEMPLATES_DATA.length;
+                    setPreviewTemplate(TEMPLATES_DATA[prevIdx]);
+                  }}
+                  className="px-3 py-1.5 border border-slate-300 rounded-lg hover:bg-white transition-colors"
+                >
+                  ← Previous
+                </button>
+                <button
+                  onClick={() => {
+                    const nextIdx = previewTemplate.id % TEMPLATES_DATA.length;
+                    setPreviewTemplate(TEMPLATES_DATA[nextIdx]);
+                  }}
+                  className="px-3 py-1.5 border border-slate-300 rounded-lg hover:bg-white transition-colors"
+                >
+                  Next →
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
+
       <Footer />
     </>
   );
