@@ -40,6 +40,7 @@ export default function Home() {
     { id: 3, name: "Template 3", title: "Jonathan Patterson - Corporate", image: "/template3.png" },
     { id: 4, name: "Template 4", title: "Ahmed Saah - Modern", image: "/template4.png" },
     { id: 5, name: "Template 5", title: "Daniel Gallego - Creative", image: "/template5.png" },
+    { id: 6, name: "Template 6", title: "Sofia Ramirez - Modern Executive", image: "/template6.png" },
   ];
 
   const handlePrevTemplate = () => {
@@ -132,12 +133,14 @@ export default function Home() {
                 <ChevronLeft className="w-5 h-5" />
               </button>
 
-              {/* Templates Showcase Grid/Row */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+              {/* Templates Showcase Grid/Row (Displays all 6 templates on mobile, tablet & laptop) */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-6">
                 {templates.map((tpl, idx) => (
                   <div
                     key={tpl.id}
-                    className={`bg-white rounded-2xl border transition-all duration-300 group/card flex flex-col p-2.5 sm:p-3 ${
+                    onClick={() => setActiveTemplateIndex(idx)}
+                    onMouseEnter={() => setActiveTemplateIndex(idx)}
+                    className={`bg-white rounded-2xl border transition-all duration-300 group/card flex flex-col p-2.5 sm:p-3 cursor-pointer ${
                       idx === activeTemplateIndex
                         ? "border-slate-900 ring-2 ring-slate-900/10 shadow-2xl scale-[1.02]"
                         : "border-slate-200/90 shadow-sm hover:shadow-xl hover:border-slate-400"
@@ -145,12 +148,12 @@ export default function Home() {
                   >
                     {/* Thumbnail Image Frame (A4 Aspect Ratio: 1 / 1.414) */}
                     <div 
-                      onClick={() => {
-                        if (typeof window !== "undefined" && window.innerWidth >= 640) {
-                          setSelectedTemplate(tpl);
-                        }
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveTemplateIndex(idx);
+                        setSelectedTemplate(tpl);
                       }}
-                      className="relative aspect-[1/1.414] bg-slate-50 rounded-xl overflow-hidden border border-slate-200/70 shadow-sm flex items-center justify-center group/zoom cursor-default sm:cursor-pointer"
+                      className="relative aspect-[1/1.414] bg-slate-50 rounded-xl overflow-hidden border border-slate-200/70 shadow-sm flex items-center justify-center group/zoom cursor-pointer"
                     >
                       <img
                         src={tpl.image}
