@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import HeroSection from "@/components/HeroSection";
+import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import { 
   Sparkles, 
@@ -590,6 +591,10 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ---------------------------------------------------- */}
+        {/* SECTION 5.5: FAQ SECTION */}
+        {/* ---------------------------------------------------- */}
+        <FAQSection />
 
         {/* ---------------------------------------------------- */}
         {/* SECTION 6: CTA BANNER */}

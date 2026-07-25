@@ -7,27 +7,27 @@ const faqs = [
   {
     question: "How to use Recruma - Resume Creator?",
     answer:
-      "Choose a template, fill in your personal details, experience, education, and skills, then download your polished resume as a PDF in minutes.",
+      "Select a professional template, customize your sections with our intuitive editor, and export your high-resolution ATS-friendly PDF resume in minutes.",
   },
   {
     question: "Why do I have to make a different resume for every job application?",
     answer:
-      "Tailoring your resume to each role helps highlight the skills and experience that match the job, which improves your chances of getting past ATS filters and impressing recruiters.",
+      "Tailoring your resume to each role highlights key skills matching the job description, significantly improving ATS pass rates and recruiter response times.",
   },
   {
     question: "Should I use a resume template in 2026?",
     answer:
-      "Yes. A clean, professional template saves time and keeps your layout ATS-friendly while still looking modern and easy to read.",
+      "Yes. Modern resume templates ensure proper visual hierarchy and clean formatting that seamlessly passes Applicant Tracking Systems (ATS) while looking executive-ready.",
   },
   {
     question: "Should my resume be in PDF or Word format?",
     answer:
-      "PDF is usually best—it preserves your formatting across devices. Use Word only if the employer specifically asks for it.",
+      "PDF is recommended because it preserves layout formatting across all operating systems and devices. Use Word only if explicitly requested by the employer.",
   },
   {
     question: "Should I send a cover letter with my resume?",
     answer:
-      "Yes, when possible. A short, targeted cover letter shows genuine interest and gives you space to explain why you're a strong fit for the role.",
+      "Yes, attaching a tailored cover letter demonstrates genuine interest, provides context for your career achievements, and sets you apart from competing candidates.",
   },
 ];
 
@@ -39,9 +39,9 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="py-16 sm:py-20 bg-white">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 text-center mb-10 sm:mb-14 font-montserrat">
+    <section className="py-16 sm:py-24 bg-white font-poppins">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 text-center mb-10 sm:mb-14 font-montserrat tracking-tight">
           Frequently asked questions from Recruma
         </h2>
 
@@ -50,26 +50,28 @@ export default function FAQSection() {
             const isOpen = openIndex === index;
 
             return (
-              <div key={faq.question} className="border-b border-slate-200">
+              <div key={faq.question} className="border-b border-slate-200/90 transition-colors">
                 <button
                   type="button"
                   onClick={() => toggle(index)}
-                  className="w-full flex items-center justify-between gap-4 py-5 text-left"
+                  className="w-full flex items-center justify-between gap-4 py-5 sm:py-6 text-left group cursor-pointer focus:outline-none"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-base sm:text-lg text-slate-900 font-poppins pr-2">
+                  <span className="text-base sm:text-lg lg:text-xl font-semibold text-slate-900 group-hover:text-slate-700 transition-colors pr-2 font-poppins">
                     {faq.question}
                   </span>
-                  {isOpen ? (
-                    <Minus className="w-5 h-5 text-slate-900 shrink-0" />
-                  ) : (
-                    <Plus className="w-5 h-5 text-slate-900 shrink-0" />
-                  )}
+                  <div className="text-slate-800 shrink-0">
+                    {isOpen ? (
+                      <Minus className="w-5 h-5 stroke-[2.5]" />
+                    ) : (
+                      <Plus className="w-5 h-5 stroke-[2.5]" />
+                    )}
+                  </div>
                 </button>
                 {isOpen && (
-                  <p className="pb-5 text-sm sm:text-base text-slate-600 leading-relaxed font-poppins">
+                  <div className="pb-6 pt-1 text-slate-600 text-sm sm:text-base leading-relaxed font-poppins">
                     {faq.answer}
-                  </p>
+                  </div>
                 )}
               </div>
             );
