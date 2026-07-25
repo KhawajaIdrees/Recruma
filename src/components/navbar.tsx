@@ -2,11 +2,22 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X, Moon } from "lucide-react";
 import Logo from "@/components/Logo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  const getLinkClasses = (path: string) => {
+    const isActive = pathname === path;
+    return `relative py-1 font-medium text-sm font-montserrat transition-colors ${
+      isActive 
+        ? "text-slate-900 font-semibold border-b-2 border-slate-900" 
+        : "text-slate-600 hover:text-slate-900"
+    }`;
+  };
 
   return (
     <nav className="bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-slate-200/80">
@@ -21,25 +32,25 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-8">
             <Link 
               href="/" 
-              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-montserrat"
+              className={getLinkClasses("/")}
             >
               Home
             </Link>
             <Link 
               href="/templates" 
-              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-montserrat"
+              className={getLinkClasses("/templates")}
             >
               Templates
             </Link>
             <Link 
               href="/how-it-works" 
-              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-montserrat"
+              className={getLinkClasses("/how-it-works")}
             >
               How It Works
             </Link>
             <Link 
               href="/about" 
-              className="text-slate-600 hover:text-slate-900 transition-colors font-medium text-sm font-montserrat"
+              className={getLinkClasses("/about")}
             >
               About Us
             </Link>
