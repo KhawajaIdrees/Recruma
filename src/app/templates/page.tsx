@@ -270,6 +270,9 @@ export default function TemplatesPage() {
   // High-Res Lightbox Modal State
   const [previewTemplate, setPreviewTemplate] = useState<TemplateItem | null>(null);
 
+  // Hero Card Hover State (1 = first card, 2 = second card)
+  const [hoveredHeroCard, setHoveredHeroCard] = useState<1 | 2>(1);
+
   // Accordion Expand/Collapse States for Sidebar
   const [isCategoryOpen, setIsCategoryOpen] = useState<boolean>(true);
   const [isExpOpen, setIsExpOpen] = useState<boolean>(true);
@@ -421,23 +424,39 @@ export default function TemplatesPage() {
                   </svg>
                 </div>
 
-                {/* Overlapping Resume Cards Mockup */}
-                <div className="relative w-full max-w-xs sm:max-w-md h-72 sm:h-80 flex items-center justify-center">
-                  {/* Background Resume Card */}
-                  <div className="absolute transform translate-x-5 -translate-y-2 rotate-6 w-52 sm:w-64 h-72 sm:h-80 bg-white rounded-xl shadow-md border border-slate-200 p-2 overflow-hidden">
+                {/* Overlapping Resume Cards Mockup with Interactive Hover */}
+                <div className="relative w-full max-w-xs sm:max-w-md h-72 sm:h-80 flex items-center justify-center py-4">
+                  {/* Template Card 1 (Modern Professional) */}
+                  <div 
+                    onMouseEnter={() => setHoveredHeroCard(1)}
+                    onClick={() => setPreviewTemplate(TEMPLATES_DATA[0])}
+                    className={`absolute transform transition-all duration-300 ease-out cursor-pointer p-2.5 bg-white rounded-xl border border-slate-200/90 overflow-hidden w-56 sm:w-68 h-72 sm:h-80 ${
+                      hoveredHeroCard === 1 
+                        ? "z-20 -translate-x-4 sm:-translate-x-6 translate-y-1 -rotate-2 scale-105 shadow-2xl ring-2 ring-slate-900/10" 
+                        : "z-10 -translate-x-2 sm:-translate-x-3 translate-y-3 -rotate-4 scale-95 opacity-90 shadow-md hover:opacity-100"
+                    }`}
+                  >
                     <img 
-                      src="/template2.png" 
-                      alt="Resume Preview Background" 
-                      className="w-full h-full object-contain object-top rounded"
+                      src="/template1.png" 
+                      alt="Modern Professional Resume Preview" 
+                      className="w-full h-full object-contain object-top rounded shadow-xs"
                     />
                   </div>
 
-                  {/* Foreground Resume Card */}
-                  <div className="absolute transform -translate-x-3 translate-y-2 -rotate-3 w-56 sm:w-68 h-72 sm:h-80 bg-white rounded-xl shadow-xl border border-slate-200 p-2 overflow-hidden z-10">
+                  {/* Template Card 2 (Executive Classic) */}
+                  <div 
+                    onMouseEnter={() => setHoveredHeroCard(2)}
+                    onClick={() => setPreviewTemplate(TEMPLATES_DATA[1])}
+                    className={`absolute transform transition-all duration-300 ease-out cursor-pointer p-2.5 bg-white rounded-xl border border-slate-200/90 overflow-hidden w-56 sm:w-68 h-72 sm:h-80 ${
+                      hoveredHeroCard === 2 
+                        ? "z-20 translate-x-4 sm:translate-x-6 -translate-y-1 rotate-2 scale-105 shadow-2xl ring-2 ring-slate-900/10" 
+                        : "z-10 translate-x-2 sm:translate-x-3 -translate-y-3 rotate-5 scale-95 opacity-90 shadow-md hover:opacity-100"
+                    }`}
+                  >
                     <img 
-                      src="/template1.png" 
-                      alt="Resume Preview Main" 
-                      className="w-full h-full object-contain object-top rounded"
+                      src="/template2.png" 
+                      alt="Executive Classic Resume Preview" 
+                      className="w-full h-full object-contain object-top rounded shadow-xs"
                     />
                   </div>
                 </div>
