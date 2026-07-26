@@ -29,10 +29,10 @@ export default function AboutPage() {
         {/* ---------------------------------------------------- */}
         {/* HERO SECTION */}
         {/* ---------------------------------------------------- */}
-        <section className="relative pt-24 pb-16 sm:pt-32 sm:pb-24 overflow-hidden bg-gradient-to-b from-slate-50/80 via-white to-white border-b border-slate-100">
+        <section className="relative pt-20 pb-16 sm:pt-28 sm:pb-20 overflow-hidden bg-gradient-to-b from-slate-50/80 via-white to-white border-b border-slate-100">
           
           {/* Decorative background glow */}
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl -z-10 pointer-events-none" />
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-100/40 rounded-full blur-3xl -z-10 pointer-events-none" />
 
           {/* Dotted Grid Pattern in Top Right */}
           <div className="absolute top-8 right-12 grid grid-cols-6 gap-2 opacity-20 -z-10 hidden sm:grid">
@@ -41,8 +41,8 @@ export default function AboutPage() {
             ))}
           </div>
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto space-y-6">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-4xl lg:max-w-5xl mx-auto space-y-6">
               
               {/* Top Pill Badge */}
               <div className="inline-block bg-slate-100/90 border border-slate-200/80 px-3.5 py-1 rounded-full text-xs font-bold text-slate-600 uppercase tracking-widest font-montserrat">
@@ -51,20 +51,19 @@ export default function AboutPage() {
 
               {/* Main Heading */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12] font-montserrat">
-                We help job seekers <br className="hidden sm:inline" />
-                build dream careers.
+                We help job seekers build dream careers.
               </h1>
 
               {/* Subtitle */}
-              <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-poppins max-w-2xl mx-auto">
+              <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-poppins max-w-3xl mx-auto">
                 Recruma was built with a single goal: to empower job seekers around the globe with simple, AI-powered tools and ATS-friendly resume templates.
               </p>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+              <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
                 <Link
                   href="/make"
-                  className="bg-[#0f172a] text-white px-6 py-3.5 rounded-xl font-medium text-sm sm:text-base inline-flex items-center gap-2.5 shadow-lg shadow-slate-900/10 hover:bg-slate-800 transition-all font-poppins group"
+                  className="bg-[#0f172a] text-white px-7 py-3.5 rounded-xl font-medium text-sm sm:text-base inline-flex items-center gap-2.5 shadow-lg shadow-slate-900/10 hover:bg-slate-800 transition-all font-poppins group"
                 >
                   <span>Start Building Now</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -72,7 +71,7 @@ export default function AboutPage() {
 
                 <Link
                   href="/templates"
-                  className="bg-white text-slate-900 border border-slate-300 px-6 py-3.5 rounded-xl font-medium text-sm sm:text-base inline-flex items-center gap-2 hover:bg-slate-50 transition-all font-poppins"
+                  className="bg-white text-slate-900 border border-slate-300 px-7 py-3.5 rounded-xl font-medium text-sm sm:text-base inline-flex items-center gap-2 hover:bg-slate-50 transition-all font-poppins"
                 >
                   <Sparkles className="w-4 h-4 text-slate-700" />
                   <span>Browse Templates</span>
@@ -80,7 +79,7 @@ export default function AboutPage() {
               </div>
 
               {/* Quick Highlight Feature Pills */}
-              <div className="flex flex-wrap items-center justify-center gap-6 pt-4 text-xs sm:text-sm text-slate-600 font-poppins">
+              <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 pt-4 text-xs sm:text-sm text-slate-600 font-poppins">
                 <div className="flex items-center gap-2">
                   <span className="w-4 h-4 rounded-full border border-slate-400 flex items-center justify-center text-[10px] font-bold text-slate-700">
                     <Check className="w-2.5 h-2.5" />
@@ -110,31 +109,31 @@ export default function AboutPage() {
         {/* ---------------------------------------------------- */}
         {/* OUR MISSION SECTION */}
         {/* ---------------------------------------------------- */}
-        <section className="py-20 bg-white border-b border-slate-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-12 gap-12 items-center">
+        <section className="py-16 sm:py-20 bg-white border-b border-slate-100">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               
               {/* Left Details */}
-              <div className="md:col-span-7 space-y-6">
+              <div className="lg:col-span-7 space-y-6">
                 <div className="inline-block bg-slate-100/90 border border-slate-200/80 px-3.5 py-1 rounded-full text-xs font-bold text-slate-600 uppercase tracking-widest font-montserrat">
                   OUR MISSION
                 </div>
                 
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-montserrat">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-montserrat leading-tight">
                   Empowering your professional journey with precision & simplicity
                 </h2>
 
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins">
+                <p className="text-slate-600 text-base leading-relaxed font-poppins">
                   At Recruma, we believe everyone deserves a resume that accurately reflects their unique talent, experience, and ambition. Crafting a standout resume shouldn&apos;t feel overwhelming or take hours of design tweak work.
                 </p>
 
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins">
+                <p className="text-slate-600 text-base leading-relaxed font-poppins">
                   We built our platform using modern AI technologies combined with professionally designed templates to democratize career growth. Whether you are a college graduate or an experienced senior leader, Recruma gives you the edge you need.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                  <div className="flex items-start space-x-3 bg-slate-50 p-4 rounded-xl border border-slate-200/80">
-                    <div className="w-8 h-8 bg-[#0f172a] rounded-lg flex items-center justify-center text-white shrink-0 mt-0.5">
+                  <div className="flex items-start space-x-3 bg-slate-50 p-4.5 rounded-xl border border-slate-200/80">
+                    <div className="w-9 h-9 bg-[#0f172a] rounded-lg flex items-center justify-center text-white shrink-0 mt-0.5">
                       <Target className="w-4 h-4 text-white" />
                     </div>
                     <div>
@@ -143,8 +142,8 @@ export default function AboutPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-3 bg-slate-50 p-4 rounded-xl border border-slate-200/80">
-                    <div className="w-8 h-8 bg-[#0f172a] rounded-lg flex items-center justify-center text-white shrink-0 mt-0.5">
+                  <div className="flex items-start space-x-3 bg-slate-50 p-4.5 rounded-xl border border-slate-200/80">
+                    <div className="w-9 h-9 bg-[#0f172a] rounded-lg flex items-center justify-center text-white shrink-0 mt-0.5">
                       <ShieldCheck className="w-4 h-4 text-white" />
                     </div>
                     <div>
@@ -156,7 +155,7 @@ export default function AboutPage() {
               </div>
 
               {/* Right Stat Cards */}
-              <div className="md:col-span-5 relative">
+              <div className="lg:col-span-5 relative">
                 <div className="bg-slate-50/80 rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-xs space-y-4">
                   
                   {/* Stat Card 1 */}
@@ -202,11 +201,11 @@ export default function AboutPage() {
         {/* ---------------------------------------------------- */}
         {/* OUR CORE VALUES */}
         {/* ---------------------------------------------------- */}
-        <section className="py-20 bg-slate-50/50 border-b border-slate-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-16 sm:py-20 bg-slate-50/50 border-b border-slate-100">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             {/* Header */}
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="text-center max-w-4xl mx-auto mb-14">
               <div className="inline-block bg-slate-100/90 border border-slate-200/80 px-3.5 py-1 rounded-full text-xs font-bold text-slate-600 uppercase tracking-widest font-montserrat mb-3">
                 OUR VALUES
               </div>
@@ -278,11 +277,11 @@ export default function AboutPage() {
         {/* ---------------------------------------------------- */}
         {/* OUR STORY SECTION */}
         {/* ---------------------------------------------------- */}
-        <section className="py-20 bg-white border-b border-slate-100">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-16 sm:py-20 bg-white border-b border-slate-100">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             {/* Header */}
-            <div className="text-center max-w-3xl mx-auto mb-12">
+            <div className="text-center max-w-4xl mx-auto mb-14">
               <div className="inline-block bg-slate-100/90 border border-slate-200/80 px-3.5 py-1 rounded-full text-xs font-bold text-slate-600 uppercase tracking-widest font-montserrat mb-3">
                 OUR STORY
               </div>
@@ -291,49 +290,49 @@ export default function AboutPage() {
               </h2>
             </div>
 
-            {/* Structured Story Cards */}
-            <div className="space-y-6">
+            {/* 3 Story Cards Grid (Fills full width smoothly across screen) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
               
-              <div className="bg-slate-50/60 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-xl bg-[#0f172a] flex items-center justify-center text-white shrink-0">
-                    <Compass className="w-4 h-4 text-white" />
+              <div className="bg-slate-50/70 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-[#0f172a] flex items-center justify-center text-white mb-4 shrink-0">
+                    <Compass className="w-5 h-5 text-white" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-3">
                     The Observation
                   </h3>
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins">
+                    Recruma started with a simple observation: creating a professional, high-impact resume shouldn&apos;t be difficult, complex, or expensive. Too many talented candidates were falling short during automated recruitment screenings simply because their formatting wasn&apos;t ATS-compliant.
+                  </p>
                 </div>
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins">
-                  Recruma started with a simple observation: creating a professional, high-impact resume shouldn&apos;t be difficult, complex, or expensive. Too many talented candidates were falling short during automated recruitment screenings simply because their resume formatting wasn&apos;t ATS-compliant or visually structured.
-                </p>
               </div>
 
-              <div className="bg-slate-50/60 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-xl bg-[#0f172a] flex items-center justify-center text-white shrink-0">
-                    <Sparkles className="w-4 h-4 text-white" />
+              <div className="bg-slate-50/70 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-[#0f172a] flex items-center justify-center text-white mb-4 shrink-0">
+                    <Sparkles className="w-5 h-5 text-white" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-3">
                     The Solution
                   </h3>
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins">
+                    We combined intelligent AI content suggestions with sleek, recruiter-tested templates to create an intuitive builder. Recruma takes the friction out of writing achievements, formatting headers, and exporting print-ready PDFs.
+                  </p>
                 </div>
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins">
-                  We combined intelligent AI content suggestions with sleek, recruiter-tested templates to create an intuitive builder. Recruma takes the friction out of writing achievements, formatting headers, and exporting print-ready PDFs.
-                </p>
               </div>
 
-              <div className="bg-slate-50/60 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-xl bg-[#0f172a] flex items-center justify-center text-white shrink-0">
-                    <Star className="w-4 h-4 text-white" />
+              <div className="bg-slate-50/70 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-[#0f172a] flex items-center justify-center text-white mb-4 shrink-0">
+                    <Star className="w-5 h-5 text-white" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-3">
                     Looking Forward
                   </h3>
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins">
+                    Today, Recruma has helped thousands of job seekers land interviews at top companies worldwide. We continuously refine our builder and release new template variations to keep you ahead in an evolving job market.
+                  </p>
                 </div>
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins">
-                  Today, Recruma has helped thousands of job seekers land interviews at top companies worldwide. We continuously refine our builder and release new template variations to keep you ahead in an evolving job market.
-                </p>
               </div>
 
             </div>
@@ -344,8 +343,8 @@ export default function AboutPage() {
         {/* ---------------------------------------------------- */}
         {/* CTA BANNER SECTION */}
         {/* ---------------------------------------------------- */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-16 sm:py-20 bg-white">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-[#0b1329] rounded-3xl p-8 sm:p-12 text-white flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl relative overflow-hidden">
               
               {/* Left Graphic Icon */}
