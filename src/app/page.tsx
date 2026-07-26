@@ -531,7 +531,7 @@ export default function Home() {
 
               <div className="bg-white border border-slate-200/80 rounded-2xl p-5 text-center flex flex-col items-center justify-center">
                 <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 mb-3">
-                  <Star className="w-5 h-5 text-slate-800" />
+                  <Star className="w-5 h-5 text-slate-900 fill-white stroke-[2]" />
                 </div>
                 <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-montserrat">
                   4.9/5

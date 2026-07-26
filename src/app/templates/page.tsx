@@ -751,9 +751,9 @@ export default function TemplatesPage() {
                               <span className="text-slate-400 font-semibold mr-1.5">{template.numberStr}</span>
                               {template.name}
                             </h3>
-                            <div className="flex items-center space-x-1 shrink-0 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200/60">
-                              <span className="text-xs font-bold text-slate-800">{template.rating.toFixed(1)}</span>
-                              <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+                            <div className="flex items-center space-x-1 shrink-0 bg-slate-100/90 px-2 py-0.5 rounded-md border border-slate-200/80">
+                              <span className="text-xs font-bold text-slate-900 font-montserrat">{template.rating.toFixed(1)}</span>
+                              <Star className="w-3.5 h-3.5 text-slate-900 fill-white stroke-[2]" />
                             </div>
                           </div>
                         </div>
@@ -792,9 +792,9 @@ export default function TemplatesPage() {
                             <span className="text-slate-400 font-semibold mr-2">{template.numberStr}</span>
                             {template.name}
                           </h3>
-                          <div className="flex items-center space-x-1 bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200/60">
-                            <span className="text-xs font-bold text-slate-800">{template.rating.toFixed(1)}</span>
-                            <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                          <div className="flex items-center space-x-1 bg-slate-100/90 px-2.5 py-1 rounded-md border border-slate-200/80">
+                            <span className="text-xs font-bold text-slate-900 font-montserrat">{template.rating.toFixed(1)}</span>
+                            <Star className="w-3.5 h-3.5 text-slate-900 fill-white stroke-[2]" />
                           </div>
                         </div>
                         <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
