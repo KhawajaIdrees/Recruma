@@ -270,9 +270,9 @@ export default function ResumePreview({
   const templateData = templates.find((t) => t.id === Number(template)) || templates[0];
   const showProfile = templateData.hasProfile && profile;
   const jobTitle = getJobTitle(experiences);
-  const activeExperiences = experiences.filter((e) => e.position || e.company);
-  const activeEducations = educations.filter((e) => e.school || e.degree);
-  const activeSkills = skills.filter((s) => s.name);
+  const activeExperiences = experiences.filter((e) => e && (e.position || e.company));
+  const activeEducations = educations.filter((e) => e && (e.school || e.degree));
+  const activeSkills = skills.filter((s) => s && s.name && s.name.trim() !== "");
   const fullBleed = [1, 2, 3, 5].includes(templateData.id);
 
   const RenderTemplate = () => {
@@ -280,9 +280,9 @@ export default function ResumePreview({
       // Template 1 — Navy header, gray sidebar, timeline (Richard Sanchez style)
       case 1:
         return (
-          <div className="template-layout-1">
+          <div className="template-layout-1 min-h-[1056px] h-auto flex flex-col bg-white">
             <div
-              className="flex items-center gap-5 text-white text-left py-6 px-7"
+              className="flex items-center gap-5 text-white text-left py-6 px-7 shrink-0"
               style={{ background: "var(--accent)" }}
             >
               {showProfile && <Avatar url={profile!.url} size={84} />}
@@ -298,8 +298,8 @@ export default function ResumePreview({
               </div>
             </div>
 
-            <div className="grid grid-cols-[34%_1fr] min-h-[600px]">
-              <aside className="bg-slate-100 px-6 py-7 space-y-6">
+            <div className="grid grid-cols-[34%_1fr] flex-1">
+              <aside className="bg-slate-100 px-6 py-7 space-y-6 min-h-full">
                 <SidebarSection title="Contact">
                   <ContactRow personalInfo={personalInfo} />
                 </SidebarSection>
@@ -310,7 +310,7 @@ export default function ResumePreview({
                 )}
               </aside>
 
-              <main className="px-7 py-7 border-l border-slate-200">
+              <main className="px-7 py-7 border-l border-slate-200 min-h-full">
                 {summary && (
                   <TimelineSection icon={<User className="w-3.5 h-3.5" />} title="Profile">
                     <p className="text-xs text-slate-600 leading-relaxed">{summary}</p>
@@ -372,9 +372,9 @@ export default function ResumePreview({
       // Template 2 — Slate blue bar header, photo overlap (Lorna Alvarado style)
       case 2:
         return (
-          <div className="template-layout-2">
+          <div className="template-layout-2 min-h-[1056px] h-auto flex flex-col bg-white">
             <div
-              className="flex items-center gap-5 px-6 py-5 min-h-[104px]"
+              className="flex items-center gap-5 px-6 py-5 min-h-[104px] shrink-0"
               style={{ background: "var(--accent)" }}
             >
               {showProfile && <Avatar url={profile!.url} size={84} />}
@@ -392,8 +392,8 @@ export default function ResumePreview({
               )}
             </div>
 
-            <div className="grid grid-cols-[34%_1fr]">
-              <aside className="bg-slate-100 px-6 py-7 space-y-6">
+            <div className="grid grid-cols-[34%_1fr] flex-1">
+              <aside className="bg-slate-100 px-6 py-7 space-y-6 min-h-full">
                 <SidebarSection title="Contact">
                   <ContactRow personalInfo={personalInfo} iconColor="text-slate-600" />
                 </SidebarSection>
@@ -427,7 +427,7 @@ export default function ResumePreview({
                 )}
               </aside>
 
-              <main className="px-6 py-7 space-y-6">
+              <main className="px-6 py-7 space-y-6 min-h-full">
                 {summary && (
                   <div>
                     <SectionTitle>Profile</SectionTitle>
@@ -474,10 +474,10 @@ export default function ResumePreview({
       // Template 3 — Charcoal header, arched photo (Jonathan Patterson style)
       case 3:
         return (
-          <div className="template-layout-3 grid grid-cols-[36%_1fr]">
-            <aside className="bg-slate-100">
+          <div className="template-layout-3 grid grid-cols-[36%_1fr] min-h-[1056px] h-auto bg-white">
+            <aside className="bg-slate-100 min-h-full flex flex-col">
               <div
-                className="relative flex justify-center pt-6 pb-14 overflow-visible"
+                className="relative flex justify-center pt-6 pb-14 overflow-visible shrink-0"
                 style={{ background: "var(--accent-bg)" }}
               >
                 <div className="absolute inset-x-0 top-0 h-16 bg-slate-300/50 rounded-b-[50%]" />
@@ -488,7 +488,7 @@ export default function ResumePreview({
                 )}
               </div>
 
-              <div className="px-5 py-5 space-y-6 -mt-7">
+              <div className="px-5 py-5 space-y-6 -mt-7 flex-1">
                 {activeEducations.length > 0 && (
                   <SidebarSection title="Education">
                     <div className="space-y-3.5">
@@ -522,8 +522,8 @@ export default function ResumePreview({
               </div>
             </aside>
 
-            <main>
-              <div className="text-white px-7 py-6" style={{ background: "var(--accent)" }}>
+            <main className="min-h-full flex flex-col">
+              <div className="text-white px-7 py-6 shrink-0" style={{ background: "var(--accent)" }}>
                 {personalInfo.fullName && (
                   <h1 className="text-2xl font-bold uppercase tracking-wide text-right leading-tight">
                     {personalInfo.fullName}
@@ -534,7 +534,7 @@ export default function ResumePreview({
                 )}
               </div>
 
-              <div className="px-7 py-6 space-y-6">
+              <div className="px-7 py-6 space-y-6 flex-1">
                 {summary && (
                   <div>
                     <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-400 pb-1.5 mb-2.5">
@@ -577,8 +577,8 @@ export default function ResumePreview({
       // Template 4 — Clean header with timeline divider (AHMDD SAAH style)
       case 4:
         return (
-          <div className="template-layout-4 px-8 py-7">
-            <header className="text-center pb-5 mb-6">
+          <div className="template-layout-4 px-8 py-7 min-h-[1056px] h-auto flex flex-col bg-white">
+            <header className="text-center pb-5 mb-6 shrink-0">
               {personalInfo.fullName && (
                 <h1 className="text-2xl font-bold uppercase tracking-wide text-slate-800">
                   {personalInfo.fullName}
@@ -590,8 +590,8 @@ export default function ResumePreview({
               <div className="w-full border-b-2 border-slate-300 mt-5" />
             </header>
 
-            <div className="grid grid-cols-[36%_1fr] gap-0 items-stretch min-h-[620px]">
-              <aside className="pr-6 border-r border-slate-300 space-y-7">
+            <div className="grid grid-cols-[36%_1fr] gap-0 items-stretch flex-1">
+              <aside className="pr-6 border-r border-slate-300 space-y-7 min-h-full">
                 <SidebarSection title="Contact">
                   <ContactRow personalInfo={personalInfo} />
                 </SidebarSection>
@@ -602,7 +602,7 @@ export default function ResumePreview({
                 )}
               </aside>
 
-              <main className="pl-6 min-w-0">
+              <main className="pl-6 min-w-0 min-h-full">
                 {summary && (
                   <TimelineSection
                     icon={<User className="w-3.5 h-3.5" />}
@@ -677,9 +677,9 @@ export default function ResumePreview({
       // Template 5 — Blue sidebar with progress bars (Daniel Gallego style)
       case 5:
         return (
-          <div className="template-layout-5 grid grid-cols-[40%_1fr] min-h-[600px]">
-            <aside className="text-white px-5 py-0" style={{ background: "var(--accent)" }}>
-              <div className="flex justify-center pt-4 pb-3">
+          <div className="template-layout-5 grid grid-cols-[40%_1fr] min-h-[1056px] h-auto bg-white">
+            <aside className="text-white px-5 py-0 min-h-full flex flex-col" style={{ background: "var(--accent)" }}>
+              <div className="flex justify-center pt-4 pb-3 shrink-0">
                 <div
                   className="w-full max-w-[200px] pt-3 pb-4 rounded-b-[50%] flex items-end justify-center"
                   style={{ background: "rgba(255,255,255,0.15)" }}
@@ -696,7 +696,7 @@ export default function ResumePreview({
                 </div>
               </div>
 
-              <div className="space-y-5 pb-6">
+              <div className="space-y-5 pb-6 flex-1">
                 {summary && (
                   <div>
                     <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-2">
@@ -731,10 +731,10 @@ export default function ResumePreview({
               </div>
             </aside>
 
-            <main className="px-6 py-6">
+            <main className="px-6 py-6 min-h-full flex flex-col">
               {personalInfo.fullName && (
                 <h1
-                  className="text-3xl font-bold uppercase tracking-wide mb-6"
+                  className="text-3xl font-bold uppercase tracking-wide mb-6 shrink-0"
                   style={{ color: "var(--accent)" }}
                 >
                   {personalInfo.fullName}
@@ -742,7 +742,7 @@ export default function ResumePreview({
               )}
 
               {activeExperiences.length > 0 && (
-                <div className="mb-6">
+                <div className="mb-6 flex-1">
                   <h2
                     className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1 mb-4"
                     style={{ color: "var(--accent)" }}
@@ -803,114 +803,128 @@ export default function ResumePreview({
       // Template 6 — Single column purple accents (Jacqueline Thompson style)
       case 6:
         return (
-          <div className="template-layout-6 px-8 py-6 space-y-4">
-            <header className="text-center border-b pb-4" style={{ borderColor: "var(--accent-light)" }}>
-              {personalInfo.fullName && (
-                <h1
-                  className="text-2xl font-bold uppercase tracking-wide mb-2"
-                  style={{ color: "var(--accent)" }}
-                >
-                  {personalInfo.fullName}
-                </h1>
+          <div className="template-layout-6 px-8 py-6 space-y-4 min-h-[1056px] h-auto flex flex-col bg-white">
+            <div>
+              <header className="text-center border-b pb-4 mb-4" style={{ borderColor: "var(--accent-light)" }}>
+                {personalInfo.fullName && (
+                  <h1
+                    className="text-2xl font-bold uppercase tracking-wide mb-2"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    {personalInfo.fullName}
+                  </h1>
+                )}
+                <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-xs text-slate-700">
+                  {personalInfo.address && <span>{personalInfo.address}</span>}
+                  {personalInfo.phone && (
+                    <>
+                      <span>•</span>
+                      <span>{personalInfo.phone}</span>
+                    </>
+                  )}
+                  {personalInfo.email && (
+                    <>
+                      <span>•</span>
+                      <span>{personalInfo.email}</span>
+                    </>
+                  )}
+                  {personalInfo.website && (
+                    <>
+                      <span>•</span>
+                      <span>{personalInfo.website}</span>
+                    </>
+                  )}
+                </div>
+              </header>
+
+              {summary && (
+                <section className="border-b pb-4 mb-4" style={{ borderColor: "var(--accent-light)" }}>
+                  <h2
+                    className="text-sm font-bold uppercase tracking-wide mb-2"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    Summary
+                  </h2>
+                  <p className="text-sm text-slate-700 leading-relaxed">{summary}</p>
+                </section>
               )}
-              <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-xs text-slate-700">
-                {personalInfo.address && <span>{personalInfo.address}</span>}
-                {personalInfo.phone && (
-                  <>
-                    <span>•</span>
-                    <span>{personalInfo.phone}</span>
-                  </>
-                )}
-                {personalInfo.email && (
-                  <>
-                    <span>•</span>
-                    <span>{personalInfo.email}</span>
-                  </>
-                )}
-                {personalInfo.website && (
-                  <>
-                    <span>•</span>
-                    <span>{personalInfo.website}</span>
-                  </>
-                )}
-              </div>
-            </header>
 
-            {summary && (
-              <section className="border-b pb-4" style={{ borderColor: "var(--accent-light)" }}>
-                <h2
-                  className="text-sm font-bold uppercase tracking-wide mb-2"
-                  style={{ color: "var(--accent)" }}
-                >
-                  Summary
-                </h2>
-                <p className="text-sm text-slate-700 leading-relaxed">{summary}</p>
-              </section>
-            )}
-
-            {activeExperiences.length > 0 && (
-              <section className="border-b pb-4" style={{ borderColor: "var(--accent-light)" }}>
-                <h2
-                  className="text-sm font-bold uppercase tracking-wide mb-3"
-                  style={{ color: "var(--accent)" }}
-                >
-                  Work Experience
-                </h2>
-                <div className="space-y-4">
-                  {activeExperiences.map((exp) => (
-                    <div key={exp.id}>
-                      <div className="flex justify-between items-start gap-4">
-                        <p className="text-sm font-bold text-slate-900">
-                          {exp.position}
-                          {exp.company && `, ${exp.company}`}
-                        </p>
-                        <span className="text-sm text-slate-600 whitespace-nowrap">
-                          {formatDateRange(exp.startDate, exp.endDate, exp.current)}
-                        </span>
+              {activeExperiences.length > 0 && (
+                <section className="border-b pb-4 mb-4" style={{ borderColor: "var(--accent-light)" }}>
+                  <h2
+                    className="text-sm font-bold uppercase tracking-wide mb-3"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    Work Experience
+                  </h2>
+                  <div className="space-y-4">
+                    {activeExperiences.map((exp) => (
+                      <div key={exp.id}>
+                        <div className="flex justify-between items-start gap-4">
+                          <p className="text-sm font-bold text-slate-900">
+                            {exp.position}
+                            {exp.company && `, ${exp.company}`}
+                          </p>
+                          <span className="text-sm text-slate-600 whitespace-nowrap">
+                            {formatDateRange(exp.startDate, exp.endDate, exp.current)}
+                          </span>
+                        </div>
+                        {exp.description && (
+                          <DescriptionList description={exp.description} className="text-sm text-slate-700" />
+                        )}
                       </div>
-                      {exp.description && (
-                        <DescriptionList description={exp.description} className="text-sm text-slate-700" />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
+                    ))}
+                  </div>
+                </section>
+              )}
 
-            {activeEducations.length > 0 && (
-              <section className="border-b pb-4" style={{ borderColor: "var(--accent-light)" }}>
-                <h2
-                  className="text-sm font-bold uppercase tracking-wide mb-3"
-                  style={{ color: "var(--accent)" }}
-                >
-                  Education
-                </h2>
-                <div className="space-y-3">
-                  {activeEducations.map((edu) => (
-                    <div key={edu.id}>
-                      <div className="flex justify-between items-start gap-4">
-                        <p className="text-sm font-bold text-slate-900">
-                          {edu.degree}
-                          {edu.field && ` in ${edu.field}`}
-                        </p>
-                        <span className="text-sm text-slate-600 whitespace-nowrap">
-                          {formatDateRange(edu.startDate, edu.endDate)}
-                        </span>
+              {activeEducations.length > 0 && (
+                <section className="border-b pb-4 mb-4" style={{ borderColor: "var(--accent-light)" }}>
+                  <h2
+                    className="text-sm font-bold uppercase tracking-wide mb-3"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    Education
+                  </h2>
+                  <div className="space-y-3">
+                    {activeEducations.map((edu) => (
+                      <div key={edu.id}>
+                        <div className="flex justify-between items-start gap-4">
+                          <p className="text-sm font-bold text-slate-900">
+                            {edu.degree}
+                            {edu.field && ` in ${edu.field}`}
+                          </p>
+                          <span className="text-sm text-slate-600 whitespace-nowrap">
+                            {formatDateRange(edu.startDate, edu.endDate)}
+                          </span>
+                        </div>
+                        <p className="text-sm text-slate-700">{edu.school}</p>
+                        {edu.gpa && (
+                          <ul className="list-disc pl-5 text-sm text-slate-700 mt-1">
+                            <li>GPA: {edu.gpa}</li>
+                          </ul>
+                        )}
                       </div>
-                      <p className="text-sm text-slate-700">{edu.school}</p>
-                      {edu.gpa && (
-                        <ul className="list-disc pl-5 text-sm text-slate-700 mt-1">
-                          <li>GPA: {edu.gpa}</li>
-                        </ul>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
+                    ))}
+                  </div>
+                </section>
+              )}
 
-            {(activeSkills.length > 0 || personalInfo.linkedin || personalInfo.github) && (
-              <section>
+              {activeSkills.length > 0 && (
+                <section className="border-b pb-4 mb-4" style={{ borderColor: "var(--accent-light)" }}>
+                  <h2
+                    className="text-sm font-bold uppercase tracking-wide mb-3"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    Skills
+                  </h2>
+                  <SkillBulletList skills={skills} columns={2} className="text-xs text-slate-700" />
+                </section>
+              )}
+            </div>
+
+            {(personalInfo.linkedin || personalInfo.github) && (
+              <section className="pt-2">
                 <h2
                   className="text-sm font-bold uppercase tracking-wide mb-3"
                   style={{ color: "var(--accent)" }}
@@ -918,12 +932,6 @@ export default function ResumePreview({
                   Additional Information
                 </h2>
                 <ul className="text-sm text-slate-700 space-y-1 list-none">
-                  {activeSkills.length > 0 && (
-                    <li>
-                      <span className="font-bold">Technical Skills:</span>{" "}
-                      {activeSkills.map((s) => s.name).join(", ")}
-                    </li>
-                  )}
                   {personalInfo.linkedin && (
                     <li className="flex items-center gap-1">
                       <span className="font-bold">LinkedIn:</span> {personalInfo.linkedin}
@@ -945,26 +953,28 @@ export default function ResumePreview({
     }
   };
 
-  const printClasses = `resume-print bg-white shadow-lg template-${templateData.id} overflow-auto ${
+  const printClasses = `resume-print bg-white shadow-lg template-${templateData.id} ${
     fullBleed ? "p-0" : "p-0"
   }`;
 
   return (
-    <div className="w-full relative max-w-full overflow-hidden">
+    <div className="w-full relative max-w-full overflow-visible">
       <div
         id="resume-preview-print"
         aria-hidden="true"
-        className={`${printClasses} sr-only-print`}
+        className={printClasses}
         style={{
           position: "absolute",
-          width: "1px",
-          height: "1px",
+          left: "-9999px",
+          top: 0,
+          width: "8.5in",
+          minHeight: "11in",
+          height: "auto",
           padding: 0,
-          margin: "-1px",
-          overflow: "hidden",
-          clip: "rect(0, 0, 0, 0)",
-          whiteSpace: "nowrap",
-          border: 0,
+          margin: 0,
+          overflow: "visible",
+          whiteSpace: "normal",
+          backgroundColor: "#ffffff",
         }}
       >
         <RenderTemplate />
@@ -972,8 +982,7 @@ export default function ResumePreview({
 
       <div
         id="resume-preview"
-        className={`${printClasses} relative z-0 w-full max-w-full`}
-        style={{ maxWidth: "8.5in" }}
+        className={`${printClasses} relative z-0 w-full max-w-[8.5in] mx-auto min-h-[1056px] h-auto overflow-visible`}
       >
         <RenderTemplate />
       </div>

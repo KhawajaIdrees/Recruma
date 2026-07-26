@@ -24,9 +24,10 @@ export async function generateResumePDF(
     clone.style.left = "-9999px";
     clone.style.top = "0";
     clone.style.width = "8.5in";
+    clone.style.minHeight = "11in";
     clone.style.height = "auto";
     clone.style.backgroundColor = "#ffffff";
-    clone.style.padding = "0.45in";
+    clone.style.padding = "0";
     clone.style.visibility = "visible";
     clone.style.display = "block";
     clone.style.boxSizing = "border-box";
@@ -40,41 +41,51 @@ export async function generateResumePDF(
     applyTemplateStyles(clone);
 
     document.body.appendChild(clone);
-    await new Promise((r) => setTimeout(r, 500));
+    await new Promise((r) => setTimeout(r, 400));
+
+    // Calculate actual height ensuring a minimum full page height (1056px = 11 inches at 96 DPI)
+    const targetHeight = Math.max(clone.offsetHeight, clone.scrollHeight, 1056);
+    const targetWidth = clone.scrollWidth || 816;
 
     const canvas = await html2canvas(clone, {
       scale: 2,
       useCORS: true,
       logging: false,
       backgroundColor: "#ffffff",
-      width: clone.scrollWidth,
-      height: clone.scrollHeight,
-      windowWidth: clone.scrollWidth,
-      windowHeight: clone.scrollHeight,
+      width: targetWidth,
+      height: targetHeight,
+      windowWidth: targetWidth,
+      windowHeight: targetHeight,
     });
 
     document.body.removeChild(clone);
 
     const pdf = new jsPDF({ orientation: "portrait", unit: "in", format: [8.5, 11] });
     const imgData = canvas.toDataURL("image/png", 1.0);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const pageWidth = 8.5; // in inches
+    const pageHeight = 11; // in inches
 
-    const imgWidth = canvas.width;
-    const imgHeight = canvas.height;
-    const ratio = imgWidth / imgHeight;
+    // Total rendered height of the canvas in PDF inches
+    const renderedHeightInInches = (canvas.height * pageWidth) / canvas.width;
 
-    let finalWidth = pdfWidth - 0.15;
-    let finalHeight = finalWidth / ratio;
+    if (renderedHeightInInches <= pageHeight + 0.1) {
+      // Standard 1-page resume
+      pdf.addImage(imgData, "PNG", 0, 0, pageWidth, pageHeight);
+    } else {
+      // Multi-page resume for long content (lots of skills, experience, etc.)
+      let heightLeft = renderedHeightInInches;
+      let position = 0;
 
-    if (finalHeight > pdfHeight - 0.15) {
-      finalHeight = pdfHeight - 0.15;
-      finalWidth = finalHeight * ratio;
+      pdf.addImage(imgData, "PNG", 0, position, pageWidth, renderedHeightInInches);
+      heightLeft -= pageHeight;
+
+      while (heightLeft > 0.1) {
+        position -= pageHeight;
+        pdf.addPage([pageWidth, pageHeight], "portrait");
+        pdf.addImage(imgData, "PNG", 0, position, pageWidth, renderedHeightInInches);
+        heightLeft -= pageHeight;
+      }
     }
-
-    const offsetX = (pdfWidth - finalWidth) / 2;
-    const offsetY = (pdfHeight - finalHeight) / 2;
-    pdf.addImage(imgData, "PNG", offsetX, offsetY, finalWidth, finalHeight);
 
     const filename = personalFullName ? `${personalFullName.replace(/\s+/g, "_")}_Resume.pdf` : "Resume.pdf";
     pdf.save(filename);
@@ -92,7 +103,6 @@ export async function generateResumePDF(
     alert(`Error generating PDF: ${error instanceof Error ? error.message : "Unknown error"}`);
   }
 }
-// In pdfGenerator.ts, update the applyTemplateStyles function:
 
 function applyTemplateStyles(element: HTMLElement) {
   element.querySelectorAll("*").forEach((el: Element) => {
