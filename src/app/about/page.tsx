@@ -111,7 +111,7 @@ export default function AboutPage() {
         {/* ---------------------------------------------------- */}
         <section className="py-16 sm:py-20 bg-white border-b border-slate-100">
           <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
               
               {/* Left Details */}
               <div className="lg:col-span-7 space-y-6">
@@ -131,24 +131,25 @@ export default function AboutPage() {
                   We built our platform using modern AI technologies combined with professionally designed templates to democratize career growth. Whether you are a college graduate or an experienced senior leader, Recruma gives you the edge you need.
                 </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                  <div className="flex items-start space-x-3 bg-slate-50 p-4.5 rounded-xl border border-slate-200/80">
-                    <div className="w-9 h-9 bg-[#0f172a] rounded-lg flex items-center justify-center text-white shrink-0 mt-0.5">
-                      <Target className="w-4 h-4 text-white" />
+                {/* Focused Impact & ATS Compliance Cards — Spacious & Full Width Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-3">
+                  <div className="flex items-start space-x-4 bg-slate-50/90 p-5 sm:p-6 rounded-2xl border border-slate-200/90 shadow-xs hover:border-slate-300 transition-colors">
+                    <div className="w-11 h-11 bg-[#0f172a] rounded-xl flex items-center justify-center text-white shrink-0 shadow-sm">
+                      <Target className="w-5.5 h-5.5 text-white" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-slate-900 font-montserrat">Focused Impact</h4>
-                      <p className="text-xs text-slate-600 mt-1">Layouts optimized for hiring manager attention.</p>
+                      <h4 className="text-base font-bold text-slate-900 font-montserrat">Focused Impact</h4>
+                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-normal">Layouts optimized for hiring manager attention.</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-3 bg-slate-50 p-4.5 rounded-xl border border-slate-200/80">
-                    <div className="w-9 h-9 bg-[#0f172a] rounded-lg flex items-center justify-center text-white shrink-0 mt-0.5">
-                      <ShieldCheck className="w-4 h-4 text-white" />
+                  <div className="flex items-start space-x-4 bg-slate-50/90 p-5 sm:p-6 rounded-2xl border border-slate-200/90 shadow-xs hover:border-slate-300 transition-colors">
+                    <div className="w-11 h-11 bg-[#0f172a] rounded-xl flex items-center justify-center text-white shrink-0 shadow-sm">
+                      <ShieldCheck className="w-5.5 h-5.5 text-white" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-slate-900 font-montserrat">ATS Compliance</h4>
-                      <p className="text-xs text-slate-600 mt-1">Guaranteed seamless applicant tracking scans.</p>
+                      <h4 className="text-base font-bold text-slate-900 font-montserrat">ATS Compliance</h4>
+                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-normal">Guaranteed seamless applicant tracking scans.</p>
                     </div>
                   </div>
                 </div>
@@ -290,46 +291,49 @@ export default function AboutPage() {
               </h2>
             </div>
 
-            {/* 3 Story Cards Grid (Fills full width smoothly across screen) */}
+            {/* 3 Story Cards Grid (Centered content inside each container) */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
               
-              <div className="bg-slate-50/70 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-[#0f172a] flex items-center justify-center text-white mb-4 shrink-0">
-                    <Compass className="w-5 h-5 text-white" />
+              {/* Card 1 */}
+              <div className="bg-slate-50/70 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs flex flex-col items-center justify-between text-center hover:shadow-md transition-shadow">
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-12 h-12 rounded-xl bg-[#0f172a] flex items-center justify-center text-white mb-5 shrink-0 mx-auto">
+                    <Compass className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-3">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-3 text-center">
                     The Observation
                   </h3>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins">
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins text-center">
                     Recruma started with a simple observation: creating a professional, high-impact resume shouldn&apos;t be difficult, complex, or expensive. Too many talented candidates were falling short during automated recruitment screenings simply because their formatting wasn&apos;t ATS-compliant.
                   </p>
                 </div>
               </div>
 
-              <div className="bg-slate-50/70 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-[#0f172a] flex items-center justify-center text-white mb-4 shrink-0">
-                    <Sparkles className="w-5 h-5 text-white" />
+              {/* Card 2 */}
+              <div className="bg-slate-50/70 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs flex flex-col items-center justify-between text-center hover:shadow-md transition-shadow">
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-12 h-12 rounded-xl bg-[#0f172a] flex items-center justify-center text-white mb-5 shrink-0 mx-auto">
+                    <Sparkles className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-3">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-3 text-center">
                     The Solution
                   </h3>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins">
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins text-center">
                     We combined intelligent AI content suggestions with sleek, recruiter-tested templates to create an intuitive builder. Recruma takes the friction out of writing achievements, formatting headers, and exporting print-ready PDFs.
                   </p>
                 </div>
               </div>
 
-              <div className="bg-slate-50/70 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-[#0f172a] flex items-center justify-center text-white mb-4 shrink-0">
-                    <Star className="w-5 h-5 text-white" />
+              {/* Card 3 */}
+              <div className="bg-slate-50/70 rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs flex flex-col items-center justify-between text-center hover:shadow-md transition-shadow">
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-12 h-12 rounded-xl bg-[#0f172a] flex items-center justify-center text-white mb-5 shrink-0 mx-auto">
+                    <Star className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-3">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-3 text-center">
                     Looking Forward
                   </h3>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins">
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins text-center">
                     Today, Recruma has helped thousands of job seekers land interviews at top companies worldwide. We continuously refine our builder and release new template variations to keep you ahead in an evolving job market.
                   </p>
                 </div>
