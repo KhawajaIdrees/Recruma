@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import FeaturesSection from "@/components/FeaturesSection";
-import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import {
   Star,
@@ -849,8 +848,6 @@ export default function TemplatesPage() {
           {/* FEATURES SECTION */}
           <FeaturesSection />
 
-          {/* FAQ SECTION */}
-          <FAQSection />
 
           {/* BOTTOM CTA BANNER SECTION */}
           <div className="mt-12 bg-slate-100/80 border border-slate-200/70 rounded-2xl p-6 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
