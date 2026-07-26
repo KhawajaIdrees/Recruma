@@ -111,58 +111,60 @@ export default function AboutPage() {
         {/* ---------------------------------------------------- */}
         <section className="py-16 sm:py-20 bg-white border-b border-slate-100">
           <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
               
-              {/* Left Details */}
-              <div className="lg:col-span-7 space-y-6">
-                <div className="inline-block bg-slate-100/90 border border-slate-200/80 px-3.5 py-1 rounded-full text-xs font-bold text-slate-600 uppercase tracking-widest font-montserrat">
-                  OUR MISSION
+              {/* Left Details Column */}
+              <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
+                <div>
+                  <div className="inline-block bg-slate-100/90 border border-slate-200/80 px-3.5 py-1 rounded-full text-xs font-bold text-slate-600 uppercase tracking-widest font-montserrat mb-4">
+                    OUR MISSION
+                  </div>
+                  
+                  <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-montserrat leading-tight mb-4">
+                    Empowering your professional journey with precision & simplicity
+                  </h2>
+
+                  <p className="text-slate-600 text-base leading-relaxed font-poppins mb-4">
+                    At Recruma, we believe everyone deserves a resume that accurately reflects their unique talent, experience, and ambition. Crafting a standout resume shouldn&apos;t feel overwhelming or take hours of design tweak work.
+                  </p>
+
+                  <p className="text-slate-600 text-base leading-relaxed font-poppins">
+                    We built our platform using modern AI technologies combined with professionally designed templates to democratize career growth. Whether you are a college graduate or an experienced senior leader, Recruma gives you the edge you need.
+                  </p>
                 </div>
-                
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-montserrat leading-tight">
-                  Empowering your professional journey with precision & simplicity
-                </h2>
 
-                <p className="text-slate-600 text-base leading-relaxed font-poppins">
-                  At Recruma, we believe everyone deserves a resume that accurately reflects their unique talent, experience, and ambition. Crafting a standout resume shouldn&apos;t feel overwhelming or take hours of design tweak work.
-                </p>
-
-                <p className="text-slate-600 text-base leading-relaxed font-poppins">
-                  We built our platform using modern AI technologies combined with professionally designed templates to democratize career growth. Whether you are a college graduate or an experienced senior leader, Recruma gives you the edge you need.
-                </p>
-
-                {/* Focused Impact & ATS Compliance Cards — Spacious & Full Width Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-3">
-                  <div className="flex items-start space-x-4 bg-slate-50/90 p-5 sm:p-6 rounded-2xl border border-slate-200/90 shadow-xs hover:border-slate-300 transition-colors">
-                    <div className="w-11 h-11 bg-[#0f172a] rounded-xl flex items-center justify-center text-white shrink-0 shadow-sm">
-                      <Target className="w-5.5 h-5.5 text-white" />
+                {/* Focused Impact & ATS Compliance Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                  <div className="flex items-start space-x-3.5 bg-slate-50/90 p-5 rounded-2xl border border-slate-200/90 shadow-xs hover:border-slate-300 transition-colors">
+                    <div className="w-10 h-10 bg-[#0f172a] rounded-xl flex items-center justify-center text-white shrink-0 shadow-sm">
+                      <Target className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <h4 className="text-base font-bold text-slate-900 font-montserrat">Focused Impact</h4>
-                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-normal">Layouts optimized for hiring manager attention.</p>
+                      <h4 className="text-sm font-bold text-slate-900 font-montserrat">Focused Impact</h4>
+                      <p className="text-xs text-slate-600 mt-1 leading-normal">Layouts optimized for hiring manager attention.</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-4 bg-slate-50/90 p-5 sm:p-6 rounded-2xl border border-slate-200/90 shadow-xs hover:border-slate-300 transition-colors">
-                    <div className="w-11 h-11 bg-[#0f172a] rounded-xl flex items-center justify-center text-white shrink-0 shadow-sm">
-                      <ShieldCheck className="w-5.5 h-5.5 text-white" />
+                  <div className="flex items-start space-x-3.5 bg-slate-50/90 p-5 rounded-2xl border border-slate-200/90 shadow-xs hover:border-slate-300 transition-colors">
+                    <div className="w-10 h-10 bg-[#0f172a] rounded-xl flex items-center justify-center text-white shrink-0 shadow-sm">
+                      <ShieldCheck className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <h4 className="text-base font-bold text-slate-900 font-montserrat">ATS Compliance</h4>
-                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-normal">Guaranteed seamless applicant tracking scans.</p>
+                      <h4 className="text-sm font-bold text-slate-900 font-montserrat">ATS Compliance</h4>
+                      <p className="text-xs text-slate-600 mt-1 leading-normal">Guaranteed seamless applicant tracking scans.</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Right Stat Cards */}
-              <div className="lg:col-span-5 relative">
-                <div className="bg-slate-50/80 rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-xs space-y-4">
+              {/* Right Stat Cards Container — Extra height / padding */}
+              <div className="lg:col-span-5 flex flex-col">
+                <div className="bg-slate-50/80 rounded-3xl p-7 sm:p-9 border border-slate-200/80 shadow-xs h-full flex flex-col justify-between space-y-5">
                   
                   {/* Stat Card 1 */}
-                  <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm flex items-center space-x-4 hover:shadow-md transition-shadow">
-                    <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-800 shrink-0">
-                      <FileText className="w-6 h-6 text-slate-800" />
+                  <div className="flex-1 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex items-center space-x-4 hover:shadow-md transition-shadow">
+                    <div className="w-12 h-12 rounded-xl bg-[#0f172a] flex items-center justify-center text-white shrink-0 shadow-sm">
+                      <FileText className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-montserrat">10,000+</h3>
@@ -171,9 +173,9 @@ export default function AboutPage() {
                   </div>
 
                   {/* Stat Card 2 */}
-                  <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm flex items-center space-x-4 hover:shadow-md transition-shadow">
-                    <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-800 shrink-0">
-                      <Award className="w-6 h-6 text-slate-800" />
+                  <div className="flex-1 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex items-center space-x-4 hover:shadow-md transition-shadow">
+                    <div className="w-12 h-12 rounded-xl bg-[#0f172a] flex items-center justify-center text-white shrink-0 shadow-sm">
+                      <Award className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-montserrat">95%</h3>
@@ -182,9 +184,9 @@ export default function AboutPage() {
                   </div>
 
                   {/* Stat Card 3 */}
-                  <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm flex items-center space-x-4 hover:shadow-md transition-shadow">
-                    <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-800 shrink-0">
-                      <Users className="w-6 h-6 text-slate-800" />
+                  <div className="flex-1 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex items-center space-x-4 hover:shadow-md transition-shadow">
+                    <div className="w-12 h-12 rounded-xl bg-[#0f172a] flex items-center justify-center text-white shrink-0 shadow-sm">
+                      <Users className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-montserrat">5,000+</h3>
