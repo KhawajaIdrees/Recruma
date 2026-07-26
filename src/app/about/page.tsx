@@ -157,7 +157,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              {/* Right Stat Cards Container — Extra height / padding */}
+              {/* Right Stat Cards Container */}
               <div className="lg:col-span-5 flex flex-col">
                 <div className="bg-slate-50/80 rounded-3xl p-7 sm:p-9 border border-slate-200/80 shadow-xs h-full flex flex-col justify-between space-y-5">
                   
@@ -283,7 +283,7 @@ export default function AboutPage() {
         <section className="py-16 sm:py-20 bg-white border-b border-slate-100">
           <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            {/* Header */}
+            {/* Header with Brief Subtitle Description */}
             <div className="text-center max-w-4xl mx-auto mb-14">
               <div className="inline-block bg-slate-100/90 border border-slate-200/80 px-3.5 py-1 rounded-full text-xs font-bold text-slate-600 uppercase tracking-widest font-montserrat mb-3">
                 OUR STORY
@@ -291,9 +291,12 @@ export default function AboutPage() {
               <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-montserrat">
                 How Recruma Was Born
               </h2>
+              <p className="text-slate-600 text-sm sm:text-base font-normal font-poppins max-w-2xl mx-auto mt-3">
+                The journey behind our platform and why we are passionate about transforming career success for job seekers worldwide.
+              </p>
             </div>
 
-            {/* 3 Story Cards Grid (Centered content inside each container) */}
+            {/* 3 Story Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
               
               {/* Card 1 */}
@@ -302,11 +305,14 @@ export default function AboutPage() {
                   <div className="w-12 h-12 rounded-xl bg-[#0f172a] flex items-center justify-center text-white mb-5 shrink-0 mx-auto">
                     <Compass className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-3 text-center">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-1 text-center">
                     The Observation
                   </h3>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins text-center">
-                    Recruma started with a simple observation: creating a professional, high-impact resume shouldn&apos;t be difficult, complex, or expensive. Too many talented candidates were falling short during automated recruitment screenings simply because their formatting wasn&apos;t ATS-compliant.
+                  <span className="text-xs font-semibold text-slate-500 font-montserrat uppercase tracking-wider mb-3 text-center">
+                    Identifying the Resume Gap
+                  </span>
+                  <p className="text-slate-600 text-sm leading-relaxed font-poppins text-center">
+                    Creating a standout resume shouldn&apos;t be complex or expensive. Many qualified candidates miss out simply due to poor formatting and non-ATS-compliant templates.
                   </p>
                 </div>
               </div>
@@ -317,11 +323,14 @@ export default function AboutPage() {
                   <div className="w-12 h-12 rounded-xl bg-[#0f172a] flex items-center justify-center text-white mb-5 shrink-0 mx-auto">
                     <Sparkles className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-3 text-center">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-1 text-center">
                     The Solution
                   </h3>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins text-center">
-                    We combined intelligent AI content suggestions with sleek, recruiter-tested templates to create an intuitive builder. Recruma takes the friction out of writing achievements, formatting headers, and exporting print-ready PDFs.
+                  <span className="text-xs font-semibold text-slate-500 font-montserrat uppercase tracking-wider mb-3 text-center">
+                    Smart AI & Recruiter Templates
+                  </span>
+                  <p className="text-slate-600 text-sm leading-relaxed font-poppins text-center">
+                    We combined AI-driven writing assistance with recruiter-tested templates so you can build, refine, and export professional PDFs in minutes.
                   </p>
                 </div>
               </div>
@@ -332,11 +341,14 @@ export default function AboutPage() {
                   <div className="w-12 h-12 rounded-xl bg-[#0f172a] flex items-center justify-center text-white mb-5 shrink-0 mx-auto">
                     <Star className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-3 text-center">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-montserrat mb-1 text-center">
                     Looking Forward
                   </h3>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-poppins text-center">
-                    Today, Recruma has helped thousands of job seekers land interviews at top companies worldwide. We continuously refine our builder and release new template variations to keep you ahead in an evolving job market.
+                  <span className="text-xs font-semibold text-slate-500 font-montserrat uppercase tracking-wider mb-3 text-center">
+                    Empowering Global Careers
+                  </span>
+                  <p className="text-slate-600 text-sm leading-relaxed font-poppins text-center">
+                    Recruma has helped thousands land their dream jobs worldwide. We continuously update our templates to keep you ahead in today&apos;s job market.
                   </p>
                 </div>
               </div>
