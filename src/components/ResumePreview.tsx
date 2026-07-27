@@ -207,7 +207,7 @@ function SidebarEducation({
 function SkillBulletList({
   skills,
   className = "text-xs text-slate-700",
-  columns = 1,
+  columns = 2,
   bulletColor = "bg-slate-700",
 }: {
   skills: Skill[];
@@ -220,11 +220,11 @@ function SkillBulletList({
   return (
     <ul
       className={`${className} ${
-        columns === 2 ? "grid grid-cols-2 gap-x-2 gap-y-1.5" : "space-y-2"
+        columns === 2 ? "grid grid-cols-2 gap-x-3 gap-y-2" : "space-y-2"
       }`}
     >
       {filtered.map((s) => (
-        <li key={s.id} className="flex items-start gap-2 min-w-0">
+        <li key={s.id} className="flex items-start gap-1.5 min-w-0">
           <span className={`mt-[0.45em] w-1.5 h-1.5 rounded-full shrink-0 ${bulletColor}`} />
           <span className="leading-snug break-words">{s.name}</span>
         </li>
@@ -367,7 +367,7 @@ export default function ResumePreview({
                 )}
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
-                    <SkillBulletList skills={skills} columns={1} />
+                    <SkillBulletList skills={skills} columns={2} />
                   </SidebarSection>
                 )}
               </aside>
@@ -442,7 +442,7 @@ export default function ResumePreview({
 
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
-                    <SkillBulletList skills={skills} columns={1} />
+                    <SkillBulletList skills={skills} columns={2} />
                   </SidebarSection>
                 )}
               </aside>
@@ -521,7 +521,7 @@ export default function ResumePreview({
 
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
-                    <SkillBulletList skills={skills} columns={1} />
+                    <SkillBulletList skills={skills} columns={2} />
                   </SidebarSection>
                 )}
               </div>
@@ -607,7 +607,7 @@ export default function ResumePreview({
                 )}
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
-                    <SkillBulletList skills={skills} columns={1} />
+                    <SkillBulletList skills={skills} columns={2} />
                   </SidebarSection>
                 )}
               </aside>
@@ -703,18 +703,18 @@ export default function ResumePreview({
                     <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-3">
                       Skills
                     </h3>
-                    <div className="space-y-2.5">
+                    <div className="grid grid-cols-2 gap-x-3 gap-y-3">
                       {activeSkills.map((skill, i) => {
                         const levels = [95, 88, 82, 75, 90, 85];
                         const level = levels[i % levels.length];
                         return (
-                          <div key={skill.id} className="space-y-1">
-                            <div className="flex justify-between text-xs font-medium opacity-95">
-                              <span className="truncate pr-2">{skill.name}</span>
-                            </div>
-                            <div className="w-full h-1.5 bg-white/25 rounded-full overflow-hidden">
+                          <div key={skill.id} className="flex flex-col gap-1 min-w-0">
+                            <span className="text-xs font-semibold text-white block truncate leading-snug">
+                              {skill.name}
+                            </span>
+                            <div className="w-full h-1.5 bg-white/30 rounded-full overflow-hidden shrink-0">
                               <div
-                                className="h-full bg-white rounded-full transition-all duration-300"
+                                className="h-full bg-white rounded-full"
                                 style={{ width: `${level}%` }}
                               />
                             </div>
