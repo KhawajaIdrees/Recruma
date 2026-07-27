@@ -208,7 +208,7 @@ function SkillBulletList({
   skills,
   className = "text-xs text-slate-700",
   columns = 2,
-  bulletColor = "bg-slate-700",
+  bulletColor = "text-slate-700",
 }: {
   skills: Skill[];
   className?: string;
@@ -218,14 +218,18 @@ function SkillBulletList({
   const filtered = skills.filter((s) => s.name && s.name.trim() !== "");
   if (!filtered.length) return null;
 
+  const resolvedBulletClass = bulletColor.startsWith("bg-")
+    ? bulletColor.replace("bg-", "text-")
+    : bulletColor;
+
   if (columns === 2) {
     return (
       <div className="w-full flex flex-wrap justify-between">
         {filtered.map((s) => (
-          <div key={s.id} className="w-[48%] mb-2.5 flex items-start shrink-0 min-w-0">
-            <span
-              className={`inline-block w-1.5 h-1.5 rounded-full ${bulletColor} shrink-0 mt-1 mr-2`}
-            />
+          <div key={s.id} className="w-[48%] mb-2 flex items-baseline shrink-0 min-w-0">
+            <span className={`text-[8px] ${resolvedBulletClass} leading-none shrink-0 mr-1.5 select-none`}>
+              ●
+            </span>
             <span className={`${className} leading-snug break-words flex-1 min-w-0`}>
               {s.name}
             </span>
@@ -238,10 +242,10 @@ function SkillBulletList({
   return (
     <div className="w-full space-y-2">
       {filtered.map((s) => (
-        <div key={s.id} className="flex items-start shrink-0 min-w-0">
-          <span
-            className={`inline-block w-1.5 h-1.5 rounded-full ${bulletColor} shrink-0 mt-1 mr-2`}
-          />
+        <div key={s.id} className="flex items-baseline shrink-0 min-w-0">
+          <span className={`text-[8px] ${resolvedBulletClass} leading-none shrink-0 mr-1.5 select-none`}>
+            ●
+          </span>
           <span className={`${className} leading-snug break-words flex-1 min-w-0`}>
             {s.name}
           </span>
@@ -378,11 +382,6 @@ export default function ResumePreview({
                 <SidebarSection title="Contact">
                   <ContactRow personalInfo={personalInfo} />
                 </SidebarSection>
-                {activeEducations.length > 0 && (
-                  <SidebarSection title="Education">
-                    <SidebarEducation educations={activeEducations} />
-                  </SidebarSection>
-                )}
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
                     <SkillBulletList skills={skills} columns={2} />
@@ -398,7 +397,7 @@ export default function ResumePreview({
                 )}
 
                 {activeExperiences.length > 0 && (
-                  <TimelineSection icon={<Briefcase className="w-3.5 h-3.5" />} title="Work Experience" className="mb-0">
+                  <TimelineSection icon={<Briefcase className="w-3.5 h-3.5" />} title="Work Experience">
                     <div className="space-y-5 border-l border-slate-300 ml-3 pl-5">
                       {activeExperiences.map((exp) => (
                         <div key={exp.id} className="relative">
@@ -413,6 +412,32 @@ export default function ResumePreview({
                           {exp.description && (
                             <DescriptionList description={exp.description} className="text-xs text-slate-600" />
                           )}
+                        </div>
+                      ))}
+                    </div>
+                  </TimelineSection>
+                )}
+
+                {activeEducations.length > 0 && (
+                  <TimelineSection
+                    icon={<GraduationCap className="w-3.5 h-3.5" />}
+                    title="Education"
+                    className="mb-0"
+                  >
+                    <div className="space-y-4">
+                      {activeEducations.map((edu) => (
+                        <div key={edu.id}>
+                          <div className="flex justify-between items-baseline gap-3">
+                            <span className="text-sm font-bold text-slate-900">{edu.degree}</span>
+                            <span className="text-xs text-slate-500 whitespace-nowrap">
+                              {formatDateRange(edu.startDate, edu.endDate)}
+                            </span>
+                          </div>
+                          <p className="text-xs text-slate-700 mt-0.5">
+                            {edu.school}
+                            {edu.field && ` | ${edu.field}`}
+                          </p>
+                          {edu.gpa && <p className="text-xs text-slate-500 mt-0.5">GPA: {edu.gpa}</p>}
                         </div>
                       ))}
                     </div>
@@ -451,12 +476,6 @@ export default function ResumePreview({
                 <SidebarSection title="Contact">
                   <ContactRow personalInfo={personalInfo} iconColor="text-slate-600" />
                 </SidebarSection>
-
-                {activeEducations.length > 0 && (
-                  <SidebarSection title="Education">
-                    <SidebarEducation educations={activeEducations} />
-                  </SidebarSection>
-                )}
 
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
@@ -504,6 +523,29 @@ export default function ResumePreview({
                     </div>
                   </div>
                 )}
+
+                {activeEducations.length > 0 && (
+                  <div>
+                    <SectionTitle>Education</SectionTitle>
+                    <div className="space-y-3.5">
+                      {activeEducations.map((edu) => (
+                        <div key={edu.id}>
+                          <div className="flex justify-between items-baseline gap-3">
+                            <span className="text-sm font-bold text-slate-900">{edu.degree}</span>
+                            <span className="text-xs text-slate-500 whitespace-nowrap">
+                              {formatDateRange(edu.startDate, edu.endDate)}
+                            </span>
+                          </div>
+                          <p className="text-xs text-slate-700 mt-0.5">
+                            {edu.school}
+                            {edu.field && ` | ${edu.field}`}
+                          </p>
+                          {edu.gpa && <p className="text-xs text-slate-500 mt-0.5">GPA: {edu.gpa}</p>}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </main>
             </div>
           </div>
@@ -530,12 +572,6 @@ export default function ResumePreview({
                 <SidebarSection title="Contact">
                   <ContactRow personalInfo={personalInfo} />
                 </SidebarSection>
-
-                {activeEducations.length > 0 && (
-                  <SidebarSection title="Education">
-                    <SidebarEducation educations={activeEducations} />
-                  </SidebarSection>
-                )}
 
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
@@ -592,6 +628,28 @@ export default function ResumePreview({
                     </div>
                   </div>
                 )}
+
+                {activeEducations.length > 0 && (
+                  <div>
+                    <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-400 pb-1.5 mb-3">
+                      Education
+                    </h2>
+                    <div className="space-y-3">
+                      {activeEducations.map((edu) => (
+                        <div key={edu.id}>
+                          <div className="flex justify-between items-baseline gap-3">
+                            <span className="text-xs font-bold uppercase text-slate-900">{edu.degree}</span>
+                            <span className="text-xs text-slate-500 whitespace-nowrap">
+                              {formatDateRange(edu.startDate, edu.endDate)}
+                            </span>
+                          </div>
+                          <p className="text-xs font-bold uppercase text-slate-700 mt-0.5">{edu.school}</p>
+                          {edu.gpa && <p className="text-xs text-slate-500 mt-0.5">GPA: {edu.gpa}</p>}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </main>
           </div>
@@ -618,11 +676,6 @@ export default function ResumePreview({
                 <SidebarSection title="Contact">
                   <ContactRow personalInfo={personalInfo} />
                 </SidebarSection>
-                {activeEducations.length > 0 && (
-                  <SidebarSection title="Education">
-                    <SidebarEducation educations={activeEducations} />
-                  </SidebarSection>
-                )}
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
                     <SkillBulletList skills={skills} columns={2} />
@@ -652,7 +705,6 @@ export default function ResumePreview({
                         Work Experience
                       </h2>
                     }
-                    className="mb-0"
                   >
                     <div className="space-y-4">
                       {activeExperiences.map((exp) => (
@@ -667,6 +719,32 @@ export default function ResumePreview({
                           {exp.description && (
                             <DescriptionList description={exp.description} className="text-xs text-slate-600" />
                           )}
+                        </div>
+                      ))}
+                    </div>
+                  </TimelineSection>
+                )}
+
+                {activeEducations.length > 0 && (
+                  <TimelineSection
+                    icon={<GraduationCap className="w-3.5 h-3.5" />}
+                    titleNode={
+                      <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1.5 mb-3.5 w-full">
+                        Education
+                      </h2>
+                    }
+                    className="mb-0"
+                  >
+                    <div className="space-y-3.5">
+                      {activeEducations.map((edu) => (
+                        <div key={edu.id}>
+                          <div className="flex justify-between items-baseline gap-3">
+                            <span className="text-sm font-bold text-slate-900">{edu.degree}</span>
+                            <span className="text-xs text-slate-500 whitespace-nowrap">
+                              {formatDateRange(edu.startDate, edu.endDate)}
+                            </span>
+                          </div>
+                          <p className="text-xs text-slate-700 mt-0.5">{edu.school}</p>
                         </div>
                       ))}
                     </div>
@@ -706,15 +784,6 @@ export default function ResumePreview({
                   </h3>
                   <ContactRow personalInfo={personalInfo} variant="light" />
                 </div>
-
-                {activeEducations.length > 0 && (
-                  <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-2">
-                      Education
-                    </h3>
-                    <SidebarEducation educations={activeEducations} light={true} />
-                  </div>
-                )}
 
                 {activeSkills.length > 0 && (
                   <div>
@@ -796,6 +865,30 @@ export default function ResumePreview({
                         {exp.description && (
                           <DescriptionList description={exp.description} className="text-xs text-slate-600" />
                         )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeEducations.length > 0 && (
+                <div>
+                  <h2
+                    className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1 mb-3"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    Education
+                  </h2>
+                  <div className="space-y-3">
+                    {activeEducations.map((edu) => (
+                      <div key={edu.id}>
+                        <div className="flex justify-between items-baseline gap-3">
+                          <span className="text-xs font-bold text-slate-800">{edu.degree}</span>
+                          <span className="text-xs text-slate-500 whitespace-nowrap">
+                            {formatDateRange(edu.startDate, edu.endDate)}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-600 mt-0.5">{edu.school}</p>
                       </div>
                     ))}
                   </div>
