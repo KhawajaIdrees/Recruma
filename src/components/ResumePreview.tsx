@@ -215,21 +215,39 @@ function SkillBulletList({
   columns?: 1 | 2;
   bulletColor?: string;
 }) {
-  const filtered = skills.filter((s) => s.name);
+  const filtered = skills.filter((s) => s.name && s.name.trim() !== "");
   if (!filtered.length) return null;
+
+  if (columns === 2) {
+    return (
+      <div className="w-full flex flex-wrap justify-between">
+        {filtered.map((s) => (
+          <div key={s.id} className="w-[48%] mb-2.5 flex items-start shrink-0 min-w-0">
+            <span
+              className={`inline-block w-1.5 h-1.5 rounded-full ${bulletColor} shrink-0 mt-1 mr-2`}
+            />
+            <span className={`${className} leading-snug break-words flex-1 min-w-0`}>
+              {s.name}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <ul
-      className={`${className} ${
-        columns === 2 ? "grid grid-cols-2 gap-x-3 gap-y-2" : "space-y-2"
-      }`}
-    >
+    <div className="w-full space-y-2">
       {filtered.map((s) => (
-        <li key={s.id} className="flex items-start gap-1.5 min-w-0">
-          <span className={`mt-[0.45em] w-1.5 h-1.5 rounded-full shrink-0 ${bulletColor}`} />
-          <span className="leading-snug break-words">{s.name}</span>
-        </li>
+        <div key={s.id} className="flex items-start shrink-0 min-w-0">
+          <span
+            className={`inline-block w-1.5 h-1.5 rounded-full ${bulletColor} shrink-0 mt-1 mr-2`}
+          />
+          <span className={`${className} leading-snug break-words flex-1 min-w-0`}>
+            {s.name}
+          </span>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
 
@@ -703,16 +721,16 @@ export default function ResumePreview({
                     <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-3">
                       Skills
                     </h3>
-                    <div className="grid grid-cols-2 gap-x-3 gap-y-3">
+                    <div className="w-full flex flex-wrap justify-between">
                       {activeSkills.map((skill, i) => {
                         const levels = [95, 88, 82, 75, 90, 85];
                         const level = levels[i % levels.length];
                         return (
-                          <div key={skill.id} className="flex flex-col gap-1 min-w-0">
-                            <span className="text-xs font-semibold text-white block truncate leading-snug">
+                          <div key={skill.id} className="w-[48%] mb-3 block">
+                            <div className="text-xs font-semibold text-white block mb-1.5 leading-snug overflow-hidden whitespace-nowrap text-ellipsis">
                               {skill.name}
-                            </span>
-                            <div className="w-full h-1.5 bg-white/30 rounded-full overflow-hidden shrink-0">
+                            </div>
+                            <div className="w-full h-1.5 bg-white/30 rounded-full overflow-hidden block">
                               <div
                                 className="h-full bg-white rounded-full"
                                 style={{ width: `${level}%` }}
