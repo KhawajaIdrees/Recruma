@@ -666,25 +666,6 @@ export default function ResumePreview({
                     </div>
                   </SidebarSection>
                 )}
-
-                {activeReferences.length > 0 && (
-                  <SidebarSection title="References">
-                    <div className="space-y-2.5 text-xs text-slate-700">
-                      {activeReferences.map((ref) => (
-                        <div key={ref.id}>
-                          <p className="font-bold text-slate-900 leading-snug">{ref.name}</p>
-                          {ref.relationship && (
-                            <p className="text-slate-700 leading-snug mt-0.5">{ref.relationship}</p>
-                          )}
-                          {ref.company && <p className="text-slate-500 leading-snug">{ref.company}</p>}
-                          {(ref.email || ref.phone) && (
-                            <p className="text-slate-500 leading-snug mt-0.5">{ref.email || ref.phone}</p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </SidebarSection>
-                )}
               </div>
             </aside>
 
@@ -752,6 +733,28 @@ export default function ResumePreview({
                           </div>
                           <p className="text-xs font-bold uppercase text-slate-700 mt-0.5">{edu.school}</p>
                           {edu.gpa && <p className="text-xs text-slate-500 mt-0.5">GPA: {edu.gpa}</p>}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeReferences.length > 0 && (
+                  <div>
+                    <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-400 pb-1.5 mb-3">
+                      References
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {activeReferences.map((ref) => (
+                        <div key={ref.id}>
+                          <p className="text-xs font-bold text-slate-900">{ref.name}</p>
+                          {ref.relationship && (
+                            <p className="text-xs text-slate-700 mt-0.5">{ref.relationship}</p>
+                          )}
+                          {ref.company && <p className="text-xs text-slate-500">{ref.company}</p>}
+                          {(ref.email || ref.phone) && (
+                            <p className="text-xs text-slate-500 mt-0.5">{ref.email || ref.phone}</p>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -924,48 +927,52 @@ export default function ResumePreview({
                   <ContactRow personalInfo={personalInfo} variant="light" />
                 </div>
 
-                {activeSkills.length > 0 && (
-                  <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-3">
-                      Skills
-                    </h3>
-                    <div className="w-full space-y-3">
-                      {activeSkills.map((skill, i) => {
-                        const levels = [95, 88, 82, 75, 90, 85];
-                        const level = levels[i % levels.length];
-                        return (
-                          <div key={skill.id} className="w-full block">
-                            <div className="text-xs font-semibold text-white block mb-1.5 leading-snug overflow-hidden whitespace-nowrap text-ellipsis">
-                              {skill.name}
-                            </div>
-                            <div className="w-full h-1.5 bg-white/30 rounded-full overflow-hidden block">
-                              <div
-                                className="h-full bg-white rounded-full"
-                                style={{ width: `${level}%` }}
-                              />
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-
-                {activeLanguages.length > 0 && (
-                  <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-2">
-                      Languages
-                    </h3>
-                    <div className="space-y-1.5 text-xs text-white">
-                      {activeLanguages.map((lang) => (
-                        <div key={lang.id} className="flex justify-between items-baseline">
-                          <span className="font-medium">{lang.name}</span>
-                          {lang.proficiency && (
-                            <span className="text-white/70 text-[11px]">{lang.proficiency}</span>
-                          )}
+                {(activeSkills.length > 0 || activeLanguages.length > 0) && (
+                  <div className="grid grid-cols-2 gap-4">
+                    {activeSkills.length > 0 && (
+                      <div className="min-w-0">
+                        <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-3">
+                          Skills
+                        </h3>
+                        <div className="w-full space-y-3">
+                          {activeSkills.map((skill, i) => {
+                            const levels = [95, 88, 82, 75, 90, 85];
+                            const level = levels[i % levels.length];
+                            return (
+                              <div key={skill.id} className="w-full block">
+                                <div className="text-xs font-semibold text-white block mb-1.5 leading-snug overflow-hidden whitespace-nowrap text-ellipsis">
+                                  {skill.name}
+                                </div>
+                                <div className="w-full h-1.5 bg-white/30 rounded-full overflow-hidden block">
+                                  <div
+                                    className="h-full bg-white rounded-full"
+                                    style={{ width: `${level}%` }}
+                                  />
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    )}
+
+                    {activeLanguages.length > 0 && (
+                      <div className="min-w-0">
+                        <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-2">
+                          Languages
+                        </h3>
+                        <div className="space-y-2 text-xs text-white">
+                          {activeLanguages.map((lang) => (
+                            <div key={lang.id} className="flex flex-col">
+                              <span className="font-medium leading-snug">{lang.name}</span>
+                              {lang.proficiency && (
+                                <span className="text-white/70 text-[11px] leading-snug">{lang.proficiency}</span>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
 
