@@ -12,9 +12,11 @@ import PersonalInfoSection from "@/components/PersonalInfoSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import EducationSection from "@/components/EducationSection";
 import SkillsSection from "@/components/SkillsSection";
+import LanguagesSection from "@/components/LanguagesSection";
+import ReferencesSection from "@/components/ReferencesSection";
 import SummarySection from "@/components/SummarySection";
 import ProfilePictureSection from "@/components/ProfilePictureSection";
-import type { PersonalInfo, Experience, Education, Skill, ProfilePicture } from "@/components/types";
+import type { PersonalInfo, Experience, Education, Skill, Language, Reference, ProfilePicture } from "@/components/types";
 import { getTemplateColors } from "@/lib/colorUtils";
 import { generateResumePDF } from "@/lib/pdfGenerator";
 
@@ -117,6 +119,20 @@ const [skills, setSkills] = useState<Skill[]>([
   { id: "init-skill-5", name: "Python" },
   { id: "init-skill-6", name: "AWS" },
 ]);
+const [languages, setLanguages] = useState<Language[]>([
+  { id: "init-lang-1", name: "English", proficiency: "Native / Fluent" },
+  { id: "init-lang-2", name: "French", proficiency: "Professional" },
+  { id: "init-lang-3", name: "Spanish", proficiency: "Intermediate" },
+]);
+const [references, setReferences] = useState<Reference[]>([
+  {
+    id: "init-ref-1",
+    name: "Eleanor Vance",
+    relationship: "Senior Marketing Manager",
+    company: "Borcelle Studio",
+    email: "eleanor.vance@borcelle.com",
+  },
+]);
 const [summary, setSummary] = useState("Experienced software engineer with 5+ years in full-stack development. Passionate about building scalable web applications and mentoring junior developers. Proven track record of delivering high-quality software solutions in agile environments.");
   const [profile, setProfile] = useState<ProfilePicture | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -202,6 +218,41 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
     );
   };
 
+  const addLanguage = () => {
+    setLanguages([...languages, { id: crypto.randomUUID(), name: "", proficiency: "" }]);
+  };
+
+  const removeLanguage = (id: string) => {
+    setLanguages(languages.filter((lang) => lang.id !== id));
+  };
+
+  const updateLanguage = (id: string, field: keyof Language, value: string) => {
+    setLanguages(
+      languages.map((lang) =>
+        lang.id === id ? { ...lang, [field]: value } : lang,
+      ),
+    );
+  };
+
+  const addReference = () => {
+    setReferences([
+      ...references,
+      { id: crypto.randomUUID(), name: "", relationship: "", company: "", email: "" },
+    ]);
+  };
+
+  const removeReference = (id: string) => {
+    setReferences(references.filter((ref) => ref.id !== id));
+  };
+
+  const updateReference = (id: string, field: keyof Reference, value: string) => {
+    setReferences(
+      references.map((ref) =>
+        ref.id === id ? { ...ref, [field]: value } : ref,
+      ),
+    );
+  };
+
   const handleDownload = async () => {
     if (
       !personalInfo.fullName &&
@@ -222,6 +273,8 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
       experiences,
       educations,
       skills,
+      languages,
+      references,
       summary,
       profile,
     };
@@ -250,6 +303,8 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
             experiences,
             educations,
             skills,
+            languages,
+            references,
             summary,
           },
         }),
@@ -362,7 +417,6 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
       } else {
         throw new Error("Invalid response from AI");
       }
-      // Inside src/app/make/page.tsx -> handleGenerateWithAI function
     } catch (error) {
       console.error("Resume generation error:", error);
 
@@ -385,6 +439,8 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
       setExperiences(data.experiences || experiences);
       setEducations(data.educations || educations);
       setSkills(data.skills || skills);
+      setLanguages(data.languages || languages);
+      setReferences(data.references || references);
       setSummary(data.summary || summary);
       setProfile(data.profile || null);
     }
@@ -632,6 +688,34 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
                     onUpdate={updateSkill}
                   />
                 </div>
+
+                {/* Languages Section */}
+                <div className="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+                  <h3 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-900 flex items-center justify-center text-xs font-bold">7</div>
+                    Languages
+                  </h3>
+                  <LanguagesSection
+                    languages={languages}
+                    onAdd={addLanguage}
+                    onRemove={removeLanguage}
+                    onUpdate={updateLanguage}
+                  />
+                </div>
+
+                {/* References Section */}
+                <div className="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+                  <h3 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-900 flex items-center justify-center text-xs font-bold">8</div>
+                    References
+                  </h3>
+                  <ReferencesSection
+                    references={references}
+                    onAdd={addReference}
+                    onRemove={removeReference}
+                    onUpdate={updateReference}
+                  />
+                </div>
               </div>
             </div>
 
@@ -652,6 +736,8 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
                     experiences={experiences}
                     educations={educations}
                     skills={skills}
+                    languages={languages}
+                    references={references}
                     summary={summary}
                     profile={profile}
                     template={Number(selectedTemplate)}

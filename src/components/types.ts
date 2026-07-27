@@ -33,8 +33,24 @@ export interface Skill {
   name: string;
 }
 
+export interface Language {
+  id: string;
+  name: string;
+  proficiency?: string;
+}
+
+export interface Reference {
+  id: string;
+  name: string;
+  relationship?: string;
+  company?: string;
+  email?: string;
+  phone?: string;
+}
+
 export interface ProfilePicture {
   url: string;
   base64?: string;
 }
+
 

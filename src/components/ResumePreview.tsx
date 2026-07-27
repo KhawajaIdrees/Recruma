@@ -4,8 +4,9 @@ import {
   User,
   Briefcase,
   GraduationCap,
+  UserCheck,
 } from "lucide-react";
-import { PersonalInfo, Experience, Education, Skill, ProfilePicture } from "./types";
+import { PersonalInfo, Experience, Education, Skill, Language, Reference, ProfilePicture } from "./types";
 import { templates } from "@/lib/templateData";
 
 interface ResumePreviewProps {
@@ -13,6 +14,8 @@ interface ResumePreviewProps {
   experiences: Experience[];
   educations: Education[];
   skills: Skill[];
+  languages?: Language[];
+  references?: Reference[];
   summary: string;
   template: number;
   profile?: ProfilePicture | null;
@@ -144,7 +147,7 @@ function ContactRow({
     <div className="space-y-2.5">
       {items.map(({ key, icon, value }) => (
         <div key={key} className="flex items-start gap-2.5 leading-snug">
-          <span className="contact-icon-wrap flex items-center justify-center w-4 h-4 mt-0.5 shrink-0 overflow-visible">
+          <span className="contact-icon-wrap flex items-center justify-center w-4 h-4 mt-[2px] shrink-0 overflow-visible">
             {icon}
           </span>
           <span className={`${resolvedTextClass} break-all flex-1 min-w-0 leading-snug`}>{value}</span>
@@ -342,6 +345,8 @@ export default function ResumePreview({
   experiences,
   educations,
   skills,
+  languages = [],
+  references = [],
   summary,
   template,
   profile,
@@ -352,6 +357,8 @@ export default function ResumePreview({
   const activeExperiences = experiences.filter((e) => e && (e.position || e.company));
   const activeEducations = educations.filter((e) => e && (e.school || e.degree));
   const activeSkills = skills.filter((s) => s && s.name && s.name.trim() !== "");
+  const activeLanguages = languages.filter((l) => l && l.name && l.name.trim() !== "");
+  const activeReferences = references.filter((r) => r && r.name && r.name.trim() !== "");
   const fullBleed = [1, 2, 3, 5].includes(templateData.id);
 
   const RenderTemplate = () => {
@@ -387,6 +394,20 @@ export default function ResumePreview({
                     <SkillBulletList skills={skills} columns={1} />
                   </SidebarSection>
                 )}
+                {activeLanguages.length > 0 && (
+                  <SidebarSection title="Languages">
+                    <div className="space-y-1.5 text-xs text-slate-700">
+                      {activeLanguages.map((lang) => (
+                        <div key={lang.id} className="flex justify-between items-baseline">
+                          <span className="font-medium">{lang.name}</span>
+                          {lang.proficiency && (
+                            <span className="text-slate-500 text-[11px]">{lang.proficiency}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </SidebarSection>
+                )}
               </aside>
 
               <main className="px-7 py-7 border-l border-slate-200 min-h-full">
@@ -401,7 +422,7 @@ export default function ResumePreview({
                     <div className="space-y-5 border-l border-slate-300 ml-3 pl-5">
                       {activeExperiences.map((exp) => (
                         <div key={exp.id} className="relative">
-                          <div className="absolute -left-[23px] top-1.5 w-2 h-2 rounded-full border-2 border-slate-400 bg-white" />
+                          <div className="absolute -left-[23px] top-[0.35em] w-2 h-2 rounded-full border-2 border-slate-400 bg-white" />
                           <div className="flex justify-between items-baseline gap-3">
                             <span className="text-sm font-bold text-slate-900">{exp.company}</span>
                             <span className="text-xs text-slate-500 whitespace-nowrap uppercase">
@@ -422,7 +443,7 @@ export default function ResumePreview({
                   <TimelineSection
                     icon={<GraduationCap className="w-3.5 h-3.5" />}
                     title="Education"
-                    className="mb-0"
+                    className={activeReferences.length > 0 ? "mb-6" : "mb-0"}
                   >
                     <div className="space-y-4">
                       {activeEducations.map((edu) => (
@@ -438,6 +459,29 @@ export default function ResumePreview({
                             {edu.field && ` | ${edu.field}`}
                           </p>
                           {edu.gpa && <p className="text-xs text-slate-500 mt-0.5">GPA: {edu.gpa}</p>}
+                        </div>
+                      ))}
+                    </div>
+                  </TimelineSection>
+                )}
+
+                {activeReferences.length > 0 && (
+                  <TimelineSection
+                    icon={<UserCheck className="w-3.5 h-3.5" />}
+                    title="References"
+                    className="mb-0"
+                  >
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {activeReferences.map((ref) => (
+                        <div key={ref.id}>
+                          <p className="text-xs font-bold text-slate-900">{ref.name}</p>
+                          {ref.relationship && (
+                            <p className="text-xs text-slate-700 mt-0.5">{ref.relationship}</p>
+                          )}
+                          {ref.company && <p className="text-xs text-slate-500">{ref.company}</p>}
+                          {(ref.email || ref.phone) && (
+                            <p className="text-xs text-slate-500 mt-0.5">{ref.email || ref.phone}</p>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -482,6 +526,21 @@ export default function ResumePreview({
                     <SkillBulletList skills={skills} columns={1} />
                   </SidebarSection>
                 )}
+
+                {activeLanguages.length > 0 && (
+                  <SidebarSection title="Languages">
+                    <div className="space-y-1.5 text-xs text-slate-700">
+                      {activeLanguages.map((lang) => (
+                        <div key={lang.id} className="flex justify-between items-baseline">
+                          <span className="font-medium">{lang.name}</span>
+                          {lang.proficiency && (
+                            <span className="text-slate-500 text-[11px]">{lang.proficiency}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </SidebarSection>
+                )}
               </aside>
 
               <main className="px-6 py-7 space-y-6 min-h-full">
@@ -499,7 +558,7 @@ export default function ResumePreview({
                       {activeExperiences.map((exp) => (
                         <div key={exp.id} className="flex gap-2.5">
                           <div
-                            className="w-2 h-2 mt-1.5 shrink-0 rounded-sm"
+                            className="w-2 h-2 mt-[0.35em] shrink-0 rounded-sm"
                             style={{ background: "var(--accent)" }}
                           />
                           <div className="flex-1">
@@ -546,6 +605,26 @@ export default function ResumePreview({
                     </div>
                   </div>
                 )}
+
+                {activeReferences.length > 0 && (
+                  <div>
+                    <SectionTitle>References</SectionTitle>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {activeReferences.map((ref) => (
+                        <div key={ref.id}>
+                          <p className="text-xs font-bold text-slate-900">{ref.name}</p>
+                          {ref.relationship && (
+                            <p className="text-xs text-slate-700 mt-0.5">{ref.relationship}</p>
+                          )}
+                          {ref.company && <p className="text-xs text-slate-500">{ref.company}</p>}
+                          {(ref.email || ref.phone) && (
+                            <p className="text-xs text-slate-500 mt-0.5">{ref.email || ref.phone}</p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </main>
             </div>
           </div>
@@ -576,6 +655,21 @@ export default function ResumePreview({
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
                     <SkillBulletList skills={skills} columns={1} />
+                  </SidebarSection>
+                )}
+
+                {activeLanguages.length > 0 && (
+                  <SidebarSection title="Languages">
+                    <div className="space-y-1.5 text-xs text-slate-700">
+                      {activeLanguages.map((lang) => (
+                        <div key={lang.id} className="flex justify-between items-baseline">
+                          <span className="font-medium">{lang.name}</span>
+                          {lang.proficiency && (
+                            <span className="text-slate-500 text-[11px]">{lang.proficiency}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </SidebarSection>
                 )}
               </div>
@@ -612,7 +706,7 @@ export default function ResumePreview({
                     <div className="space-y-5">
                       {activeExperiences.map((exp) => (
                         <div key={exp.id} className="relative">
-                          <div className="absolute -left-[18px] top-1 w-3 h-3 rounded-full border-2 border-slate-500 bg-white" />
+                          <div className="absolute -left-[18px] top-[0.3em] w-3 h-3 rounded-full border-2 border-slate-500 bg-white" />
                           <div className="flex justify-between items-baseline gap-3">
                             <span className="text-xs font-bold uppercase text-slate-900">{exp.position}</span>
                             <span className="text-xs text-slate-500 whitespace-nowrap">
@@ -650,6 +744,28 @@ export default function ResumePreview({
                     </div>
                   </div>
                 )}
+
+                {activeReferences.length > 0 && (
+                  <div>
+                    <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-400 pb-1.5 mb-3">
+                      References
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {activeReferences.map((ref) => (
+                        <div key={ref.id}>
+                          <p className="text-xs font-bold text-slate-900">{ref.name}</p>
+                          {ref.relationship && (
+                            <p className="text-xs text-slate-700 mt-0.5">{ref.relationship}</p>
+                          )}
+                          {ref.company && <p className="text-xs text-slate-500">{ref.company}</p>}
+                          {(ref.email || ref.phone) && (
+                            <p className="text-xs text-slate-500 mt-0.5">{ref.email || ref.phone}</p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </main>
           </div>
@@ -679,6 +795,20 @@ export default function ResumePreview({
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
                     <SkillBulletList skills={skills} columns={1} />
+                  </SidebarSection>
+                )}
+                {activeLanguages.length > 0 && (
+                  <SidebarSection title="Languages">
+                    <div className="space-y-1.5 text-xs text-slate-700">
+                      {activeLanguages.map((lang) => (
+                        <div key={lang.id} className="flex justify-between items-baseline">
+                          <span className="font-medium">{lang.name}</span>
+                          {lang.proficiency && (
+                            <span className="text-slate-500 text-[11px]">{lang.proficiency}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </SidebarSection>
                 )}
               </aside>
@@ -733,7 +863,7 @@ export default function ResumePreview({
                         Education
                       </h2>
                     }
-                    className="mb-0"
+                    className={activeReferences.length > 0 ? "mb-6" : "mb-0"}
                   >
                     <div className="space-y-3.5">
                       {activeEducations.map((edu) => (
@@ -745,6 +875,33 @@ export default function ResumePreview({
                             </span>
                           </div>
                           <p className="text-xs text-slate-700 mt-0.5">{edu.school}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </TimelineSection>
+                )}
+
+                {activeReferences.length > 0 && (
+                  <TimelineSection
+                    icon={<UserCheck className="w-3.5 h-3.5" />}
+                    titleNode={
+                      <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1.5 mb-3.5 w-full">
+                        References
+                      </h2>
+                    }
+                    className="mb-0"
+                  >
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {activeReferences.map((ref) => (
+                        <div key={ref.id}>
+                          <p className="text-xs font-bold text-slate-900">{ref.name}</p>
+                          {ref.relationship && (
+                            <p className="text-xs text-slate-700 mt-0.5">{ref.relationship}</p>
+                          )}
+                          {ref.company && <p className="text-xs text-slate-500">{ref.company}</p>}
+                          {(ref.email || ref.phone) && (
+                            <p className="text-xs text-slate-500 mt-0.5">{ref.email || ref.phone}</p>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -811,6 +968,24 @@ export default function ResumePreview({
                     </div>
                   </div>
                 )}
+
+                {activeLanguages.length > 0 && (
+                  <div>
+                    <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-2">
+                      Languages
+                    </h3>
+                    <div className="space-y-1.5 text-xs text-white">
+                      {activeLanguages.map((lang) => (
+                        <div key={lang.id} className="flex justify-between items-baseline">
+                          <span className="font-medium">{lang.name}</span>
+                          {lang.proficiency && (
+                            <span className="text-white/70 text-[11px]">{lang.proficiency}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </aside>
 
@@ -872,7 +1047,7 @@ export default function ResumePreview({
               )}
 
               {activeEducations.length > 0 && (
-                <div>
+                <div className={activeReferences.length > 0 ? "mb-6" : ""}>
                   <h2
                     className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1 mb-3"
                     style={{ color: "var(--accent)" }}
@@ -889,6 +1064,31 @@ export default function ResumePreview({
                           </span>
                         </div>
                         <p className="text-xs text-slate-600 mt-0.5">{edu.school}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeReferences.length > 0 && (
+                <div>
+                  <h2
+                    className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1 mb-3"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    References
+                  </h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {activeReferences.map((ref) => (
+                      <div key={ref.id}>
+                        <p className="text-xs font-bold text-slate-900">{ref.name}</p>
+                        {ref.relationship && (
+                          <p className="text-xs text-slate-700 mt-0.5">{ref.relationship}</p>
+                        )}
+                        {ref.company && <p className="text-xs text-slate-500">{ref.company}</p>}
+                        {(ref.email || ref.phone) && (
+                          <p className="text-xs text-slate-500 mt-0.5">{ref.email || ref.phone}</p>
+                        )}
                       </div>
                     ))}
                   </div>
