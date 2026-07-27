@@ -147,7 +147,7 @@ function ContactRow({
     <div className="space-y-2.5">
       {items.map(({ key, icon, value }) => (
         <div key={key} className="flex items-start gap-2.5 leading-snug">
-          <span className="contact-icon-wrap flex items-center justify-center w-4 h-4 mt-[2px] shrink-0 overflow-visible">
+          <span className="contact-icon-wrap flex items-center justify-center w-4 h-4 mt-[4px] shrink-0 overflow-visible">
             {icon}
           </span>
           <span className={`${resolvedTextClass} break-all flex-1 min-w-0 leading-snug`}>{value}</span>
@@ -408,6 +408,24 @@ export default function ResumePreview({
                     </div>
                   </SidebarSection>
                 )}
+                {activeReferences.length > 0 && (
+                  <SidebarSection title="References">
+                    <div className="space-y-2.5 text-xs text-slate-700">
+                      {activeReferences.map((ref) => (
+                        <div key={ref.id}>
+                          <p className="font-bold text-slate-900 leading-snug">{ref.name}</p>
+                          {ref.relationship && (
+                            <p className="text-slate-700 leading-snug mt-0.5">{ref.relationship}</p>
+                          )}
+                          {ref.company && <p className="text-slate-500 leading-snug">{ref.company}</p>}
+                          {(ref.email || ref.phone) && (
+                            <p className="text-slate-500 leading-snug mt-0.5">{ref.email || ref.phone}</p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </SidebarSection>
+                )}
               </aside>
 
               <main className="px-7 py-7 border-l border-slate-200 min-h-full">
@@ -443,7 +461,7 @@ export default function ResumePreview({
                   <TimelineSection
                     icon={<GraduationCap className="w-3.5 h-3.5" />}
                     title="Education"
-                    className={activeReferences.length > 0 ? "mb-6" : "mb-0"}
+                    className="mb-0"
                   >
                     <div className="space-y-4">
                       {activeEducations.map((edu) => (
@@ -459,29 +477,6 @@ export default function ResumePreview({
                             {edu.field && ` | ${edu.field}`}
                           </p>
                           {edu.gpa && <p className="text-xs text-slate-500 mt-0.5">GPA: {edu.gpa}</p>}
-                        </div>
-                      ))}
-                    </div>
-                  </TimelineSection>
-                )}
-
-                {activeReferences.length > 0 && (
-                  <TimelineSection
-                    icon={<UserCheck className="w-3.5 h-3.5" />}
-                    title="References"
-                    className="mb-0"
-                  >
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {activeReferences.map((ref) => (
-                        <div key={ref.id}>
-                          <p className="text-xs font-bold text-slate-900">{ref.name}</p>
-                          {ref.relationship && (
-                            <p className="text-xs text-slate-700 mt-0.5">{ref.relationship}</p>
-                          )}
-                          {ref.company && <p className="text-xs text-slate-500">{ref.company}</p>}
-                          {(ref.email || ref.phone) && (
-                            <p className="text-xs text-slate-500 mt-0.5">{ref.email || ref.phone}</p>
-                          )}
                         </div>
                       ))}
                     </div>
@@ -535,6 +530,25 @@ export default function ResumePreview({
                           <span className="font-medium">{lang.name}</span>
                           {lang.proficiency && (
                             <span className="text-slate-500 text-[11px]">{lang.proficiency}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </SidebarSection>
+                )}
+
+                {activeReferences.length > 0 && (
+                  <SidebarSection title="References">
+                    <div className="space-y-2.5 text-xs text-slate-700">
+                      {activeReferences.map((ref) => (
+                        <div key={ref.id}>
+                          <p className="font-bold text-slate-900 leading-snug">{ref.name}</p>
+                          {ref.relationship && (
+                            <p className="text-slate-700 leading-snug mt-0.5">{ref.relationship}</p>
+                          )}
+                          {ref.company && <p className="text-slate-500 leading-snug">{ref.company}</p>}
+                          {(ref.email || ref.phone) && (
+                            <p className="text-slate-500 leading-snug mt-0.5">{ref.email || ref.phone}</p>
                           )}
                         </div>
                       ))}
@@ -605,26 +619,6 @@ export default function ResumePreview({
                     </div>
                   </div>
                 )}
-
-                {activeReferences.length > 0 && (
-                  <div>
-                    <SectionTitle>References</SectionTitle>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {activeReferences.map((ref) => (
-                        <div key={ref.id}>
-                          <p className="text-xs font-bold text-slate-900">{ref.name}</p>
-                          {ref.relationship && (
-                            <p className="text-xs text-slate-700 mt-0.5">{ref.relationship}</p>
-                          )}
-                          {ref.company && <p className="text-xs text-slate-500">{ref.company}</p>}
-                          {(ref.email || ref.phone) && (
-                            <p className="text-xs text-slate-500 mt-0.5">{ref.email || ref.phone}</p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </main>
             </div>
           </div>
@@ -666,6 +660,25 @@ export default function ResumePreview({
                           <span className="font-medium">{lang.name}</span>
                           {lang.proficiency && (
                             <span className="text-slate-500 text-[11px]">{lang.proficiency}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </SidebarSection>
+                )}
+
+                {activeReferences.length > 0 && (
+                  <SidebarSection title="References">
+                    <div className="space-y-2.5 text-xs text-slate-700">
+                      {activeReferences.map((ref) => (
+                        <div key={ref.id}>
+                          <p className="font-bold text-slate-900 leading-snug">{ref.name}</p>
+                          {ref.relationship && (
+                            <p className="text-slate-700 leading-snug mt-0.5">{ref.relationship}</p>
+                          )}
+                          {ref.company && <p className="text-slate-500 leading-snug">{ref.company}</p>}
+                          {(ref.email || ref.phone) && (
+                            <p className="text-slate-500 leading-snug mt-0.5">{ref.email || ref.phone}</p>
                           )}
                         </div>
                       ))}
@@ -744,28 +757,6 @@ export default function ResumePreview({
                     </div>
                   </div>
                 )}
-
-                {activeReferences.length > 0 && (
-                  <div>
-                    <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-400 pb-1.5 mb-3">
-                      References
-                    </h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {activeReferences.map((ref) => (
-                        <div key={ref.id}>
-                          <p className="text-xs font-bold text-slate-900">{ref.name}</p>
-                          {ref.relationship && (
-                            <p className="text-xs text-slate-700 mt-0.5">{ref.relationship}</p>
-                          )}
-                          {ref.company && <p className="text-xs text-slate-500">{ref.company}</p>}
-                          {(ref.email || ref.phone) && (
-                            <p className="text-xs text-slate-500 mt-0.5">{ref.email || ref.phone}</p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
             </main>
           </div>
@@ -805,6 +796,24 @@ export default function ResumePreview({
                           <span className="font-medium">{lang.name}</span>
                           {lang.proficiency && (
                             <span className="text-slate-500 text-[11px]">{lang.proficiency}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </SidebarSection>
+                )}
+                {activeReferences.length > 0 && (
+                  <SidebarSection title="References">
+                    <div className="space-y-2.5 text-xs text-slate-700">
+                      {activeReferences.map((ref) => (
+                        <div key={ref.id}>
+                          <p className="font-bold text-slate-900 leading-snug">{ref.name}</p>
+                          {ref.relationship && (
+                            <p className="text-slate-700 leading-snug mt-0.5">{ref.relationship}</p>
+                          )}
+                          {ref.company && <p className="text-slate-500 leading-snug">{ref.company}</p>}
+                          {(ref.email || ref.phone) && (
+                            <p className="text-slate-500 leading-snug mt-0.5">{ref.email || ref.phone}</p>
                           )}
                         </div>
                       ))}
@@ -863,7 +872,7 @@ export default function ResumePreview({
                         Education
                       </h2>
                     }
-                    className={activeReferences.length > 0 ? "mb-6" : "mb-0"}
+                    className="mb-0"
                   >
                     <div className="space-y-3.5">
                       {activeEducations.map((edu) => (
@@ -875,33 +884,6 @@ export default function ResumePreview({
                             </span>
                           </div>
                           <p className="text-xs text-slate-700 mt-0.5">{edu.school}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </TimelineSection>
-                )}
-
-                {activeReferences.length > 0 && (
-                  <TimelineSection
-                    icon={<UserCheck className="w-3.5 h-3.5" />}
-                    titleNode={
-                      <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1.5 mb-3.5 w-full">
-                        References
-                      </h2>
-                    }
-                    className="mb-0"
-                  >
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {activeReferences.map((ref) => (
-                        <div key={ref.id}>
-                          <p className="text-xs font-bold text-slate-900">{ref.name}</p>
-                          {ref.relationship && (
-                            <p className="text-xs text-slate-700 mt-0.5">{ref.relationship}</p>
-                          )}
-                          {ref.company && <p className="text-xs text-slate-500">{ref.company}</p>}
-                          {(ref.email || ref.phone) && (
-                            <p className="text-xs text-slate-500 mt-0.5">{ref.email || ref.phone}</p>
-                          )}
                         </div>
                       ))}
                     </div>
@@ -986,6 +968,28 @@ export default function ResumePreview({
                     </div>
                   </div>
                 )}
+
+                {activeReferences.length > 0 && (
+                  <div>
+                    <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-2">
+                      References
+                    </h3>
+                    <div className="space-y-2.5 text-xs text-white">
+                      {activeReferences.map((ref) => (
+                        <div key={ref.id}>
+                          <p className="font-bold text-white leading-snug">{ref.name}</p>
+                          {ref.relationship && (
+                            <p className="text-white/80 leading-snug mt-0.5">{ref.relationship}</p>
+                          )}
+                          {ref.company && <p className="text-white/70 leading-snug">{ref.company}</p>}
+                          {(ref.email || ref.phone) && (
+                            <p className="text-white/70 leading-snug mt-0.5">{ref.email || ref.phone}</p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </aside>
 
@@ -1047,7 +1051,7 @@ export default function ResumePreview({
               )}
 
               {activeEducations.length > 0 && (
-                <div className={activeReferences.length > 0 ? "mb-6" : ""}>
+                <div>
                   <h2
                     className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1 mb-3"
                     style={{ color: "var(--accent)" }}
@@ -1064,31 +1068,6 @@ export default function ResumePreview({
                           </span>
                         </div>
                         <p className="text-xs text-slate-600 mt-0.5">{edu.school}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {activeReferences.length > 0 && (
-                <div>
-                  <h2
-                    className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1 mb-3"
-                    style={{ color: "var(--accent)" }}
-                  >
-                    References
-                  </h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {activeReferences.map((ref) => (
-                      <div key={ref.id}>
-                        <p className="text-xs font-bold text-slate-900">{ref.name}</p>
-                        {ref.relationship && (
-                          <p className="text-xs text-slate-700 mt-0.5">{ref.relationship}</p>
-                        )}
-                        {ref.company && <p className="text-xs text-slate-500">{ref.company}</p>}
-                        {(ref.email || ref.phone) && (
-                          <p className="text-xs text-slate-500 mt-0.5">{ref.email || ref.phone}</p>
-                        )}
                       </div>
                     ))}
                   </div>
