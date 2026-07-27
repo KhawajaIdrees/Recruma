@@ -147,7 +147,7 @@ function ContactRow({
           <span className="contact-icon-wrap flex items-center justify-center w-4 h-4 mt-0.5 shrink-0 overflow-visible">
             {icon}
           </span>
-          <span className={`${resolvedTextClass} break-words`}>{value}</span>
+          <span className={`${resolvedTextClass} break-all flex-1 min-w-0 leading-snug`}>{value}</span>
         </div>
       ))}
     </div>
@@ -207,7 +207,7 @@ function SidebarEducation({
 function SkillBulletList({
   skills,
   className = "text-xs text-slate-700",
-  columns = 2,
+  columns = 1,
   bulletColor = "text-slate-700",
 }: {
   skills: Skill[];
@@ -240,10 +240,10 @@ function SkillBulletList({
   }
 
   return (
-    <div className="w-full space-y-2">
+    <div className="w-full space-y-2.5">
       {filtered.map((s) => (
         <div key={s.id} className="flex items-baseline shrink-0 min-w-0">
-          <span className={`text-[8px] ${resolvedBulletClass} leading-none shrink-0 mr-1.5 select-none`}>
+          <span className={`text-[8px] ${resolvedBulletClass} leading-none shrink-0 mr-2 select-none`}>
             ●
           </span>
           <span className={`${className} leading-snug break-words flex-1 min-w-0`}>
@@ -384,7 +384,7 @@ export default function ResumePreview({
                 </SidebarSection>
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
-                    <SkillBulletList skills={skills} columns={2} />
+                    <SkillBulletList skills={skills} columns={1} />
                   </SidebarSection>
                 )}
               </aside>
@@ -479,7 +479,7 @@ export default function ResumePreview({
 
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
-                    <SkillBulletList skills={skills} columns={2} />
+                    <SkillBulletList skills={skills} columns={1} />
                   </SidebarSection>
                 )}
               </aside>
@@ -575,7 +575,7 @@ export default function ResumePreview({
 
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
-                    <SkillBulletList skills={skills} columns={2} />
+                    <SkillBulletList skills={skills} columns={1} />
                   </SidebarSection>
                 )}
               </div>
@@ -678,7 +678,7 @@ export default function ResumePreview({
                 </SidebarSection>
                 {activeSkills.length > 0 && (
                   <SidebarSection title="Skills">
-                    <SkillBulletList skills={skills} columns={2} />
+                    <SkillBulletList skills={skills} columns={1} />
                   </SidebarSection>
                 )}
               </aside>
@@ -790,12 +790,12 @@ export default function ResumePreview({
                     <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-3">
                       Skills
                     </h3>
-                    <div className="w-full flex flex-wrap justify-between">
+                    <div className="w-full space-y-3">
                       {activeSkills.map((skill, i) => {
                         const levels = [95, 88, 82, 75, 90, 85];
                         const level = levels[i % levels.length];
                         return (
-                          <div key={skill.id} className="w-[48%] mb-3 block">
+                          <div key={skill.id} className="w-full block">
                             <div className="text-xs font-semibold text-white block mb-1.5 leading-snug overflow-hidden whitespace-nowrap text-ellipsis">
                               {skill.name}
                             </div>
