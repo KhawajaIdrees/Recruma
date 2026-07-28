@@ -653,19 +653,14 @@ export default function ResumePreview({
         return (
           <div className="template-layout-3 grid grid-cols-[36%_1fr] min-h-[1056px] h-auto bg-white">
             <aside className="bg-slate-100 min-h-full flex flex-col">
-              <div
-                className="relative flex justify-center pt-6 pb-14 overflow-visible shrink-0"
-                style={{ background: "var(--accent-bg)" }}
-              >
-                <div className="absolute inset-x-0 top-0 h-16 bg-slate-300/50 rounded-b-[50%]" />
-                {showProfile ? (
-                  <Avatar url={profile!.url} size={112} className="relative z-10" />
-                ) : (
-                  <div className="relative z-10 w-28 h-28 rounded-full bg-slate-300 border-4 border-white" />
-                )}
-              </div>
-
-              <div className="px-5 py-5 space-y-6 -mt-5 flex-1">
+              <div className="px-5 pt-6 pb-5 space-y-6 flex-1">
+                <div className="flex justify-center mt-2 mb-4 shrink-0">
+                  {showProfile ? (
+                    <Avatar url={profile!.url} size={112} ringColor="#ffffff" />
+                  ) : (
+                    <div className="w-28 h-28 rounded-full bg-slate-200 border-4 border-white" />
+                  )}
+                </div>
                 <SidebarSection title="Contact">
                   <ContactRow personalInfo={personalInfo} />
                 </SidebarSection>
