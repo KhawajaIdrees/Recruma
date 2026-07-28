@@ -218,7 +218,31 @@ function SkillBulletList({
   columns?: 1 | 2;
   bulletColor?: string;
 }) {
-  const filtered = skills.filter((s) => s.name && s.name.trim() !== "");
+  const sanitizeName = (n: string) => {
+    if (!n) return "";
+    let name = n.replace(/\r/g, "");
+    // Collapse newlines and extra spaces
+    name = name.replace(/\s+/g, " ").trim();
+    // Fix patterns like "8 + 8+" or "8\n+\n8+" -> (8+)
+    name = name.replace(/(\b\d+\b)\s*[+]+(\s*\1\+)?/g, "($1+)");
+    // Replace stray standalone "+" lines
+    name = name.replace(/^\++$/g, "");
+    return name;
+  };
+
+  const normalized: { id: string; name: string }[] = [];
+  const seen = new Set<string>();
+  skills.forEach((s) => {
+    const raw = s?.name || "";
+    const name = sanitizeName(raw);
+    const key = name.toLowerCase();
+    if (name && !seen.has(key)) {
+      seen.add(key);
+      normalized.push({ id: s.id, name });
+    }
+  });
+
+  const filtered = normalized;
   if (!filtered.length) return null;
 
   const resolvedBulletClass = bulletColor.startsWith("bg-")
@@ -242,8 +266,8 @@ function SkillBulletList({
     );
   }
 
-  return (
-    <div className="w-full space-y-2.5">
+    return (
+    <div className="w-full space-y-2">
       {filtered.map((s) => (
         <div key={s.id} className="flex items-baseline shrink-0 min-w-0">
           <span className={`text-[8px] ${resolvedBulletClass} leading-none shrink-0 mr-2 select-none`}>
@@ -938,7 +962,7 @@ export default function ResumePreview({
                         const level = levels[i % levels.length];
                         return (
                           <div key={skill.id} className="w-full block">
-                            <div className="text-xs font-semibold text-white block mb-1.5 leading-snug overflow-hidden whitespace-nowrap text-ellipsis">
+                            <div className="text-xs font-semibold text-white block mb-1 leading-snug break-words">
                               {skill.name}
                             </div>
                             <div className="w-full h-1.5 bg-white/30 rounded-full overflow-hidden block">
@@ -974,7 +998,7 @@ export default function ResumePreview({
               </div>
             </aside>
 
-            <main className="px-6 py-6 min-h-full space-y-6">
+            <main className="px-4 py-4 min-h-full space-y-4">
               {personalInfo.fullName && (
                 <div className="shrink-0">
                   <h1

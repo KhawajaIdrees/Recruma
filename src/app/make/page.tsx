@@ -403,12 +403,29 @@ const [summary, setSummary] = useState("Experienced software engineer with 5+ ye
           setEducations(newEducations);
         }
 
-        // Update skills
+        // Update skills (sanitize, dedupe, fix formatting glitches)
         if (result.data.skills && Array.isArray(result.data.skills)) {
-          const newSkills = result.data.skills.map((skillName: string) => ({
-            id: Date.now().toString() + Math.random().toString(),
-            name: skillName,
-          }));
+          const sanitize = (n: string) => {
+            if (!n) return "";
+            let name = n.replace(/\r/g, "");
+            name = name.replace(/\s+/g, " ").trim();
+            // Fix patterns like "8 + 8+" or duplicate numeric+ signs -> (8+)
+            name = name.replace(/(\b\d+\b)\s*[+]+(\s*\1\+)?/g, "($1+)");
+            // Remove stray plus-only entries
+            if (/^\++$/.test(name)) return "";
+            return name;
+          };
+
+          const seen = new Set<string>();
+          const newSkills = [] as { id: string; name: string }[];
+          result.data.skills.forEach((raw: string) => {
+            const name = sanitize(raw);
+            const key = name.toLowerCase();
+            if (name && !seen.has(key)) {
+              seen.add(key);
+              newSkills.push({ id: Date.now().toString() + Math.random().toString(), name });
+            }
+          });
           setSkills(newSkills);
         }
 
