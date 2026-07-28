@@ -17,6 +17,10 @@
   --color-glass: rgba(255,255,255,0.95);
 }
 
+favicon {
+  
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #ffffff;

@@ -927,52 +927,50 @@ export default function ResumePreview({
                   <ContactRow personalInfo={personalInfo} variant="light" />
                 </div>
 
-                <div className="space-y-5">
-                  {activeSkills.length > 0 && (
-                    <div>
-                      <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-3">
-                        Skills
-                      </h3>
-                      <div className="w-full space-y-3">
-                        {activeSkills.map((skill, i) => {
-                          const levels = [95, 88, 82, 75, 90, 85];
-                          const level = levels[i % levels.length];
-                          return (
-                            <div key={skill.id} className="w-full block">
-                              <div className="text-xs font-semibold text-white block mb-1.5 leading-snug overflow-hidden whitespace-nowrap text-ellipsis">
-                                {skill.name}
-                              </div>
-                              <div className="w-full h-1.5 bg-white/30 rounded-full overflow-hidden block">
-                                <div
-                                  className="h-full bg-white rounded-full"
-                                  style={{ width: `${level}%` }}
-                                />
-                              </div>
+                {activeSkills.length > 0 && (
+                  <div>
+                    <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-3">
+                      Skills
+                    </h3>
+                    <div className="w-full space-y-3">
+                      {activeSkills.map((skill, i) => {
+                        const levels = [95, 88, 82, 75, 90, 85];
+                        const level = levels[i % levels.length];
+                        return (
+                          <div key={skill.id} className="w-full block">
+                            <div className="text-xs font-semibold text-white block mb-1.5 leading-snug overflow-hidden whitespace-nowrap text-ellipsis">
+                              {skill.name}
                             </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-
-                  {activeLanguages.length > 0 && (
-                    <div>
-                      <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-2">
-                        Languages
-                      </h3>
-                      <div className="space-y-2 text-xs text-white">
-                        {activeLanguages.map((lang) => (
-                          <div key={lang.id} className="flex flex-col">
-                            <span className="font-medium leading-snug">{lang.name}</span>
-                            {lang.proficiency && (
-                              <span className="text-white/70 text-[11px] leading-snug">{lang.proficiency}</span>
-                            )}
+                            <div className="w-full h-1.5 bg-white/30 rounded-full overflow-hidden block">
+                              <div
+                                className="h-full bg-white rounded-full"
+                                style={{ width: `${level}%` }}
+                              />
+                            </div>
                           </div>
-                        ))}
-                      </div>
+                        );
+                      })}
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
+
+                {activeLanguages.length > 0 && (
+                  <div>
+                    <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-2">
+                      Languages
+                    </h3>
+                    <div className="space-y-2 text-xs text-white">
+                      {activeLanguages.map((lang) => (
+                        <div key={lang.id} className="flex flex-col">
+                          <span className="font-medium leading-snug">{lang.name}</span>
+                          {lang.proficiency && (
+                            <span className="text-white/70 text-[11px] leading-snug">{lang.proficiency}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </aside>
 
