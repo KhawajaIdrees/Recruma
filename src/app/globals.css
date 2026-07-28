@@ -491,6 +491,11 @@ a:focus-visible {
   --accent-light: #e5e7eb;
 }
 
+/* Ensure Template 3 name uses accent color when exporting/printing (resume-print clone) */
+.resume-print.template-3 h1 {
+  color: var(--accent) !important;
+}
+
 /* Template 4 — Minimal timeline layout */
 .template-4 {
   --accent: #2c3e50;

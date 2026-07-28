@@ -665,7 +665,7 @@ export default function ResumePreview({
                 )}
               </div>
 
-              <div className="px-5 py-5 space-y-6 -mt-7 flex-1">
+              <div className="px-5 py-5 space-y-6 -mt-5 flex-1">
                 <SidebarSection title="Contact">
                   <ContactRow personalInfo={personalInfo} />
                 </SidebarSection>
@@ -690,11 +690,27 @@ export default function ResumePreview({
                     </div>
                   </SidebarSection>
                 )}
+                
+                {activeReferences.length > 0 && (
+                  <SidebarSection title="References">
+                    <div className="space-y-2 text-xs text-slate-800">
+                      {activeReferences.map((ref) => (
+                        <div key={ref.id}>
+                          <p className="text-xs font-bold">{ref.name}</p>
+                          {ref.relationship && (
+                            <p className="text-xs text-slate-600">{ref.relationship}</p>
+                          )}
+                          {ref.company && <p className="text-xs text-slate-500">{ref.company}</p>}
+                        </div>
+                      ))}
+                    </div>
+                  </SidebarSection>
+                )}
               </div>
             </aside>
 
             <main className="min-h-full flex flex-col">
-              <div className="text-white px-7 py-6 shrink-0" style={{ background: "var(--accent)" }}>
+              <div className="text-white px-6 py-5 shrink-0" style={{ background: "var(--accent)" }}>
                 {personalInfo.fullName && (
                   <h1 className="text-2xl font-bold uppercase tracking-wide text-right leading-tight">
                     {personalInfo.fullName}
@@ -705,7 +721,7 @@ export default function ResumePreview({
                 )}
               </div>
 
-              <div className="px-7 py-6 space-y-6 flex-1">
+              <div className="px-6 py-5 space-y-4 flex-1">
                 {summary && (
                   <div>
                     <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-400 pb-1.5 mb-2.5">
