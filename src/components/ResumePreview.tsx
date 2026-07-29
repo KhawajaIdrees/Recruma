@@ -53,12 +53,27 @@ function DescriptionList({
   if (bullets.length <= 1) {
     return <p className={`${className} leading-relaxed whitespace-pre-line`}>{description}</p>;
   }
+
   return (
-    <ul className={`${className} list-disc pl-4 space-y-0.5 mt-1`}>
+    <div className={`${className} mt-1`} style={{ marginTop: "0.35rem" }}>
       {bullets.map((item, i) => (
-        <li key={i}>{item}</li>
+        <div
+          key={i}
+          className="flex items-start gap-2"
+          style={{ alignItems: "flex-start", gap: "0.5rem", marginBottom: "0.35rem" }}
+        >
+          <span
+            className="leading-none"
+            style={{ color: "var(--accent, #0f172a)", flexShrink: 0, marginTop: "0.2rem" }}
+          >
+            •
+          </span>
+          <span className="leading-relaxed break-words flex-1 min-w-0" style={{ display: "block" }}>
+            {item}
+          </span>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
 
@@ -347,11 +362,23 @@ function TimelineSection({
   className?: string;
 }) {
   return (
-    <div className={`flex gap-3 items-start ${className}`}>
-      <div className="shrink-0 pt-0.5">
+    <div
+      className={`flex gap-3 items-start ${className}`}
+      style={{ breakInside: "avoid", pageBreakInside: "avoid" }}
+    >
+      <div className="shrink-0 pt-0.5" style={{ width: "1.5rem", minWidth: "1.5rem" }}>
         <div
-          className="timeline-icon w-6 h-6 rounded-full flex items-center justify-center text-white"
-          style={{ background: "var(--accent)" }}
+          className="timeline-icon rounded-full flex items-center justify-center text-white"
+          style={{
+            background: "var(--accent)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+            width: "1.5rem",
+            height: "1.5rem",
+            minWidth: "1.5rem",
+          }}
         >
           {icon}
         </div>
@@ -972,7 +999,11 @@ export default function ResumePreview({
                         const levels = [95, 88, 82, 75, 90, 85];
                         const level = levels[i % levels.length];
                         return (
-                          <div key={skill.id} className="w-full block">
+                          <div
+                            key={skill.id}
+                            className="w-full block"
+                            style={{ marginBottom: "0.75rem", breakInside: "avoid", pageBreakInside: "avoid" }}
+                          >
                             <div className="text-xs font-semibold text-white block mb-1 leading-snug break-words">
                               {skill.name}
                             </div>
@@ -1218,9 +1249,9 @@ export default function ResumePreview({
                         </div>
                         <p className="text-sm text-slate-700">{edu.school}</p>
                         {edu.gpa && (
-                          <ul className="list-disc pl-5 text-sm text-slate-700 mt-1">
-                            <li>GPA: {edu.gpa}</li>
-                          </ul>
+                          <p className="text-sm text-slate-700 mt-1" style={{ marginLeft: "0.25rem" }}>
+                            • GPA: {edu.gpa}
+                          </p>
                         )}
                       </div>
                     ))}
