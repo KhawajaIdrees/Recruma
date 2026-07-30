@@ -399,7 +399,7 @@ function ResumeBuilderFormContent() {
               <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
                 <button
                   onClick={() => setShowAiModal(true)}
-                  className="flex items-center justify-center space-x-1.5 bg-slate-900 text-white px-3.5 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-all duration-200 font-poppins shadow-sm hover:shadow-md whitespace-nowrap cursor-pointer"
+                  className="flex items-center justify-center space-x-1.5 bg-[#0f172a] text-white px-3.5 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-all duration-200 font-poppins shadow-sm hover:shadow-md whitespace-nowrap cursor-pointer"
                 >
                   <Sparkles className="w-4 h-4" />
                   <span>AI Fill</span>
@@ -411,19 +411,12 @@ function ResumeBuilderFormContent() {
                   <Save className="w-4 h-4" />
                   <span>Save</span>
                 </button>
-                <button
-                  onClick={handleGenerateResume}
-                  className="flex items-center justify-center space-x-1.5 bg-[#00b14f] hover:bg-[#009844] text-white px-5 py-2 rounded-lg text-sm font-bold font-montserrat shadow-md hover:shadow-lg transition-all duration-200 whitespace-nowrap cursor-pointer"
-                >
-                  <Sparkles className="w-4 h-4" />
-                  <span>Generate Resume</span>
-                </button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Clean Form Container (No Template Selector & No Preview Side Panel) */}
+        {/* Clean Form Container */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
           {/* 1. Personal Information */}
           <div className="bg-white rounded-xl p-6 shadow-xs border border-slate-200">
@@ -529,12 +522,12 @@ function ResumeBuilderFormContent() {
             />
           </div>
 
-          {/* Generate Resume Button at the bottom matching reference screenshot */}
+          {/* Single Generate Resume Button at the bottom matching site theme color #0f172a */}
           <div className="bg-white rounded-xl p-8 shadow-xs border border-slate-200 flex justify-center items-center">
             <button
               type="button"
               onClick={handleGenerateResume}
-              className="w-full sm:w-[480px] bg-[#00b14f] hover:bg-[#009844] text-white py-3.5 px-8 rounded-xl font-bold font-montserrat text-lg shadow-md hover:shadow-lg transition-all duration-200 text-center cursor-pointer"
+              className="w-full sm:w-[480px] bg-[#0f172a] hover:bg-slate-800 text-white py-3.5 px-8 rounded-xl font-bold font-montserrat text-lg shadow-md hover:shadow-lg transition-all duration-200 text-center cursor-pointer"
             >
               Generate Resume
             </button>

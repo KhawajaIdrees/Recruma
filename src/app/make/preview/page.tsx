@@ -156,7 +156,7 @@ function ResumePreviewPageContent() {
                 <button
                   data-download-btn
                   onClick={handleDownload}
-                  className="flex items-center gap-1.5 bg-[#00b14f] hover:bg-[#009844] text-white px-5 py-2 rounded-lg text-sm font-bold font-montserrat shadow-md hover:shadow-lg transition-all cursor-pointer"
+                  className="flex items-center gap-1.5 bg-[#0f172a] hover:bg-slate-800 text-white px-5 py-2 rounded-lg text-sm font-bold font-montserrat shadow-md hover:shadow-lg transition-all cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
                   <span>Download PDF</span>
@@ -182,7 +182,7 @@ function ResumePreviewPageContent() {
             <button
               data-download-btn
               onClick={handleDownload}
-              className="flex items-center justify-center gap-2 bg-[#00b14f] hover:bg-[#009844] text-white px-6 py-2.5 rounded-lg font-bold font-montserrat shadow-sm hover:shadow-md transition-all duration-200 text-sm cursor-pointer"
+              className="flex items-center justify-center gap-2 bg-[#0f172a] hover:bg-slate-800 text-white px-6 py-2.5 rounded-lg font-bold font-montserrat shadow-sm hover:shadow-md transition-all duration-200 text-sm cursor-pointer"
             >
               <Download className="w-4 h-4" />
               <span>Download PDF</span>
@@ -214,7 +214,7 @@ function ResumePreviewPageContent() {
           </div>
         </div>
 
-        {/* Centered Resume Preview Sheet Container matching user screenshot */}
+        {/* Centered Resume Preview Sheet Container */}
         <div className="max-w-[950px] mx-auto px-4">
           <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-8 flex justify-center overflow-x-auto">
             <ResumePreview
