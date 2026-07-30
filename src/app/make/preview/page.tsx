@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Image from "next/image";
 import Footer from "@/components/Footer";
-import { Download, Edit3, LayoutTemplate, RotateCcw, Check, ArrowLeft } from "lucide-react";
+import { Download, Edit3, LayoutTemplate, RotateCcw, Check } from "lucide-react";
 import { templates } from "@/lib/templateData";
 import ResumePreview from "@/components/ResumePreview";
 import type { PersonalInfo, Experience, Education, Skill, Language, Reference, ProfilePicture } from "@/components/types";
@@ -132,42 +132,9 @@ function ResumePreviewPageContent() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-slate-50 pt-20 pb-16 no-print">
-        {/* Sticky Header Nav Bar */}
-        <div className="sticky top-20 z-40 bg-white border-b border-slate-200 shadow-xs no-print">
-          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
-            <div className="flex items-center justify-between">
-              <button
-                type="button"
-                onClick={handleEditData}
-                className="flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 transition-colors p-2 hover:bg-slate-100 rounded-lg cursor-pointer"
-              >
-                <ArrowLeft className="w-5 h-5" />
-                <span className="font-medium font-poppins text-sm">Back to Edit</span>
-              </button>
-              <div className="flex items-center space-x-3">
-                <button
-                  onClick={handleEditData}
-                  className="flex items-center gap-1.5 bg-white border border-slate-300 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold font-poppins hover:bg-slate-50 transition-colors cursor-pointer"
-                >
-                  <Edit3 className="w-4 h-4 text-slate-500" />
-                  <span>Edit Data</span>
-                </button>
-                <button
-                  data-download-btn
-                  onClick={handleDownload}
-                  className="flex items-center gap-1.5 bg-[#0f172a] hover:bg-slate-800 text-white px-5 py-2 rounded-lg text-sm font-bold font-montserrat shadow-md hover:shadow-lg transition-all cursor-pointer"
-                >
-                  <Download className="w-4 h-4" />
-                  <span>Download PDF</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
+      <main className="min-h-screen bg-slate-50 pt-24 pb-16 no-print">
         {/* Title Header matching user screenshot */}
-        <div className="text-center pt-8 pb-2 px-4">
+        <div className="text-center pt-4 pb-2 px-4">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-montserrat tracking-tight">
             Your Resume is Ready!
           </h1>
@@ -176,7 +143,7 @@ function ResumePreviewPageContent() {
           </p>
         </div>
 
-        {/* Action Toolbar Box matching user screenshot */}
+        {/* Single Action Toolbar Container */}
         <div className="max-w-4xl mx-auto my-6 px-4">
           <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-3 sm:p-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <button
