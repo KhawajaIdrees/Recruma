@@ -542,9 +542,38 @@ a:focus-visible {
 
 /* Print-friendly tweaks */
 @media print {
-  .resume-print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  nav, footer, header, .no-print, [aria-hidden="true"] {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+  }
+  #resume-preview-print {
+    display: none !important;
+  }
+  #resume-preview {
     box-shadow: none !important;
-    page-break-inside: avoid;
+    border: none !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
   .template-1,
   .template-2,
@@ -552,8 +581,8 @@ a:focus-visible {
   .template-4,
   .template-5,
   .template-6 {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 }
 .hover-lift:hover {

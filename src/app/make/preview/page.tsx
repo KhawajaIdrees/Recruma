@@ -97,8 +97,8 @@ function ResumePreviewPageContent() {
     }
   }, [templateParam]);
 
-  const handleDownload = async () => {
-    await generateResumePDF(personalInfo.fullName);
+  const handleDownload = () => {
+    window.print();
   };
 
   const handleEditData = () => {

@@ -1152,12 +1152,12 @@ export default function ResumePreview({
       // Template 6 — Single column purple accents (Jacqueline Thompson style)
       case 6:
         return (
-          <div className="template-layout-6 px-8 py-6 space-y-4 min-h-[1056px] h-auto flex flex-col bg-white">
+          <div className="template-layout-6 px-7 py-5 space-y-3.5 min-h-[1056px] h-auto flex flex-col bg-white">
             <div>
-              <header className="text-center border-b pb-4 mb-4" style={{ borderColor: "var(--accent-light)" }}>
+              <header className="text-center border-b pb-3 mb-3" style={{ borderColor: "var(--accent-light)" }}>
                 {personalInfo.fullName && (
                   <h1
-                    className="text-2xl font-bold uppercase tracking-wide mb-2"
+                    className="text-2xl font-bold uppercase tracking-wide mb-1.5"
                     style={{ color: "var(--accent)" }}
                   >
                     {personalInfo.fullName}
@@ -1187,39 +1187,39 @@ export default function ResumePreview({
               </header>
 
               {summary && (
-                <section className="border-b pb-4 mb-4" style={{ borderColor: "var(--accent-light)" }}>
+                <section className="border-b pb-3 mb-3" style={{ borderColor: "var(--accent-light)" }}>
                   <h2
-                    className="text-sm font-bold uppercase tracking-wide mb-2"
+                    className="text-xs font-bold uppercase tracking-wide mb-1.5"
                     style={{ color: "var(--accent)" }}
                   >
                     Summary
                   </h2>
-                  <p className="text-sm text-slate-700 leading-relaxed">{summary}</p>
+                  <p className="text-xs text-slate-700 leading-relaxed">{summary}</p>
                 </section>
               )}
 
               {activeExperiences.length > 0 && (
-                <section className="border-b pb-4 mb-4" style={{ borderColor: "var(--accent-light)" }}>
+                <section className="border-b pb-3 mb-3" style={{ borderColor: "var(--accent-light)" }}>
                   <h2
-                    className="text-sm font-bold uppercase tracking-wide mb-3"
+                    className="text-xs font-bold uppercase tracking-wide mb-2.5"
                     style={{ color: "var(--accent)" }}
                   >
                     Work Experience
                   </h2>
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     {activeExperiences.map((exp) => (
                       <div key={exp.id}>
                         <div className="flex justify-between items-start gap-4">
-                          <p className="text-sm font-bold text-slate-900">
+                          <p className="text-xs font-bold text-slate-900">
                             {exp.position}
                             {exp.company && `, ${exp.company}`}
                           </p>
-                          <span className="text-sm text-slate-600 whitespace-nowrap">
+                          <span className="text-xs text-slate-600 whitespace-nowrap">
                             {formatDateRange(exp.startDate, exp.endDate, exp.current)}
                           </span>
                         </div>
                         {exp.description && (
-                          <DescriptionList description={exp.description} className="text-sm text-slate-700" />
+                          <DescriptionList description={exp.description} className="text-xs text-slate-700" />
                         )}
                       </div>
                     ))}
@@ -1228,28 +1228,28 @@ export default function ResumePreview({
               )}
 
               {activeEducations.length > 0 && (
-                <section className="border-b pb-4 mb-4" style={{ borderColor: "var(--accent-light)" }}>
+                <section className="border-b pb-3 mb-3" style={{ borderColor: "var(--accent-light)" }}>
                   <h2
-                    className="text-sm font-bold uppercase tracking-wide mb-3"
+                    className="text-xs font-bold uppercase tracking-wide mb-2.5"
                     style={{ color: "var(--accent)" }}
                   >
                     Education
                   </h2>
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     {activeEducations.map((edu) => (
                       <div key={edu.id}>
                         <div className="flex justify-between items-start gap-4">
-                          <p className="text-sm font-bold text-slate-900">
+                          <p className="text-xs font-bold text-slate-900">
                             {edu.degree}
                             {edu.field && ` in ${edu.field}`}
                           </p>
-                          <span className="text-sm text-slate-600 whitespace-nowrap">
+                          <span className="text-xs text-slate-600 whitespace-nowrap">
                             {formatDateRange(edu.startDate, edu.endDate)}
                           </span>
                         </div>
-                        <p className="text-sm text-slate-700">{edu.school}</p>
+                        <p className="text-xs text-slate-700">{edu.school}</p>
                         {edu.gpa && (
-                          <p className="text-sm text-slate-700 mt-1" style={{ marginLeft: "0.25rem" }}>
+                          <p className="text-xs text-slate-700 mt-0.5" style={{ marginLeft: "0.25rem" }}>
                             • GPA: {edu.gpa}
                           </p>
                         )}
@@ -1260,9 +1260,9 @@ export default function ResumePreview({
               )}
 
               {activeSkills.length > 0 && (
-                <section className="border-b pb-4 mb-4" style={{ borderColor: "var(--accent-light)" }}>
+                <section className="border-b pb-3 mb-3" style={{ borderColor: "var(--accent-light)" }}>
                   <h2
-                    className="text-sm font-bold uppercase tracking-wide mb-3"
+                    className="text-xs font-bold uppercase tracking-wide mb-2"
                     style={{ color: "var(--accent)" }}
                   >
                     Skills
@@ -1270,17 +1270,61 @@ export default function ResumePreview({
                   <SkillBulletList skills={skills} columns={2} className="text-xs text-slate-700" />
                 </section>
               )}
+
+              {activeLanguages.length > 0 && (
+                <section className="border-b pb-3 mb-3" style={{ borderColor: "var(--accent-light)" }}>
+                  <h2
+                    className="text-xs font-bold uppercase tracking-wide mb-2"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    Languages
+                  </h2>
+                  <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-slate-700">
+                    {activeLanguages.map((lang) => (
+                      <div key={lang.id} className="flex items-center gap-1.5">
+                        <span className="font-semibold">{lang.name}</span>
+                        {lang.proficiency && <span className="text-slate-500">({lang.proficiency})</span>}
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {activeReferences.length > 0 && (
+                <section className="border-b pb-3 mb-3" style={{ borderColor: "var(--accent-light)" }}>
+                  <h2
+                    className="text-xs font-bold uppercase tracking-wide mb-2"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    References
+                  </h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
+                    {activeReferences.map((ref) => (
+                      <div key={ref.id}>
+                        <p className="font-bold text-slate-900 leading-snug">{ref.name}</p>
+                        {ref.relationship && (
+                          <p className="text-slate-600 text-[11px] leading-snug mt-0.5">{ref.relationship}</p>
+                        )}
+                        {ref.company && <p className="text-slate-500 text-[11px] leading-snug">{ref.company}</p>}
+                        {(ref.email || ref.phone) && (
+                          <p className="text-slate-500 text-[11px] leading-snug mt-0.5">{ref.email || ref.phone}</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
             </div>
 
             {(personalInfo.linkedin || personalInfo.github) && (
-              <section className="pt-2">
+              <section className="pt-1">
                 <h2
-                  className="text-sm font-bold uppercase tracking-wide mb-3"
+                  className="text-xs font-bold uppercase tracking-wide mb-2"
                   style={{ color: "var(--accent)" }}
                 >
                   Additional Information
                 </h2>
-                <ul className="text-sm text-slate-700 space-y-1 list-none">
+                <ul className="text-xs text-slate-700 space-y-1 list-none">
                   {personalInfo.linkedin && (
                     <li className="flex items-center gap-1">
                       <span className="font-bold">LinkedIn:</span> {personalInfo.linkedin}
