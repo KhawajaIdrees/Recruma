@@ -3,9 +3,8 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
-import Image from "next/image";
 import Footer from "@/components/Footer";
-import { Save, ArrowLeft, ChevronDown, Sparkles } from "lucide-react";
+import { Save, ArrowLeft, Sparkles } from "lucide-react";
 import { templates } from "@/lib/templateData";
 import PersonalInfoSection from "@/components/PersonalInfoSection";
 import ExperienceSection from "@/components/ExperienceSection";
@@ -16,7 +15,6 @@ import ReferencesSection from "@/components/ReferencesSection";
 import SummarySection from "@/components/SummarySection";
 import ProfilePictureSection from "@/components/ProfilePictureSection";
 import type { PersonalInfo, Experience, Education, Skill, Language, Reference, ProfilePicture } from "@/components/types";
-import { getTemplateColors } from "@/lib/colorUtils";
 
 const SAMPLE_AI_PROMPT = `My name is Richard Sanchez and I am a Marketing Manager based in 123 Anywhere St., Any City at phone +123-456-7890, email hello@reallygreatsite.com, and website www.reallygreatsite.com. I am a results-driven marketing professional with 8+ years of experience building brand awareness, leading cross-functional campaigns, and driving measurable revenue growth across B2B and B2C markets. I specialize in digital marketing strategy, content development, and data-driven campaign optimization.
 
@@ -30,10 +28,9 @@ function ResumeBuilderFormContent() {
   const searchParams = useSearchParams();
   const templateParam = searchParams.get("template");
   const [selectedTemplate, setSelectedTemplate] = useState<number>(
-    templateParam ? parseInt(templateParam) : 1,
+    templateParam ? parseInt(templateParam) : 1
   );
   const templateData = templates.find(t => t.id === selectedTemplate) || templates[0];
-  const colors = getTemplateColors(templateData.accentColor);
   const router = useRouter();
 
   // Keep selectedTemplate in sync with query param and localStorage
@@ -47,23 +44,12 @@ function ResumeBuilderFormContent() {
 
   useEffect(() => {
     try {
-      const params = new URLSearchParams(window.location.search);
-      const param = params.get("template");
-      const num = param ? parseInt(param) : NaN;
-      if (!isNaN(num) && num !== selectedTemplate) {
-        setSelectedTemplate(num);
-      }
-    } catch (e) { }
-  }, []);
-
-  useEffect(() => {
-    try {
       const saved = localStorage.getItem("selectedTemplate");
       if (!searchParams.get("template") && saved) {
         const num = parseInt(saved);
         if (!isNaN(num) && num !== selectedTemplate) setSelectedTemplate(num);
       }
-    } catch (e) { }
+    } catch (e) {}
   }, []);
 
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
@@ -133,7 +119,6 @@ function ResumeBuilderFormContent() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
   const [showAiModal, setShowAiModal] = useState(false);
-  const [templateDropdownOpen, setTemplateDropdownOpen] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("resumeData");
@@ -149,7 +134,7 @@ function ResumeBuilderFormContent() {
         setSummary(data.summary || summary);
         setProfile(data.profile || null);
         if (data.template) setSelectedTemplate(data.template);
-      } catch (e) { }
+      } catch (e) {}
     }
   }, []);
 
@@ -380,95 +365,6 @@ function ResumeBuilderFormContent() {
     }
   };
 
-  const canSelectTemplate = Boolean(personalInfo.fullName && (personalInfo.email || personalInfo.phone));
-
-  const TemplateSelectionCard = () => (
-    <div className="bg-white rounded-xl p-5 shadow-sm border border-slate-200 relative z-0">
-      <h2 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat">Select Template</h2>
-      {!canSelectTemplate && (
-        <p className="text-xs text-rose-600 mb-3 font-poppins">
-          Enter your full name and either email or phone to enable template selection.
-        </p>
-      )}
-
-      <button
-        type="button"
-        onClick={() => canSelectTemplate && setTemplateDropdownOpen((open) => !open)}
-        disabled={!canSelectTemplate}
-        className={`w-full flex items-center gap-3 p-3 border-2 rounded-lg transition-all duration-200 ${selectedTemplate
-            ? "border-slate-900 bg-slate-50 shadow-md ring-2 ring-slate-200"
-            : "border-slate-200 bg-white hover:border-slate-300"
-          } ${!canSelectTemplate ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:shadow-sm"}`}
-      >
-        <div className="bg-slate-50 rounded p-1 overflow-hidden w-16 h-16 shrink-0">
-          <Image
-            src={`/template${selectedTemplate}.png`}
-            alt={`Template ${selectedTemplate}`}
-            className="w-full h-full object-contain"
-            width={64}
-            height={64}
-            unoptimized
-            priority={true}
-          />
-        </div>
-        <div className="flex-1 text-left min-w-0">
-          <p className="text-sm font-semibold text-slate-900 font-montserrat">Template {selectedTemplate}</p>
-          <p className="text-xs text-slate-500 font-poppins truncate">{templateData.name}</p>
-        </div>
-        <ChevronDown
-          className={`w-5 h-5 text-slate-600 shrink-0 transition-transform duration-200 ${templateDropdownOpen ? "rotate-180" : ""
-            }`}
-        />
-      </button>
-
-      {templateDropdownOpen && canSelectTemplate && (
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mt-4 pt-4 border-t border-slate-200">
-          {[1, 2, 3, 4, 5, 6].map((template) => (
-            <button
-              key={template}
-              type="button"
-              onClick={() => {
-                setSelectedTemplate(template);
-                setTemplateDropdownOpen(false);
-                try {
-                  localStorage.setItem("selectedTemplate", String(template));
-                  router.replace(`/make?template=${template}`);
-                } catch (e) { }
-              }}
-              className={`group relative p-2 border-2 rounded-lg transition-all duration-200 hover:scale-105 cursor-pointer ${selectedTemplate === template
-                  ? "border-slate-900 bg-slate-50 shadow-md ring-2 ring-slate-200"
-                  : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
-                }`}
-              title={`Template ${template}`}
-            >
-              <div className="bg-slate-50 rounded p-1 overflow-hidden aspect-square">
-                <Image
-                  src={`/template${template}.png`}
-                  alt={`Template ${template}`}
-                  className="w-full h-full object-contain"
-                  width={250}
-                  height={250}
-                  unoptimized
-                />
-              </div>
-              {selectedTemplate === template && (
-                <div className="absolute -top-1 -right-1 bg-slate-900 rounded-full w-4 h-4 flex items-center justify-center shadow-lg">
-                  <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-              )}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-
   const handleBack = () => {
     if (typeof window !== "undefined" && window.history.length > 1) {
       router.back();
@@ -527,11 +423,8 @@ function ResumeBuilderFormContent() {
           </div>
         </div>
 
-        {/* Clean, Centered Form Container (No Resume Preview Side Panel!) */}
+        {/* Clean Form Container (No Template Selector & No Preview Side Panel) */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-          {/* Template Selection */}
-          <TemplateSelectionCard />
-
           {/* 1. Personal Information */}
           <div className="bg-white rounded-xl p-6 shadow-xs border border-slate-200">
             <h3 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat flex items-center gap-2">
@@ -636,19 +529,14 @@ function ResumeBuilderFormContent() {
             />
           </div>
 
-          {/* Prominent Bottom Action Banner to Generate Resume */}
-          <div className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-6 sm:p-8 shadow-md text-white flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div>
-              <h3 className="text-lg sm:text-xl font-bold font-montserrat">Done adding your details?</h3>
-              <p className="text-sm text-slate-300 font-poppins mt-1">Generate your polished resume preview to review, edit, or download as PDF.</p>
-            </div>
+          {/* Generate Resume Button at the bottom matching reference screenshot */}
+          <div className="bg-white rounded-xl p-8 shadow-xs border border-slate-200 flex justify-center items-center">
             <button
               type="button"
               onClick={handleGenerateResume}
-              className="w-full sm:w-auto flex items-center justify-center gap-2.5 bg-[#00b14f] hover:bg-[#009844] text-white px-8 py-3.5 rounded-xl font-bold font-montserrat shadow-lg hover:shadow-xl transition-all duration-200 whitespace-nowrap text-base cursor-pointer"
+              className="w-full sm:w-[480px] bg-[#00b14f] hover:bg-[#009844] text-white py-3.5 px-8 rounded-xl font-bold font-montserrat text-lg shadow-md hover:shadow-lg transition-all duration-200 text-center cursor-pointer"
             >
-              <Sparkles className="w-5 h-5" />
-              <span>Generate Resume</span>
+              Generate Resume
             </button>
           </div>
         </div>
