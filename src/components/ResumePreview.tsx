@@ -162,10 +162,18 @@ function ContactRow({
     <div className="space-y-2.5">
       {items.map(({ key, icon, value }) => (
         <div key={key} className="flex items-start gap-2.5 leading-snug">
-          <span className="contact-icon-wrap flex items-center justify-center w-4 h-4 mt-[4px] shrink-0 overflow-visible">
+          <span
+            className="contact-icon-wrap flex items-center justify-center w-4 h-4 mt-[4px] shrink-0 overflow-visible"
+            style={variant === "light" ? { color: "#ffffff" } : undefined}
+          >
             {icon}
           </span>
-          <span className={`${resolvedTextClass} break-all flex-1 min-w-0 leading-snug`}>{value}</span>
+          <span
+            className={`${resolvedTextClass} break-all flex-1 min-w-0 leading-snug`}
+            style={variant === "light" ? { color: "#ffffff" } : undefined}
+          >
+            {value}
+          </span>
         </div>
       ))}
     </div>
@@ -738,14 +746,14 @@ export default function ResumePreview({
             </aside>
 
             <main className="min-h-full flex flex-col">
-              <div className="text-white px-6 py-5 shrink-0" style={{ background: "var(--accent)" }}>
+              <div className="text-white px-6 py-5 shrink-0" style={{ background: "var(--accent)", color: "#ffffff" }}>
                 {personalInfo.fullName && (
-                  <h1 className="text-2xl font-bold uppercase tracking-wide text-right leading-tight">
+                  <h1 className="text-2xl font-bold uppercase tracking-wide text-right leading-tight text-white" style={{ color: "#ffffff" }}>
                     {personalInfo.fullName}
                   </h1>
                 )}
                 {jobTitle && (
-                  <p className="text-sm italic text-right mt-1.5 opacity-90">{jobTitle}</p>
+                  <p className="text-sm italic text-right mt-1.5 opacity-90 text-white" style={{ color: "#ffffff" }}>{jobTitle}</p>
                 )}
               </div>
 
@@ -768,7 +776,7 @@ export default function ResumePreview({
                     <div className="space-y-5">
                       {activeExperiences.map((exp) => (
                         <div key={exp.id} className="relative">
-                          <div className="absolute -left-[18px] top-[0.3em] w-3 h-3 rounded-full border-2 border-slate-500 bg-white" />
+                          <div className={`absolute -left-[18px] ${isForPrint ? "top-[10px]" : "top-[5px]"} w-3 h-3 rounded-full border-2 border-slate-500 bg-white`} />
                           <div className="flex justify-between items-baseline gap-3">
                             <span className="text-xs font-bold uppercase text-slate-900">{exp.position}</span>
                             <span className="text-xs text-slate-500 whitespace-nowrap">
@@ -801,28 +809,6 @@ export default function ResumePreview({
                           </div>
                           <p className="text-xs font-bold uppercase text-slate-700 mt-0.5">{edu.school}</p>
                           {edu.gpa && <p className="text-xs text-slate-500 mt-0.5">GPA: {edu.gpa}</p>}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {activeReferences.length > 0 && (
-                  <div>
-                    <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-400 pb-1.5 mb-3">
-                      References
-                    </h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {activeReferences.map((ref) => (
-                        <div key={ref.id}>
-                          <p className="text-xs font-bold text-slate-900">{ref.name}</p>
-                          {ref.relationship && (
-                            <p className="text-xs text-slate-700 mt-0.5">{ref.relationship}</p>
-                          )}
-                          {ref.company && <p className="text-xs text-slate-500">{ref.company}</p>}
-                          {(ref.email || ref.phone) && (
-                            <p className="text-xs text-slate-500 mt-0.5">{ref.email || ref.phone}</p>
-                          )}
                         </div>
                       ))}
                     </div>
@@ -989,7 +975,10 @@ export default function ResumePreview({
 
               <div className="space-y-5 pb-6 flex-1">
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-2">
+                  <h3
+                    className="text-xs font-bold uppercase tracking-wide text-white border-b border-white/40 pb-2 mb-3"
+                    style={{ color: "#ffffff" }}
+                  >
                     Contact
                   </h3>
                   <ContactRow personalInfo={personalInfo} variant="light" />
@@ -997,7 +986,10 @@ export default function ResumePreview({
 
                 {activeSkills.length > 0 && (
                   <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-3">
+                    <h3
+                      className="text-xs font-bold uppercase tracking-wide text-white border-b border-white/40 pb-2 mb-3"
+                      style={{ color: "#ffffff" }}
+                    >
                       Skills
                     </h3>
                     <div className="w-full space-y-3">
@@ -1010,13 +1002,16 @@ export default function ResumePreview({
                             className="w-full block"
                             style={{ marginBottom: "0.75rem", breakInside: "avoid", pageBreakInside: "avoid" }}
                           >
-                            <div className="text-xs font-semibold text-white block mb-1 leading-snug break-words">
+                            <div
+                              className="text-xs font-semibold text-white block mb-2 leading-snug break-words"
+                              style={{ color: "#ffffff" }}
+                            >
                               {skill.name}
                             </div>
                             <div className="w-full h-1.5 bg-white/30 rounded-full overflow-hidden block">
                               <div
                                 className="h-full bg-white rounded-full"
-                                style={{ width: `${level}%` }}
+                                style={{ width: `${level}%`, backgroundColor: "#ffffff" }}
                               />
                             </div>
                           </div>
@@ -1028,15 +1023,22 @@ export default function ResumePreview({
 
                 {activeLanguages.length > 0 && (
                   <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wide border-b border-white/40 pb-1 mb-2">
+                    <h3
+                      className="text-xs font-bold uppercase tracking-wide text-white border-b border-white/40 pb-2 mb-3"
+                      style={{ color: "#ffffff" }}
+                    >
                       Languages
                     </h3>
-                    <div className="space-y-2 text-xs text-white">
+                    <div className="space-y-2 text-xs text-white" style={{ color: "#ffffff" }}>
                       {activeLanguages.map((lang) => (
                         <div key={lang.id} className="flex flex-col">
-                          <span className="font-medium leading-snug">{lang.name}</span>
+                          <span className="font-medium leading-snug text-white" style={{ color: "#ffffff" }}>
+                            {lang.name}
+                          </span>
                           {lang.proficiency && (
-                            <span className="text-white/70 text-[11px] leading-snug">{lang.proficiency}</span>
+                            <span className="text-white/80 text-[11px] leading-snug" style={{ color: "rgba(255, 255, 255, 0.85)" }}>
+                              {lang.proficiency}
+                            </span>
                           )}
                         </div>
                       ))}
