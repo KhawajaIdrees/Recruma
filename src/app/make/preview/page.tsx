@@ -97,8 +97,8 @@ function ResumePreviewPageContent() {
     }
   }, [templateParam]);
 
-  const handleDownload = () => {
-    window.print();
+  const handleDownload = async () => {
+    await generateResumePDF(personalInfo.fullName, "resume-preview-print");
   };
 
   const handleEditData = () => {
@@ -132,9 +132,9 @@ function ResumePreviewPageContent() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-slate-50 pt-24 pb-16 no-print">
+      <main className="min-h-screen bg-slate-50 pt-24 pb-16">
         {/* Title Header matching user screenshot */}
-        <div className="text-center pt-4 pb-2 px-4">
+        <div className="text-center pt-4 pb-2 px-4 no-print">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-montserrat tracking-tight">
             Your Resume is Ready!
           </h1>
@@ -144,7 +144,7 @@ function ResumePreviewPageContent() {
         </div>
 
         {/* Single Action Toolbar Container */}
-        <div className="max-w-4xl mx-auto my-6 px-4">
+        <div className="max-w-4xl mx-auto my-6 px-4 no-print">
           <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-3 sm:p-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <button
               data-download-btn
@@ -182,8 +182,8 @@ function ResumePreviewPageContent() {
         </div>
 
         {/* Centered Resume Preview Sheet Container */}
-        <div className="max-w-[950px] mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-8 flex justify-center overflow-x-auto">
+        <div className="max-w-[950px] mx-auto px-4 resume-card-wrapper">
+          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-8 flex justify-center overflow-x-auto resume-card-wrapper">
             <ResumePreview
               personalInfo={personalInfo}
               experiences={experiences}

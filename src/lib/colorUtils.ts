@@ -86,6 +86,7 @@ export const colorToRgb: Record<string, string> = {
   'text-rose-600': 'rgb(225, 29, 72)',
   'text-violet-600': 'rgb(139, 92, 246)',
   'text-stone-600': 'rgb(120, 113, 108)',
+  'text-white': 'rgb(255, 255, 255)',
   
   // Add background colors for PDF generation
   'bg-purple-50': 'rgb(250, 245, 255)',

@@ -543,44 +543,81 @@ a:focus-visible {
 /* Print-friendly tweaks */
 @media print {
   @page {
-    size: A4 portrait;
+    size: 8.5in 11in;
     margin: 0;
   }
-  body {
-    background: #ffffff !important;
-    color: #000000 !important;
+
+  html, body {
+    width: 8.5in !important;
+    height: 11in !important;
     margin: 0 !important;
     padding: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
+
   nav, footer, header, .no-print, [aria-hidden="true"] {
     display: none !important;
   }
+
   main {
     padding: 0 !important;
     margin: 0 !important;
     background: #ffffff !important;
+    width: 8.5in !important;
+    min-height: 11in !important;
+    display: block !important;
   }
+
+  /* Strip card border/shadow/padding from outer wrappers ONLY */
+  .resume-card-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    width: 8.5in !important;
+    max-width: 8.5in !important;
+  }
+
   #resume-preview-print {
     display: none !important;
   }
+
   #resume-preview {
+    display: block !important;
+    position: relative !important;
+    width: 8.5in !important;
+    min-height: 11in !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
     box-shadow: none !important;
     border: none !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
+
   .template-1,
   .template-2,
   .template-3,
   .template-4,
   .template-5,
   .template-6 {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    width: 8.5in !important;
+    min-height: 11in !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Force background colors, graphics and images in print */
+  * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }

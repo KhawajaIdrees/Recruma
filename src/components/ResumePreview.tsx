@@ -412,7 +412,7 @@ export default function ResumePreview({
   const activeReferences = references.filter((r) => r && r.name && r.name.trim() !== "");
   const fullBleed = [1, 2, 3, 5].includes(templateData.id);
 
-  const RenderTemplate = () => {
+  const RenderTemplate = ({ isForPrint = false }: { isForPrint?: boolean }) => {
     switch (templateData.id) {
       // Template 1 — Navy header, gray sidebar, timeline (Richard Sanchez style)
       case 1:
@@ -420,17 +420,25 @@ export default function ResumePreview({
           <div className="template-layout-1 min-h-[1056px] h-auto flex flex-col bg-white">
             <div
               className="flex items-center gap-5 text-white text-left py-6 px-7 shrink-0"
-              style={{ background: "var(--accent)" }}
+              style={{ background: "var(--accent)", color: "#ffffff" }}
             >
               {showProfile && <Avatar url={profile!.url} size={84} />}
               <div className={showProfile ? "" : "text-center w-full"}>
                 {personalInfo.fullName && (
-                  <h1 className="text-xl font-bold uppercase tracking-widest leading-tight">
+                  <h1
+                    className="text-xl font-bold uppercase tracking-widest leading-tight text-white"
+                    style={{ color: "#ffffff" }}
+                  >
                     {personalInfo.fullName}
                   </h1>
                 )}
                 {jobTitle && (
-                  <p className="text-xs uppercase tracking-[0.2em] mt-1.5 opacity-90">{jobTitle}</p>
+                  <p
+                    className="text-xs uppercase tracking-[0.2em] mt-1.5 text-white opacity-90"
+                    style={{ color: "#ffffff" }}
+                  >
+                    {jobTitle}
+                  </p>
                 )}
               </div>
             </div>
@@ -491,7 +499,7 @@ export default function ResumePreview({
                     <div className="space-y-5 border-l border-slate-300 ml-3 pl-5">
                       {activeExperiences.map((exp) => (
                         <div key={exp.id} className="relative">
-                          <div className="absolute -left-[23px] top-[0.35em] w-2 h-2 rounded-full border-2 border-slate-400 bg-white" />
+                          <div className={`absolute -left-[23px] ${isForPrint ? "top-[13px]" : "top-[0.35em]"} w-2 h-2 rounded-full border-2 border-slate-400 bg-white`} />
                           <div className="flex justify-between items-baseline gap-3">
                             <span className="text-sm font-bold text-slate-900">{exp.company}</span>
                             <span className="text-xs text-slate-500 whitespace-nowrap uppercase">
@@ -621,27 +629,25 @@ export default function ResumePreview({
                     <SectionTitle>Work Experience</SectionTitle>
                     <div className="space-y-4">
                       {activeExperiences.map((exp) => (
-                        <div key={exp.id} className="flex gap-2.5">
-                          <div
-                            className="w-2 h-2 mt-[0.35em] shrink-0 rounded-sm"
+                        <div key={exp.id} className="relative pl-4">
+                          <span
+                            className={`absolute left-0 ${isForPrint ? "top-[14px]" : "top-[5px]"} w-2 h-2 rounded-xs block`}
                             style={{ background: "var(--accent)" }}
                           />
-                          <div className="flex-1">
-                            <div className="flex justify-between items-baseline gap-3">
-                              <div>
-                                <span className="text-sm font-bold text-slate-900">{exp.company}</span>
-                                {exp.position && (
-                                  <span className="text-sm text-slate-700"> — {exp.position}</span>
-                                )}
-                              </div>
-                              <span className="text-xs text-slate-500 whitespace-nowrap">
-                                {formatDateRange(exp.startDate, exp.endDate, exp.current)}
-                              </span>
+                          <div className="flex justify-between items-baseline gap-3">
+                            <div>
+                              <span className="text-sm font-bold text-slate-900">{exp.company}</span>
+                              {exp.position && (
+                                <span className="text-sm text-slate-700"> — {exp.position}</span>
+                              )}
                             </div>
-                            {exp.description && (
-                              <DescriptionList description={exp.description} className="text-xs text-slate-600" />
-                            )}
+                            <span className="text-xs text-slate-500 whitespace-nowrap">
+                              {formatDateRange(exp.startDate, exp.endDate, exp.current)}
+                            </span>
                           </div>
+                          {exp.description && (
+                            <DescriptionList description={exp.description} className="text-xs text-slate-600 mt-1" />
+                          )}
                         </div>
                       ))}
                     </div>
@@ -1370,14 +1376,14 @@ export default function ResumePreview({
           backgroundColor: "#ffffff",
         }}
       >
-        <RenderTemplate />
+        <RenderTemplate isForPrint={true} />
       </div>
 
       <div
         id="resume-preview"
         className={`${printClasses} relative z-0 w-full max-w-[8.5in] mx-auto min-h-[1056px] h-auto overflow-visible`}
       >
-        <RenderTemplate />
+        <RenderTemplate isForPrint={false} />
       </div>
     </div>
   );
