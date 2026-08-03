@@ -1,5 +1,3 @@
-import html2canvas from "html2canvas";
-import { jsPDF } from "jspdf";
 import { colorToRgb } from "./colorUtils";
 
 export async function generateResumePDF(
@@ -17,6 +15,14 @@ export async function generateResumePDF(
 
     const resumeElement = document.getElementById(resumeElementId);
     if (!resumeElement) throw new Error("Resume preview element not found.");
+
+    // Dynamically load heavy PDF generation libraries on demand
+    const [html2canvasModule, jsPDFModule] = await Promise.all([
+      import("html2canvas"),
+      import("jspdf"),
+    ]);
+    const html2canvas = html2canvasModule.default;
+    const { jsPDF } = jsPDFModule;
 
     // Clone element to avoid layout issues
     const clone = resumeElement.cloneNode(true) as HTMLElement;

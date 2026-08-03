@@ -1,11 +1,11 @@
-"use client";
+import { memo } from "react";
 
 interface SummarySectionProps {
   summary: string;
   onUpdate: (value: string) => void;
 }
 
-export default function SummarySection({
+function SummarySection({
   summary,
   onUpdate,
 }: SummarySectionProps) {
@@ -21,3 +21,5 @@ export default function SummarySection({
     </div>
   );
 }
+
+export default memo(SummarySection);

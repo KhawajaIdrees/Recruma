@@ -1,5 +1,4 @@
-"use client";
-
+import { memo } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import type { Skill } from "./types";
 
@@ -10,7 +9,7 @@ interface SkillsSectionProps {
   onUpdate: (id: string, value: string) => void;
 }
 
-export default function SkillsSection({
+function SkillsSection({
   skills,
   onAdd,
   onRemove,
@@ -53,3 +52,5 @@ export default function SkillsSection({
     </div>
   );
 }
+
+export default memo(SkillsSection);

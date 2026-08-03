@@ -158,7 +158,8 @@ export default function Home() {
                         src={tpl.image}
                         alt={tpl.name}
                         className="w-full h-full object-contain object-top group-hover/card:scale-105 transition-transform duration-500 ease-out"
-                        loading="eager"
+                        loading={idx === 0 ? "eager" : "lazy"}
+                        decoding="async"
                         onError={(e) => {
                           (e.target as HTMLImageElement).src = '/template1.png';
                         }}
@@ -437,6 +438,8 @@ export default function Home() {
                     className="w-10 h-10 rounded-full object-cover"
                     src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
                     alt="Ayesha Khan"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div>
                     <h4 className="text-sm font-bold text-slate-900 font-montserrat">Ayesha Khan</h4>
@@ -458,6 +461,8 @@ export default function Home() {
                     className="w-10 h-10 rounded-full object-cover"
                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80"
                     alt="Usman Ali"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div>
                     <h4 className="text-sm font-bold text-slate-900 font-montserrat">Usman Ali</h4>
@@ -479,6 +484,8 @@ export default function Home() {
                     className="w-10 h-10 rounded-full object-cover"
                     src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80"
                     alt="Sara Malik"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div>
                     <h4 className="text-sm font-bold text-slate-900 font-montserrat">Sara Malik</h4>

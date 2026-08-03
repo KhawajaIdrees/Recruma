@@ -20,7 +20,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-slate-200/80">
+    <nav className="bg-white/95 fixed top-0 left-0 right-0 z-50 border-b border-slate-200/80 shadow-2xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Left: Logo */}

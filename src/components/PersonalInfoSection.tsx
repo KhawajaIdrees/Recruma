@@ -1,5 +1,4 @@
-"use client";
-
+import { memo } from "react";
 import type { PersonalInfo } from "./types";
 
 interface PersonalInfoSectionProps {
@@ -7,7 +6,7 @@ interface PersonalInfoSectionProps {
   onUpdate: (field: keyof PersonalInfo, value: string) => void;
 }
 
-export default function PersonalInfoSection({
+function PersonalInfoSection({
   personalInfo,
   onUpdate,
 }: PersonalInfoSectionProps) {
@@ -36,3 +35,5 @@ export default function PersonalInfoSection({
     </div>
   );
 }
+
+export default memo(PersonalInfoSection);

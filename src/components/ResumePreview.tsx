@@ -399,7 +399,9 @@ function TimelineSection({
   );
 }
 
-export default function ResumePreview({
+import { memo } from "react";
+
+function ResumePreview({
   personalInfo,
   experiences,
   educations,
@@ -1390,3 +1392,5 @@ export default function ResumePreview({
     </div>
   );
 }
+
+export default memo(ResumePreview);
