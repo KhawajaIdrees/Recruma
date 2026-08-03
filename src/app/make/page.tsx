@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
-import { Save, ArrowLeft, Sparkles } from "lucide-react";
+import { Save, ArrowLeft, Sparkles, Wand2, CheckCircle2 } from "lucide-react";
 import { templates } from "@/lib/templateData";
 import PersonalInfoSection from "@/components/PersonalInfoSection";
 import ExperienceSection from "@/components/ExperienceSection";
@@ -119,6 +119,8 @@ function ResumeBuilderFormContent() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
   const [showAiModal, setShowAiModal] = useState(false);
+  const [isImproving, setIsImproving] = useState(false);
+  const [improveSuccess, setImproveSuccess] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("resumeData");
@@ -365,6 +367,97 @@ function ResumeBuilderFormContent() {
     }
   };
 
+  const handleImproveWithAI = async () => {
+    const hasData =
+      summary.trim() ||
+      personalInfo.fullName.trim() ||
+      experiences.some((exp) => exp.company.trim() || exp.position.trim() || exp.description.trim()) ||
+      skills.length > 0;
+
+    if (!hasData) {
+      alert("Please fill in some information first so AI can polish and improve it for you!");
+      return;
+    }
+
+    setIsImproving(true);
+    setImproveSuccess(false);
+
+    try {
+      const prompt = `CRITICAL INSTRUCTION: The user has filled in their resume information below. Your task is to IMPROVE, POLISH, and ELEVATE all their text without changing real factual facts (keep real names, real company names, real dates).
+- Rewrite professional summary to sound executive, compelling, concise, and polished.
+- Rewrite each experience description to use strong action verbs, clean bullet points, and quantified achievements.
+- Enhance skills list to include standard industry terminology based on their experience.
+- Fix any spelling or grammar mistakes.
+
+User's Filled Data:
+${JSON.stringify({ personalInfo, summary, experiences, educations, skills, languages, references })}`;
+
+      const response = await fetch("/api/generate-resume", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to improve resume with AI.");
+      }
+
+      const result = await response.json();
+
+      if (result.success && result.data) {
+        if (result.data.personalInfo) {
+          setPersonalInfo((prev) => ({ ...prev, ...result.data.personalInfo }));
+        }
+        if (result.data.summary) {
+          setSummary(result.data.summary);
+        }
+        if (result.data.experiences && Array.isArray(result.data.experiences)) {
+          setExperiences(
+            result.data.experiences.map((exp: Omit<Experience, "id">, idx: number) => ({
+              ...exp,
+              id: experiences[idx]?.id || Date.now().toString() + Math.random().toString(),
+              endDate: exp.endDate === "Present" ? "" : exp.endDate,
+              current: exp.endDate === "Present" || exp.current,
+            }))
+          );
+        }
+        if (result.data.educations && Array.isArray(result.data.educations)) {
+          setEducations(
+            result.data.educations.map((edu: Omit<Education, "id">, idx: number) => ({
+              ...edu,
+              id: educations[idx]?.id || Date.now().toString() + Math.random().toString(),
+            }))
+          );
+        }
+        if (result.data.skills && Array.isArray(result.data.skills)) {
+          const sanitize = (n: string) => {
+            if (!n) return "";
+            let name = n.replace(/\r/g, "").replace(/\s+/g, " ").trim();
+            return /^\++$/.test(name) ? "" : name;
+          };
+          const seen = new Set<string>();
+          const newSkills: Skill[] = [];
+          result.data.skills.forEach((raw: string) => {
+            const name = sanitize(raw);
+            const key = name.toLowerCase();
+            if (name && !seen.has(key)) {
+              seen.add(key);
+              newSkills.push({ id: Date.now().toString() + Math.random().toString(), name });
+            }
+          });
+          if (newSkills.length > 0) setSkills(newSkills);
+        }
+
+        setImproveSuccess(true);
+        setTimeout(() => setImproveSuccess(false), 5000);
+      }
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "Failed to improve resume with AI.");
+    } finally {
+      setIsImproving(false);
+    }
+  };
+
   const handleBack = () => {
     if (typeof window !== "undefined" && window.history.length > 1) {
       router.back();
@@ -398,6 +491,25 @@ function ResumeBuilderFormContent() {
               </div>
               <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
                 <button
+                  type="button"
+                  onClick={handleImproveWithAI}
+                  disabled={isImproving}
+                  className="flex items-center justify-center space-x-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 font-poppins shadow-sm hover:shadow-md whitespace-nowrap cursor-pointer disabled:opacity-50"
+                  title="Improve & polish your entered info with AI"
+                >
+                  {isImproving ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white" />
+                      <span>Improving...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Wand2 className="w-4 h-4" />
+                      <span>AI Improve</span>
+                    </>
+                  )}
+                </button>
+                <button
                   onClick={() => setShowAiModal(true)}
                   className="flex items-center justify-center space-x-1.5 bg-[#0f172a] text-white px-3.5 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-all duration-200 font-poppins shadow-sm hover:shadow-md whitespace-nowrap cursor-pointer"
                 >
@@ -415,6 +527,16 @@ function ResumeBuilderFormContent() {
             </div>
           </div>
         </div>
+
+        {/* Success Banner when AI Improves Data */}
+        {improveSuccess && (
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+            <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl p-3.5 flex items-center gap-3 text-sm font-poppins shadow-xs">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+              <span>✨ Your resume details have been improved and polished by AI!</span>
+            </div>
+          </div>
+        )}
 
         {/* Clean Form Container */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
