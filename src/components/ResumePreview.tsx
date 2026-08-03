@@ -323,7 +323,7 @@ function Avatar({
         width: size,
         height: size,
         border: `4px solid ${ringColor}`,
-        boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+        boxShadow: "none",
       }}
     >
       <img
@@ -432,7 +432,7 @@ function ResumePreview({
               className="flex items-center gap-5 text-white text-left py-6 px-7 shrink-0 min-w-0"
               style={{ background: "var(--accent)", color: "#ffffff" }}
             >
-              {showProfile && <Avatar url={profile!.url} size={84} />}
+              {showProfile && <Avatar url={profile!.url} size={84} ringColor="#ffffff" />}
               <div className={showProfile ? "min-w-0 flex-1" : "text-center w-full min-w-0"}>
                 {personalInfo.fullName && (
                   <h1
@@ -564,7 +564,7 @@ function ResumePreview({
               className="flex items-center gap-5 px-6 py-5 min-h-[104px] shrink-0 min-w-0"
               style={{ background: "var(--accent)" }}
             >
-              {showProfile && <Avatar url={profile!.url} size={84} />}
+              {showProfile && <Avatar url={profile!.url} size={84} ringColor="#ffffff" />}
               <div className="flex-1 min-w-0">
                 {personalInfo.fullName && (
                   <h1 className="text-2xl font-bold uppercase tracking-wide text-white leading-tight break-words">
