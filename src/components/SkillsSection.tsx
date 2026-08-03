@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, Trash2, Award } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import type { Skill } from "./types";
 
 interface SkillsSectionProps {
@@ -17,43 +17,39 @@ export default function SkillsSection({
   onUpdate,
 }: SkillsSectionProps) {
   return (
-    <div className="bg-white rounded-2xl p-4 shadow-lg border border-slate-200 transition-shadow hover:shadow-xl">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-slate-900 font-montserrat flex items-center space-x-2">
-          <div className="p-2 bg-slate-100 rounded-lg">
-            <Award className="w-5 h-5 text-slate-900" />
-          </div>
-          <span>Skills</span>
-        </h2>
-        <button
-          onClick={onAdd}
-          className="flex items-center space-x-2 bg-slate-100 text-slate-900 hover:bg-slate-200 px-3 py-1.5 rounded-lg font-medium font-poppins transition-colors"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Add</span>
-        </button>
-      </div>
+    <div className="space-y-3 font-poppins">
       <div className="space-y-2">
         {skills.map((skill, index) => (
-          <div key={skill.id} className="flex items-center space-x-2">
+          <div key={skill.id} className="flex items-center gap-2">
             <input
               type="text"
               placeholder="Skill name"
               value={skill.name}
               onChange={(e) => onUpdate(skill.id, e.target.value)}
-              className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-transparent font-poppins text-slate-900 placeholder:text-slate-400"
+              className="flex-1 px-3 py-2 text-sm border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-400 bg-white text-slate-900 placeholder:text-slate-400"
             />
             {index > 0 && (
               <button
+                type="button"
                 onClick={() => onRemove(skill.id)}
-                className="text-slate-500 hover:text-slate-900"
+                className="p-2 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-md transition-colors shrink-0"
+                title="Remove Skill"
               >
-                <Trash2 className="w-5 h-5" />
+                <Trash2 className="w-4 h-4" />
               </button>
             )}
           </div>
         ))}
       </div>
+
+      <button
+        type="button"
+        onClick={onAdd}
+        className="w-full flex items-center justify-center gap-2 py-2.5 border-2 border-dashed border-slate-300 hover:border-slate-400 text-slate-600 hover:text-slate-800 rounded-lg text-sm font-medium transition-colors cursor-pointer"
+      >
+        <Plus className="w-4 h-4" />
+        <span>Add Skill</span>
+      </button>
     </div>
   );
 }

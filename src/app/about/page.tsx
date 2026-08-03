@@ -73,7 +73,6 @@ export default function AboutPage() {
                   href="/templates"
                   className="bg-white text-slate-900 border border-slate-300 px-7 py-3.5 rounded-xl font-medium text-sm sm:text-base inline-flex items-center gap-2 hover:bg-slate-50 transition-all font-poppins"
                 >
-                  <Sparkles className="w-4 h-4 text-slate-700" />
                   <span>Browse Templates</span>
                 </Link>
               </div>

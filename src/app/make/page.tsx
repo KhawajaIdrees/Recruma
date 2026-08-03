@@ -567,7 +567,7 @@ ${JSON.stringify({ personalInfo, summary, experiences, educations, skills, langu
           {/* 4. Work Experience */}
           <div className="bg-white rounded-xl p-6 shadow-xs border border-slate-200">
             <h3 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-xs font-bold">4</div>
+              <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-900 flex items-center justify-center text-xs font-bold">4</div>
               Work Experience
             </h3>
             <ExperienceSection

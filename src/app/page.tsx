@@ -9,7 +9,6 @@ import FeaturesSection from "@/components/FeaturesSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import { 
-  Sparkles, 
   ShieldCheck, 
   Edit3, 
   Download, 

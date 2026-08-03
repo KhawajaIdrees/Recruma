@@ -22,7 +22,6 @@ import {
   FileText,
   Eye,
   ZoomIn,
-  Sparkles,
   ShieldCheck
 } from "lucide-react";
 import Link from "next/link";
