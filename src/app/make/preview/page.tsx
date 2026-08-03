@@ -98,6 +98,30 @@ function ResumePreviewPageContent() {
     }
   }, [templateParam]);
 
+  // Set responsive initial zoom level: 50% for mobile (<640px), 90% for tablet (640-1023px), 100% for desktop
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setZoomLevel(50);
+      } else if (width < 1024) {
+        setZoomLevel(90);
+      } else {
+        setZoomLevel(100);
+      }
+    }
+  }, []);
+
+  const handleToggleFit = () => {
+    if (typeof window !== "undefined") {
+      const width = window.innerWidth;
+      const defaultZoom = width < 640 ? 50 : width < 1024 ? 90 : 100;
+      setZoomLevel(zoomLevel === 100 ? defaultZoom : 100);
+    } else {
+      setZoomLevel(zoomLevel === 100 ? 50 : 100);
+    }
+  };
+
   const handleDownload = async () => {
     await generateResumePDF(personalInfo.fullName, "resume-preview-print");
   };
@@ -189,8 +213,8 @@ function ResumePreviewPageContent() {
           <div className="flex items-center gap-1.5 bg-white border border-slate-200 shadow-2xs rounded-lg px-2.5 py-1">
             <button
               type="button"
-              onClick={() => setZoomLevel((prev) => Math.max(50, prev - 10))}
-              disabled={zoomLevel <= 50}
+              onClick={() => setZoomLevel((prev) => Math.max(30, prev - 10))}
+              disabled={zoomLevel <= 30}
               className="text-slate-600 hover:text-slate-900 disabled:opacity-30 p-1 rounded hover:bg-slate-100 transition-colors cursor-pointer"
               title="Zoom Out"
             >
@@ -201,8 +225,8 @@ function ResumePreviewPageContent() {
             </span>
             <button
               type="button"
-              onClick={() => setZoomLevel((prev) => Math.min(125, prev + 10))}
-              disabled={zoomLevel >= 125}
+              onClick={() => setZoomLevel((prev) => Math.min(130, prev + 10))}
+              disabled={zoomLevel >= 130}
               className="text-slate-600 hover:text-slate-900 disabled:opacity-30 p-1 rounded hover:bg-slate-100 transition-colors cursor-pointer"
               title="Zoom In"
             >
@@ -213,7 +237,7 @@ function ResumePreviewPageContent() {
 
             <button
               type="button"
-              onClick={() => setZoomLevel(zoomLevel === 100 ? 65 : 100)}
+              onClick={handleToggleFit}
               className="text-xs font-medium text-slate-600 hover:text-slate-900 px-2 py-0.5 rounded hover:bg-slate-100 transition-colors flex items-center gap-1 cursor-pointer"
               title={zoomLevel === 100 ? "Fit to Screen" : "100% Full View"}
             >
