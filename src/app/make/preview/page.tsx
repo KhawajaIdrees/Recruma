@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Image from "next/image";
 import Footer from "@/components/Footer";
-import { Download, Edit3, LayoutTemplate, RotateCcw, Check } from "lucide-react";
+import { Download, Edit3, LayoutTemplate, RotateCcw, Check, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
 import { templates } from "@/lib/templateData";
 import ResumePreview from "@/components/ResumePreview";
 import type { PersonalInfo, Experience, Education, Skill, Language, Reference, ProfilePicture } from "@/components/types";
@@ -19,6 +19,7 @@ function ResumePreviewPageContent() {
   );
   const router = useRouter();
   const [showTemplateModal, setShowTemplateModal] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState<number>(100);
 
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     fullName: "John Doe",
@@ -181,20 +182,72 @@ function ResumePreviewPageContent() {
           </div>
         </div>
 
+        {/* Zoom Controls Bar */}
+        <div className="max-w-[950px] mx-auto px-4 mb-3 flex items-center justify-between sm:justify-end gap-2 no-print">
+          <span className="sm:hidden text-[11px] text-slate-500 font-poppins">Scroll sideways or zoom to view sheet</span>
+
+          <div className="flex items-center gap-1.5 bg-white border border-slate-200 shadow-2xs rounded-lg px-2.5 py-1">
+            <button
+              type="button"
+              onClick={() => setZoomLevel((prev) => Math.max(50, prev - 10))}
+              disabled={zoomLevel <= 50}
+              className="text-slate-600 hover:text-slate-900 disabled:opacity-30 p-1 rounded hover:bg-slate-100 transition-colors cursor-pointer"
+              title="Zoom Out"
+            >
+              <ZoomOut className="w-3.5 h-3.5" />
+            </button>
+            <span className="text-xs font-semibold text-slate-700 font-montserrat min-w-[2.8rem] text-center select-none">
+              {zoomLevel}%
+            </span>
+            <button
+              type="button"
+              onClick={() => setZoomLevel((prev) => Math.min(125, prev + 10))}
+              disabled={zoomLevel >= 125}
+              className="text-slate-600 hover:text-slate-900 disabled:opacity-30 p-1 rounded hover:bg-slate-100 transition-colors cursor-pointer"
+              title="Zoom In"
+            >
+              <ZoomIn className="w-3.5 h-3.5" />
+            </button>
+
+            <div className="w-px h-3.5 bg-slate-200 mx-0.5" />
+
+            <button
+              type="button"
+              onClick={() => setZoomLevel(zoomLevel === 100 ? 65 : 100)}
+              className="text-xs font-medium text-slate-600 hover:text-slate-900 px-2 py-0.5 rounded hover:bg-slate-100 transition-colors flex items-center gap-1 cursor-pointer"
+              title={zoomLevel === 100 ? "Fit to Screen" : "100% Full View"}
+            >
+              <Maximize2 className="w-3 h-3" />
+              <span>{zoomLevel === 100 ? "Fit" : "100%"}</span>
+            </button>
+          </div>
+        </div>
+
         {/* Centered Resume Preview Sheet Container */}
-        <div className="max-w-[950px] mx-auto px-4 resume-card-wrapper">
-          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-8 flex justify-center overflow-x-auto resume-card-wrapper">
-            <ResumePreview
-              personalInfo={personalInfo}
-              experiences={experiences}
-              educations={educations}
-              skills={skills}
-              languages={languages}
-              references={references}
-              summary={summary}
-              profile={profile}
-              template={Number(selectedTemplate)}
-            />
+        <div className="max-w-[950px] mx-auto px-2 sm:px-4 resume-card-wrapper overflow-x-auto pb-4">
+          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-2 sm:p-8 flex justify-center overflow-x-auto min-w-full">
+            <div
+              style={{
+                width: "8.5in",
+                minWidth: "8.5in",
+                transform: zoomLevel === 100 ? undefined : `scale(${zoomLevel / 100})`,
+                transformOrigin: "top center",
+                transition: "transform 0.2s ease-in-out",
+                marginBottom: zoomLevel < 100 ? `-${(100 - zoomLevel) * 10.56}px` : undefined,
+              }}
+            >
+              <ResumePreview
+                personalInfo={personalInfo}
+                experiences={experiences}
+                educations={educations}
+                skills={skills}
+                languages={languages}
+                references={references}
+                summary={summary}
+                profile={profile}
+                template={Number(selectedTemplate)}
+              />
+            </div>
           </div>
         </div>
       </main>

@@ -51,7 +51,7 @@ function DescriptionList({
 }) {
   const bullets = parseBullets(description);
   if (bullets.length <= 1) {
-    return <p className={`${className} leading-relaxed whitespace-pre-line`}>{description}</p>;
+    return <p className={`${className} leading-relaxed whitespace-pre-line break-words min-w-0`}>{description}</p>;
   }
 
   return (
@@ -425,16 +425,16 @@ export default function ResumePreview({
       // Template 1 — Navy header, gray sidebar, timeline (Richard Sanchez style)
       case 1:
         return (
-          <div className="template-layout-1 min-h-[1056px] h-auto flex flex-col bg-white">
+          <div className="template-layout-1 min-h-[1056px] h-auto flex flex-col bg-white overflow-hidden">
             <div
-              className="flex items-center gap-5 text-white text-left py-6 px-7 shrink-0"
+              className="flex items-center gap-5 text-white text-left py-6 px-7 shrink-0 min-w-0"
               style={{ background: "var(--accent)", color: "#ffffff" }}
             >
               {showProfile && <Avatar url={profile!.url} size={84} />}
-              <div className={showProfile ? "" : "text-center w-full"}>
+              <div className={showProfile ? "min-w-0 flex-1" : "text-center w-full min-w-0"}>
                 {personalInfo.fullName && (
                   <h1
-                    className="text-xl font-bold uppercase tracking-widest leading-tight text-white"
+                    className="text-xl font-bold uppercase tracking-widest leading-tight text-white break-words"
                     style={{ color: "#ffffff" }}
                   >
                     {personalInfo.fullName}
@@ -442,7 +442,7 @@ export default function ResumePreview({
                 )}
                 {jobTitle && (
                   <p
-                    className="text-xs uppercase tracking-[0.2em] mt-1.5 text-white opacity-90"
+                    className="text-xs uppercase tracking-[0.2em] mt-1.5 text-white opacity-90 break-words"
                     style={{ color: "#ffffff" }}
                   >
                     {jobTitle}
@@ -451,8 +451,8 @@ export default function ResumePreview({
               </div>
             </div>
 
-            <div className="grid grid-cols-[34%_1fr] flex-1">
-              <aside className="bg-slate-100 px-6 py-7 space-y-6 min-h-full">
+            <div className="grid grid-cols-[34%_1fr] flex-1 min-w-0">
+              <aside className="bg-slate-100 px-6 py-7 space-y-6 min-h-full min-w-0 break-words">
                 <SidebarSection title="Contact">
                   <ContactRow personalInfo={personalInfo} />
                 </SidebarSection>
@@ -465,10 +465,10 @@ export default function ResumePreview({
                   <SidebarSection title="Languages">
                     <div className="space-y-1.5 text-xs text-slate-700">
                       {activeLanguages.map((lang) => (
-                        <div key={lang.id} className="flex justify-between items-baseline">
-                          <span className="font-medium">{lang.name}</span>
+                        <div key={lang.id} className="flex justify-between items-baseline gap-2 min-w-0">
+                          <span className="font-medium min-w-0 break-words flex-1">{lang.name}</span>
                           {lang.proficiency && (
-                            <span className="text-slate-500 text-[11px]">{lang.proficiency}</span>
+                            <span className="text-slate-500 text-[11px] shrink-0">{lang.proficiency}</span>
                           )}
                         </div>
                       ))}
@@ -479,14 +479,14 @@ export default function ResumePreview({
                   <SidebarSection title="References">
                     <div className="space-y-2.5 text-xs text-slate-700">
                       {activeReferences.map((ref) => (
-                        <div key={ref.id}>
-                          <p className="font-bold text-slate-900 leading-snug">{ref.name}</p>
+                        <div key={ref.id} className="min-w-0 break-words">
+                          <p className="font-bold text-slate-900 leading-snug break-words">{ref.name}</p>
                           {ref.relationship && (
-                            <p className="text-slate-700 leading-snug mt-0.5">{ref.relationship}</p>
+                            <p className="text-slate-700 leading-snug mt-0.5 break-words">{ref.relationship}</p>
                           )}
-                          {ref.company && <p className="text-slate-500 leading-snug">{ref.company}</p>}
+                          {ref.company && <p className="text-slate-500 leading-snug break-words">{ref.company}</p>}
                           {(ref.email || ref.phone) && (
-                            <p className="text-slate-500 leading-snug mt-0.5">{ref.email || ref.phone}</p>
+                            <p className="text-slate-500 leading-snug mt-0.5 break-all">{ref.email || ref.phone}</p>
                           )}
                         </div>
                       ))}
@@ -495,28 +495,28 @@ export default function ResumePreview({
                 )}
               </aside>
 
-              <main className="px-7 py-7 border-l border-slate-200 min-h-full">
+              <main className="px-7 py-7 border-l border-slate-200 min-h-full min-w-0 overflow-hidden">
                 {summary && (
                   <TimelineSection icon={<User className="w-3.5 h-3.5" />} title="Profile">
-                    <p className="text-xs text-slate-600 leading-relaxed">{summary}</p>
+                    <p className="text-xs text-slate-600 leading-relaxed break-words">{summary}</p>
                   </TimelineSection>
                 )}
 
                 {activeExperiences.length > 0 && (
                   <TimelineSection icon={<Briefcase className="w-3.5 h-3.5" />} title="Work Experience">
-                    <div className="space-y-5 border-l border-slate-300 ml-3 pl-5">
+                    <div className="space-y-5 border-l border-slate-300 ml-3 pl-5 min-w-0">
                       {activeExperiences.map((exp) => (
-                        <div key={exp.id} className="relative">
+                        <div key={exp.id} className="relative min-w-0">
                           <div className={`absolute -left-[23px] ${isForPrint ? "top-[13px]" : "top-[0.35em]"} w-2 h-2 rounded-full border-2 border-slate-400 bg-white`} />
-                          <div className="flex justify-between items-baseline gap-3">
-                            <span className="text-sm font-bold text-slate-900">{exp.company}</span>
-                            <span className="text-xs text-slate-500 whitespace-nowrap uppercase">
+                          <div className="flex justify-between items-baseline gap-3 min-w-0">
+                            <span className="text-sm font-bold text-slate-900 min-w-0 break-words flex-1">{exp.company}</span>
+                            <span className="text-xs text-slate-500 whitespace-nowrap uppercase shrink-0">
                               {formatDateRange(exp.startDate, exp.endDate, exp.current)}
                             </span>
                           </div>
-                          {exp.position && <p className="text-xs text-slate-700 mt-0.5">{exp.position}</p>}
+                          {exp.position && <p className="text-xs text-slate-700 mt-0.5 break-words">{exp.position}</p>}
                           {exp.description && (
-                            <DescriptionList description={exp.description} className="text-xs text-slate-600" />
+                            <DescriptionList description={exp.description} className="text-xs text-slate-600 break-words" />
                           )}
                         </div>
                       ))}
@@ -530,20 +530,20 @@ export default function ResumePreview({
                     title="Education"
                     className="mb-0"
                   >
-                    <div className="space-y-4">
+                    <div className="space-y-4 min-w-0">
                       {activeEducations.map((edu) => (
-                        <div key={edu.id}>
-                          <div className="flex justify-between items-baseline gap-3">
-                            <span className="text-sm font-bold text-slate-900">{edu.degree}</span>
-                            <span className="text-xs text-slate-500 whitespace-nowrap">
+                        <div key={edu.id} className="min-w-0">
+                          <div className="flex justify-between items-baseline gap-3 min-w-0">
+                            <span className="text-sm font-bold text-slate-900 min-w-0 break-words flex-1">{edu.degree}</span>
+                            <span className="text-xs text-slate-500 whitespace-nowrap shrink-0">
                               {formatDateRange(edu.startDate, edu.endDate)}
                             </span>
                           </div>
-                          <p className="text-xs text-slate-700 mt-0.5">
+                          <p className="text-xs text-slate-700 mt-0.5 break-words">
                             {edu.school}
                             {edu.field && ` | ${edu.field}`}
                           </p>
-                          {edu.gpa && <p className="text-xs text-slate-500 mt-0.5">GPA: {edu.gpa}</p>}
+                          {edu.gpa && <p className="text-xs text-slate-500 mt-0.5 break-words">GPA: {edu.gpa}</p>}
                         </div>
                       ))}
                     </div>
@@ -557,9 +557,9 @@ export default function ResumePreview({
       // Template 2 — Slate blue bar header, photo overlap (Lorna Alvarado style)
       case 2:
         return (
-          <div className="template-layout-2 min-h-[1056px] h-auto flex flex-col bg-white">
+          <div className="template-layout-2 min-h-[1056px] h-auto flex flex-col bg-white overflow-hidden">
             <div
-              className="flex items-center gap-5 px-6 py-5 min-h-[104px] shrink-0"
+              className="flex items-center gap-5 px-6 py-5 min-h-[104px] shrink-0 min-w-0"
               style={{ background: "var(--accent)" }}
             >
               {showProfile && <Avatar url={profile!.url} size={84} />}
@@ -571,14 +571,14 @@ export default function ResumePreview({
                 )}
               </div>
               {jobTitle && (
-                <p className="text-white text-sm uppercase tracking-[0.2em] font-medium shrink-0 text-right">
+                <p className="text-white text-sm uppercase tracking-[0.2em] font-medium shrink-0 text-right min-w-0 max-w-[40%] break-words">
                   {jobTitle}
                 </p>
               )}
             </div>
 
-            <div className="grid grid-cols-[34%_1fr] flex-1">
-              <aside className="bg-slate-100 px-6 py-7 space-y-6 min-h-full">
+            <div className="grid grid-cols-[34%_1fr] flex-1 min-w-0">
+              <aside className="bg-slate-100 px-6 py-7 space-y-6 min-h-full min-w-0 break-words">
                 <SidebarSection title="Contact">
                   <ContactRow personalInfo={personalInfo} iconColor="text-slate-600" />
                 </SidebarSection>
@@ -593,10 +593,10 @@ export default function ResumePreview({
                   <SidebarSection title="Languages">
                     <div className="space-y-1.5 text-xs text-slate-700">
                       {activeLanguages.map((lang) => (
-                        <div key={lang.id} className="flex justify-between items-baseline">
-                          <span className="font-medium">{lang.name}</span>
+                        <div key={lang.id} className="flex justify-between items-baseline gap-2 min-w-0">
+                          <span className="font-medium min-w-0 break-words flex-1">{lang.name}</span>
                           {lang.proficiency && (
-                            <span className="text-slate-500 text-[11px]">{lang.proficiency}</span>
+                            <span className="text-slate-500 text-[11px] shrink-0">{lang.proficiency}</span>
                           )}
                         </div>
                       ))}
@@ -608,14 +608,14 @@ export default function ResumePreview({
                   <SidebarSection title="References">
                     <div className="space-y-2.5 text-xs text-slate-700">
                       {activeReferences.map((ref) => (
-                        <div key={ref.id}>
-                          <p className="font-bold text-slate-900 leading-snug">{ref.name}</p>
+                        <div key={ref.id} className="min-w-0 break-words">
+                          <p className="font-bold text-slate-900 leading-snug break-words">{ref.name}</p>
                           {ref.relationship && (
-                            <p className="text-slate-700 leading-snug mt-0.5">{ref.relationship}</p>
+                            <p className="text-slate-700 leading-snug mt-0.5 break-words">{ref.relationship}</p>
                           )}
-                          {ref.company && <p className="text-slate-500 leading-snug">{ref.company}</p>}
+                          {ref.company && <p className="text-slate-500 leading-snug break-words">{ref.company}</p>}
                           {(ref.email || ref.phone) && (
-                            <p className="text-slate-500 leading-snug mt-0.5">{ref.email || ref.phone}</p>
+                            <p className="text-slate-500 leading-snug mt-0.5 break-all">{ref.email || ref.phone}</p>
                           )}
                         </div>
                       ))}
@@ -624,37 +624,37 @@ export default function ResumePreview({
                 )}
               </aside>
 
-              <main className="px-6 py-7 space-y-6 min-h-full">
+              <main className="px-6 py-7 space-y-6 min-h-full min-w-0 overflow-hidden">
                 {summary && (
                   <div>
                     <SectionTitle>Profile</SectionTitle>
-                    <p className="text-xs text-slate-600 leading-relaxed">{summary}</p>
+                    <p className="text-xs text-slate-600 leading-relaxed break-words">{summary}</p>
                   </div>
                 )}
 
                 {activeExperiences.length > 0 && (
                   <div>
                     <SectionTitle>Work Experience</SectionTitle>
-                    <div className="space-y-4">
+                    <div className="space-y-4 min-w-0">
                       {activeExperiences.map((exp) => (
-                        <div key={exp.id} className="relative pl-4">
+                        <div key={exp.id} className="relative pl-4 min-w-0">
                           <span
                             className={`absolute left-0 ${isForPrint ? "top-[14px]" : "top-[5px]"} w-2 h-2 rounded-xs block`}
                             style={{ background: "var(--accent)" }}
                           />
-                          <div className="flex justify-between items-baseline gap-3">
-                            <div>
+                          <div className="flex justify-between items-baseline gap-3 min-w-0">
+                            <div className="min-w-0 break-words flex-1">
                               <span className="text-sm font-bold text-slate-900">{exp.company}</span>
                               {exp.position && (
                                 <span className="text-sm text-slate-700"> — {exp.position}</span>
                               )}
                             </div>
-                            <span className="text-xs text-slate-500 whitespace-nowrap">
+                            <span className="text-xs text-slate-500 whitespace-nowrap shrink-0">
                               {formatDateRange(exp.startDate, exp.endDate, exp.current)}
                             </span>
                           </div>
                           {exp.description && (
-                            <DescriptionList description={exp.description} className="text-xs text-slate-600 mt-1" />
+                            <DescriptionList description={exp.description} className="text-xs text-slate-600 mt-1 break-words" />
                           )}
                         </div>
                       ))}
@@ -665,20 +665,20 @@ export default function ResumePreview({
                 {activeEducations.length > 0 && (
                   <div>
                     <SectionTitle>Education</SectionTitle>
-                    <div className="space-y-3.5">
+                    <div className="space-y-3.5 min-w-0">
                       {activeEducations.map((edu) => (
-                        <div key={edu.id}>
-                          <div className="flex justify-between items-baseline gap-3">
-                            <span className="text-sm font-bold text-slate-900">{edu.degree}</span>
-                            <span className="text-xs text-slate-500 whitespace-nowrap">
+                        <div key={edu.id} className="min-w-0">
+                          <div className="flex justify-between items-baseline gap-3 min-w-0">
+                            <span className="text-sm font-bold text-slate-900 min-w-0 break-words flex-1">{edu.degree}</span>
+                            <span className="text-xs text-slate-500 whitespace-nowrap shrink-0">
                               {formatDateRange(edu.startDate, edu.endDate)}
                             </span>
                           </div>
-                          <p className="text-xs text-slate-700 mt-0.5">
+                          <p className="text-xs text-slate-700 mt-0.5 break-words">
                             {edu.school}
                             {edu.field && ` | ${edu.field}`}
                           </p>
-                          {edu.gpa && <p className="text-xs text-slate-500 mt-0.5">GPA: {edu.gpa}</p>}
+                          {edu.gpa && <p className="text-xs text-slate-500 mt-0.5 break-words">GPA: {edu.gpa}</p>}
                         </div>
                       ))}
                     </div>
@@ -692,9 +692,9 @@ export default function ResumePreview({
       // Template 3 — Charcoal header, arched photo (Jonathan Patterson style)
       case 3:
         return (
-          <div className="template-layout-3 grid grid-cols-[36%_1fr] min-h-[1056px] h-auto bg-white">
-            <aside className="bg-slate-100 min-h-full flex flex-col">
-              <div className="px-5 pt-6 pb-5 space-y-6 flex-1">
+          <div className="template-layout-3 grid grid-cols-[36%_1fr] min-h-[1056px] h-auto bg-white min-w-0 overflow-hidden">
+            <aside className="bg-slate-100 min-h-full flex flex-col min-w-0 break-words">
+              <div className="px-5 pt-6 pb-5 space-y-6 flex-1 min-w-0">
                 <div className="flex justify-center mt-2 mb-4 shrink-0">
                   {showProfile ? (
                     <Avatar url={profile!.url} size={112} ringColor="#ffffff" />
@@ -716,10 +716,10 @@ export default function ResumePreview({
                   <SidebarSection title="Languages">
                     <div className="space-y-1.5 text-xs text-slate-700">
                       {activeLanguages.map((lang) => (
-                        <div key={lang.id} className="flex justify-between items-baseline">
-                          <span className="font-medium">{lang.name}</span>
+                        <div key={lang.id} className="flex justify-between items-baseline gap-2 min-w-0">
+                          <span className="font-medium min-w-0 break-words flex-1">{lang.name}</span>
                           {lang.proficiency && (
-                            <span className="text-slate-500 text-[11px]">{lang.proficiency}</span>
+                            <span className="text-slate-500 text-[11px] shrink-0">{lang.proficiency}</span>
                           )}
                         </div>
                       ))}
@@ -731,12 +731,12 @@ export default function ResumePreview({
                   <SidebarSection title="References">
                     <div className="space-y-2 text-xs text-slate-800">
                       {activeReferences.map((ref) => (
-                        <div key={ref.id}>
-                          <p className="text-xs font-bold">{ref.name}</p>
+                        <div key={ref.id} className="min-w-0 break-words">
+                          <p className="text-xs font-bold break-words">{ref.name}</p>
                           {ref.relationship && (
-                            <p className="text-xs text-slate-600">{ref.relationship}</p>
+                            <p className="text-xs text-slate-600 break-words">{ref.relationship}</p>
                           )}
-                          {ref.company && <p className="text-xs text-slate-500">{ref.company}</p>}
+                          {ref.company && <p className="text-xs text-slate-500 break-words">{ref.company}</p>}
                         </div>
                       ))}
                     </div>
@@ -745,47 +745,47 @@ export default function ResumePreview({
               </div>
             </aside>
 
-            <main className="min-h-full flex flex-col">
-              <div className="text-white px-6 py-5 shrink-0" style={{ background: "var(--accent)", color: "#ffffff" }}>
+            <main className="min-h-full flex flex-col min-w-0 overflow-hidden">
+              <div className="text-white px-6 py-5 shrink-0 min-w-0" style={{ background: "var(--accent)", color: "#ffffff" }}>
                 {personalInfo.fullName && (
-                  <h1 className="text-2xl font-bold uppercase tracking-wide text-right leading-tight text-white" style={{ color: "#ffffff" }}>
+                  <h1 className="text-2xl font-bold uppercase tracking-wide text-right leading-tight text-white break-words" style={{ color: "#ffffff" }}>
                     {personalInfo.fullName}
                   </h1>
                 )}
                 {jobTitle && (
-                  <p className="text-sm italic text-right mt-1.5 opacity-90 text-white" style={{ color: "#ffffff" }}>{jobTitle}</p>
+                  <p className="text-sm italic text-right mt-1.5 opacity-90 text-white break-words" style={{ color: "#ffffff" }}>{jobTitle}</p>
                 )}
               </div>
 
-              <div className="px-6 py-5 space-y-4 flex-1">
+              <div className="px-6 py-5 space-y-4 flex-1 min-w-0">
                 {summary && (
                   <div>
                     <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-400 pb-1.5 mb-2.5">
                       Profile Info
                     </h2>
-                    <p className="text-xs text-slate-600 leading-relaxed text-justify">{summary}</p>
+                    <p className="text-xs text-slate-600 leading-relaxed text-justify break-words">{summary}</p>
                   </div>
                 )}
 
                 {activeExperiences.length > 0 && (
-                  <div className="relative pl-6">
+                  <div className="relative pl-6 min-w-0">
                     <div className="absolute left-2 top-8 bottom-0 w-px bg-slate-300" />
                     <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-400 pb-1.5 mb-4">
                       Experience
                     </h2>
-                    <div className="space-y-5">
+                    <div className="space-y-5 min-w-0">
                       {activeExperiences.map((exp) => (
-                        <div key={exp.id} className="relative">
+                        <div key={exp.id} className="relative min-w-0">
                           <div className={`absolute -left-[18px] ${isForPrint ? "top-[10px]" : "top-[5px]"} w-3 h-3 rounded-full border-2 border-slate-500 bg-white`} />
-                          <div className="flex justify-between items-baseline gap-3">
-                            <span className="text-xs font-bold uppercase text-slate-900">{exp.position}</span>
-                            <span className="text-xs text-slate-500 whitespace-nowrap">
+                          <div className="flex justify-between items-baseline gap-3 min-w-0">
+                            <span className="text-xs font-bold uppercase text-slate-900 min-w-0 break-words flex-1">{exp.position}</span>
+                            <span className="text-xs text-slate-500 whitespace-nowrap shrink-0">
                               {formatDateRange(exp.startDate, exp.endDate, exp.current)}
                             </span>
                           </div>
-                          <p className="text-xs font-bold uppercase text-slate-700 mt-0.5">{exp.company}</p>
+                          <p className="text-xs font-bold uppercase text-slate-700 mt-0.5 break-words">{exp.company}</p>
                           {exp.description && (
-                            <DescriptionList description={exp.description} className="text-xs text-slate-600" />
+                            <DescriptionList description={exp.description} className="text-xs text-slate-600 break-words" />
                           )}
                         </div>
                       ))}
@@ -794,21 +794,21 @@ export default function ResumePreview({
                 )}
 
                 {activeEducations.length > 0 && (
-                  <div>
+                  <div className="min-w-0">
                     <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-400 pb-1.5 mb-3">
                       Education
                     </h2>
-                    <div className="space-y-3">
+                    <div className="space-y-3 min-w-0">
                       {activeEducations.map((edu) => (
-                        <div key={edu.id}>
-                          <div className="flex justify-between items-baseline gap-3">
-                            <span className="text-xs font-bold uppercase text-slate-900">{edu.degree}</span>
-                            <span className="text-xs text-slate-500 whitespace-nowrap">
+                        <div key={edu.id} className="min-w-0">
+                          <div className="flex justify-between items-baseline gap-3 min-w-0">
+                            <span className="text-xs font-bold uppercase text-slate-900 min-w-0 break-words flex-1">{edu.degree}</span>
+                            <span className="text-xs text-slate-500 whitespace-nowrap shrink-0">
                               {formatDateRange(edu.startDate, edu.endDate)}
                             </span>
                           </div>
-                          <p className="text-xs font-bold uppercase text-slate-700 mt-0.5">{edu.school}</p>
-                          {edu.gpa && <p className="text-xs text-slate-500 mt-0.5">GPA: {edu.gpa}</p>}
+                          <p className="text-xs font-bold uppercase text-slate-700 mt-0.5 break-words">{edu.school}</p>
+                          {edu.gpa && <p className="text-xs text-slate-500 mt-0.5 break-words">GPA: {edu.gpa}</p>}
                         </div>
                       ))}
                     </div>
@@ -1383,7 +1383,7 @@ export default function ResumePreview({
 
       <div
         id="resume-preview"
-        className={`${printClasses} relative z-0 w-full max-w-[8.5in] mx-auto min-h-[1056px] h-auto overflow-visible`}
+        className={`${printClasses} relative z-0 w-[8.5in] min-w-[8.5in] mx-auto min-h-[1056px] h-auto overflow-visible`}
       >
         <RenderTemplate isForPrint={false} />
       </div>
