@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
-import { Save, ArrowLeft, Sparkles, Wand2, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { templates } from "@/lib/templateData";
 import PersonalInfoSection from "@/components/PersonalInfoSection";
 import ExperienceSection from "@/components/ExperienceSection";
@@ -472,56 +472,46 @@ ${JSON.stringify({ personalInfo, summary, experiences, educations, skills, langu
       <main className="min-h-screen bg-slate-50 pt-20 pb-16 no-print">
         {/* Top Header Bar */}
         <div className="sticky top-20 z-40 bg-white border-b border-slate-200 shadow-xs no-print">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div className="flex items-center justify-between gap-2 sm:gap-4">
               <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                 <button
                   type="button"
                   onClick={handleBack}
-                  className="flex items-center space-x-1.5 text-slate-500 hover:text-slate-700 transition-colors p-2 hover:bg-slate-100 rounded-lg shrink-0 cursor-pointer"
+                  className="flex items-center space-x-1 text-slate-500 hover:text-slate-700 transition-colors p-1.5 hover:bg-slate-100 rounded-lg shrink-0 cursor-pointer"
                 >
                   <ArrowLeft className="w-5 h-5" />
-                  <span className="font-medium font-poppins text-sm sm:text-base">Back</span>
+                  <span className="font-medium font-poppins text-xs sm:text-base hidden xs:inline">Back</span>
                 </button>
-                <div className="h-6 w-px bg-slate-300 shrink-0" />
+                <div className="h-5 w-px bg-slate-300 shrink-0" />
                 <div className="min-w-0">
-                  <h1 className="text-base sm:text-lg font-semibold text-slate-900 font-montserrat truncate">Create Resume</h1>
-                  <p className="text-xs text-slate-500 font-poppins truncate">Add your details below</p>
+                  <h1 className="text-sm sm:text-lg font-semibold text-slate-900 font-montserrat truncate">Create Resume</h1>
+                  <p className="text-[11px] sm:text-xs text-slate-500 font-poppins truncate hidden sm:block">Add your details below</p>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
+
+              <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                <button
+                  onClick={() => setShowAiModal(true)}
+                  className="flex items-center justify-center bg-[#0f172a] text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-slate-800 transition-all duration-200 font-poppins shadow-xs hover:shadow-md whitespace-nowrap cursor-pointer"
+                >
+                  <span>AI Fill</span>
+                </button>
                 <button
                   type="button"
                   onClick={handleImproveWithAI}
                   disabled={isImproving}
-                  className="flex items-center justify-center space-x-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 font-poppins shadow-sm hover:shadow-md whitespace-nowrap cursor-pointer disabled:opacity-50"
+                  className="flex items-center justify-center bg-[#0f172a] text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-slate-800 transition-all duration-200 font-poppins shadow-xs hover:shadow-md whitespace-nowrap cursor-pointer disabled:opacity-50"
                   title="Improve & polish your entered info with AI"
                 >
                   {isImproving ? (
-                    <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white" />
+                    <div className="flex items-center space-x-1.5">
+                      <div className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-white" />
                       <span>Improving...</span>
-                    </>
+                    </div>
                   ) : (
-                    <>
-                      <Wand2 className="w-4 h-4" />
-                      <span>AI Improve</span>
-                    </>
+                    <span>AI Improve</span>
                   )}
-                </button>
-                <button
-                  onClick={() => setShowAiModal(true)}
-                  className="flex items-center justify-center space-x-1.5 bg-[#0f172a] text-white px-3.5 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-all duration-200 font-poppins shadow-sm hover:shadow-md whitespace-nowrap cursor-pointer"
-                >
-                  <Sparkles className="w-4 h-4" />
-                  <span>AI Fill</span>
-                </button>
-                <button
-                  onClick={handleSave}
-                  className="flex items-center justify-center space-x-1.5 bg-white border border-slate-300 text-slate-700 px-3.5 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition-all duration-200 font-poppins whitespace-nowrap cursor-pointer"
-                >
-                  <Save className="w-4 h-4" />
-                  <span>Save</span>
                 </button>
               </div>
             </div>
@@ -704,10 +694,7 @@ ${JSON.stringify({ personalInfo, summary, experiences, educations, skills, langu
                     <span>Generating...</span>
                   </>
                 ) : (
-                  <>
-                    <Sparkles className="w-4 h-4" />
-                    <span>Fill with AI</span>
-                  </>
+                  <span>Fill with AI</span>
                 )}
               </button>
               <button
