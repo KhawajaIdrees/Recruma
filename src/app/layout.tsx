@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Inter, Poppins, Montserrat, Plus_Jakarta_Sans } from "next/font/google";
+import Providers from "@/components/Providers";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -52,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} ${montserrat.variable} ${jakarta.variable}`}>
       <body className="font-montserrat min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

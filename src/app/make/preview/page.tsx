@@ -10,6 +10,7 @@ import { templates } from "@/lib/templateData";
 import ResumePreview from "@/components/ResumePreview";
 import type { PersonalInfo, Experience, Education, Skill, Language, Reference, ProfilePicture } from "@/components/types";
 import { generateResumePDF } from "@/lib/pdfGenerator";
+import { showConfirm } from "@/components/ui/Dialog";
 
 function ResumePreviewPageContent() {
   const searchParams = useSearchParams();
@@ -22,47 +23,20 @@ function ResumePreviewPageContent() {
   const [zoomLevel, setZoomLevel] = useState<number>(100);
 
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
-    fullName: "John Doe",
-    email: "john.doe@example.com",
-    phone: "(123) 456-7890",
-    address: "New York, NY",
-    linkedin: "linkedin.com/in/johndoe",
-    github: "github.com/johndoe",
-    website: "johndoe.dev",
+    fullName: "",
+    email: "",
+    phone: "",
+    address: "",
+    linkedin: "",
+    github: "",
+    website: "",
   });
-  const [experiences, setExperiences] = useState<Experience[]>([
-    {
-      id: "init-exp-1",
-      company: "Tech Solutions Inc.",
-      position: "Senior Software Engineer",
-      startDate: "2020-01",
-      endDate: "2023-12",
-      description: "Developed and maintained web applications using React and Node.js. Led a team of 3 developers and implemented CI/CD pipelines.",
-      current: false,
-    },
-  ]);
-  const [educations, setEducations] = useState<Education[]>([
-    {
-      id: "init-edu-1",
-      school: "Stanford University",
-      degree: "Bachelor of Science",
-      field: "Computer Science",
-      startDate: "2014",
-      endDate: "2018",
-      gpa: "3.8",
-    },
-  ]);
-  const [skills, setSkills] = useState<Skill[]>([
-    { id: "init-skill-1", name: "JavaScript" },
-    { id: "init-skill-2", name: "React" },
-    { id: "init-skill-3", name: "Node.js" },
-    { id: "init-skill-4", name: "TypeScript" },
-  ]);
-  const [languages, setLanguages] = useState<Language[]>([
-    { id: "init-lang-1", name: "English", proficiency: "Native / Fluent" },
-  ]);
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [educations, setEducations] = useState<Education[]>([]);
+  const [skills, setSkills] = useState<Skill[]>([]);
+  const [languages, setLanguages] = useState<Language[]>([]);
   const [references, setReferences] = useState<Reference[]>([]);
-  const [summary, setSummary] = useState("Experienced software engineer with 5+ years in full-stack development.");
+  const [summary, setSummary] = useState("");
   const [profile, setProfile] = useState<ProfilePicture | null>(null);
 
   // Load saved resume data from localStorage
@@ -84,7 +58,7 @@ function ResumePreviewPageContent() {
         }
       }
     } catch (e) {
-      console.error("Failed to parse stored resume data:", e);
+      console.error("Failed to load saved resume");
     }
   }, [templateParam]);
 
@@ -127,16 +101,22 @@ function ResumePreviewPageContent() {
   };
 
   const handleEditData = () => {
-    router.push(`/make?template=${selectedTemplate}`);
+    router.push(`/make?template=${selectedTemplate}&edit=1`);
   };
 
-  const handleStartOver = () => {
-    if (confirm("Are you sure you want to start over? All your entered resume information will be cleared.")) {
-      try {
-        localStorage.removeItem("resumeData");
-      } catch (e) {}
-      router.push("/make");
-    }
+  const handleStartOver = async () => {
+    const ok = await showConfirm({
+      title: "Start over?",
+      message: "This will clear all resume information you entered. This cannot be undone.",
+      confirmLabel: "Clear everything",
+      cancelLabel: "Keep editing",
+      danger: true,
+    });
+    if (!ok) return;
+    try {
+      localStorage.removeItem("resumeData");
+    } catch (e) {}
+    router.push("/make");
   };
 
   const handleSelectTemplate = (templateId: number) => {

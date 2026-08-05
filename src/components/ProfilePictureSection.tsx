@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { Camera, X } from "lucide-react";
 import type { ProfilePicture } from "./types";
+import { useDialog } from "@/components/ui/DialogProvider";
 
 interface ProfilePictureSectionProps {
   profile: ProfilePicture | null;
@@ -16,19 +17,28 @@ export default function ProfilePictureSection({
   onUpdate,
 }: ProfilePictureSectionProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const dialog = useDialog();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      alert("Please choose an image file (PNG, JPG, or GIF).");
+      dialog.alert({
+        title: "Invalid file type",
+        message: "Please choose an image file (PNG, JPG, or GIF).",
+        variant: "warning",
+      });
       e.target.value = "";
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      alert("Please choose an image smaller than 5MB.");
+      dialog.alert({
+        title: "File too large",
+        message: "Please choose an image smaller than 5MB.",
+        variant: "warning",
+      });
       e.target.value = "";
       return;
     }
@@ -42,7 +52,11 @@ export default function ProfilePictureSection({
       });
     };
     reader.onerror = () => {
-      alert("Could not read that image. Please try another file.");
+      dialog.alert({
+        title: "Could not read image",
+        message: "We could not open that file. Please try another image.",
+        variant: "error",
+      });
     };
     reader.readAsDataURL(file);
     // Allow selecting the same file again later

@@ -1,3 +1,4 @@
+import { showAlert } from "@/components/ui/Dialog";
 import { colorToRgb } from "./colorUtils";
 
 export async function generateResumePDF(
@@ -101,12 +102,16 @@ export async function generateResumePDF(
       downloadBtn.innerHTML = originalHTML;
     }
   } catch (error) {
-    console.error("Error generating PDF:", error);
+    console.error("PDF generation failed");
     if (downloadBtn) {
       downloadBtn.disabled = false;
       downloadBtn.innerHTML = originalHTML;
     }
-    alert(`Error generating PDF: ${error instanceof Error ? error.message : "Unknown error"}`);
+    showAlert({
+      title: "Could not download PDF",
+      message: "We could not create your PDF right now. Please try again, or use your browser print dialog as a backup.",
+      variant: "error",
+    });
   }
 }
 

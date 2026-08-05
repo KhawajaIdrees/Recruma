@@ -15,6 +15,7 @@ import ReferencesSection from "@/components/ReferencesSection";
 import SummarySection from "@/components/SummarySection";
 import ProfilePictureSection from "@/components/ProfilePictureSection";
 import type { PersonalInfo, Experience, Education, Skill, Language, Reference, ProfilePicture } from "@/components/types";
+import { useDialog } from "@/components/ui/DialogProvider";
 
 const SAMPLE_AI_PROMPT = `My name is Richard Sanchez and I am a Marketing Manager based in 123 Anywhere St., Any City at phone +123-456-7890, email hello@reallygreatsite.com, and website www.reallygreatsite.com. I am a results-driven marketing professional with 8+ years of experience building brand awareness, leading cross-functional campaigns, and driving measurable revenue growth across B2B and B2C markets. I specialize in digital marketing strategy, content development, and data-driven campaign optimization.
 
@@ -32,6 +33,7 @@ function ResumeBuilderFormContent() {
   );
   const templateData = templates.find(t => t.id === selectedTemplate) || templates[0];
   const router = useRouter();
+  const dialog = useDialog();
 
   // Keep selectedTemplate in sync with query param and localStorage
   useEffect(() => {
@@ -53,68 +55,42 @@ function ResumeBuilderFormContent() {
   }, []);
 
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
-    fullName: "John Doe",
-    email: "john.doe@example.com",
-    phone: "(123) 456-7890",
-    address: "New York, NY",
-    linkedin: "linkedin.com/in/johndoe",
-    github: "github.com/johndoe",
-    website: "johndoe.dev",
+    fullName: "",
+    email: "",
+    phone: "",
+    address: "",
+    linkedin: "",
+    github: "",
+    website: "",
   });
   const [experiences, setExperiences] = useState<Experience[]>([
     {
       id: "init-exp-1",
-      company: "Tech Solutions Inc.",
-      position: "Senior Software Engineer",
-      startDate: "2020-01",
-      endDate: "2023-12",
-      description: "Developed and maintained web applications using React and Node.js. Led a team of 3 developers and implemented CI/CD pipelines.",
-      current: false,
-    },
-    {
-      id: "init-exp-2",
-      company: "Startup XYZ",
-      position: "Full Stack Developer",
-      startDate: "2018-06",
-      endDate: "2019-12",
-      description: "Built responsive web applications and RESTful APIs. Collaborated with designers to create user-friendly interfaces.",
+      company: "",
+      position: "",
+      startDate: "",
+      endDate: "",
+      description: "",
       current: false,
     },
   ]);
   const [educations, setEducations] = useState<Education[]>([
     {
       id: "init-edu-1",
-      school: "Stanford University",
-      degree: "Bachelor of Science",
-      field: "Computer Science",
-      startDate: "2014",
-      endDate: "2018",
-      gpa: "3.8",
+      school: "",
+      degree: "",
+      field: "",
+      startDate: "",
+      endDate: "",
+      gpa: "",
     },
   ]);
-  const [skills, setSkills] = useState<Skill[]>([
-    { id: "init-skill-1", name: "JavaScript" },
-    { id: "init-skill-2", name: "React" },
-    { id: "init-skill-3", name: "Node.js" },
-    { id: "init-skill-4", name: "TypeScript" },
-    { id: "init-skill-5", name: "Python" },
-    { id: "init-skill-6", name: "AWS" },
-  ]);
+  const [skills, setSkills] = useState<Skill[]>([{ id: "init-skill-1", name: "" }]);
   const [languages, setLanguages] = useState<Language[]>([
-    { id: "init-lang-1", name: "English", proficiency: "Native / Fluent" },
-    { id: "init-lang-2", name: "French", proficiency: "Professional" },
-    { id: "init-lang-3", name: "Spanish", proficiency: "Intermediate" },
+    { id: "init-lang-1", name: "", proficiency: "" },
   ]);
-  const [references, setReferences] = useState<Reference[]>([
-    {
-      id: "init-ref-1",
-      name: "Eleanor Vance",
-      relationship: "Senior Marketing Manager",
-      company: "Borcelle Studio",
-      email: "eleanor.vance@borcelle.com",
-    },
-  ]);
-  const [summary, setSummary] = useState("Experienced software engineer with 5+ years in full-stack development. Passionate about building scalable web applications and mentoring junior developers. Proven track record of delivering high-quality software solutions in agile environments.");
+  const [references, setReferences] = useState<Reference[]>([]);
+  const [summary, setSummary] = useState("");
   const [profile, setProfile] = useState<ProfilePicture | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
@@ -122,23 +98,24 @@ function ResumeBuilderFormContent() {
   const [isImproving, setIsImproving] = useState(false);
   const [improveSuccess, setImproveSuccess] = useState(false);
 
+  // Restore only when returning from preview to edit (?edit=1). Otherwise start blank (no mock / no silent session restore).
   useEffect(() => {
-    const saved = localStorage.getItem("resumeData");
-    if (saved) {
-      try {
-        const data = JSON.parse(saved);
-        setPersonalInfo(data.personalInfo || personalInfo);
-        setExperiences(data.experiences || experiences);
-        setEducations(data.educations || educations);
-        setSkills(data.skills || skills);
-        setLanguages(data.languages || languages);
-        setReferences(data.references || references);
-        setSummary(data.summary || summary);
-        setProfile(data.profile || null);
-        if (data.template) setSelectedTemplate(data.template);
-      } catch (e) {}
-    }
-  }, []);
+    try {
+      if (searchParams.get("edit") !== "1") return;
+      const saved = localStorage.getItem("resumeData");
+      if (!saved) return;
+      const data = JSON.parse(saved);
+      if (data.personalInfo) setPersonalInfo(data.personalInfo);
+      if (data.experiences) setExperiences(data.experiences);
+      if (data.educations) setEducations(data.educations);
+      if (data.skills) setSkills(data.skills);
+      if (data.languages) setLanguages(data.languages);
+      if (data.references) setReferences(data.references);
+      if (data.summary !== undefined) setSummary(data.summary);
+      if (data.profile !== undefined) setProfile(data.profile);
+      if (data.template) setSelectedTemplate(data.template);
+    } catch (e) {}
+  }, [searchParams]);
 
   const addExperience = () => {
     setExperiences([
@@ -276,7 +253,11 @@ function ResumeBuilderFormContent() {
 
   const handleGenerateWithAI = async () => {
     if (!aiPrompt.trim()) {
-      alert("Please enter a prompt describing your background, experience, and skills.");
+      dialog.alert({
+        title: "Prompt needed",
+        message: "Please enter a short description of your background, experience, and skills.",
+        variant: "warning",
+      });
       return;
     }
 
@@ -300,19 +281,7 @@ function ResumeBuilderFormContent() {
       });
 
       if (!response.ok) {
-        let errorMessage = "Failed to generate resume";
-        let errorDetails = "";
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData.error || errorMessage;
-          if (errorData.details) {
-            errorDetails = typeof errorData.details === "string" ? errorData.details : JSON.stringify(errorData.details, null, 2);
-          }
-        } catch (e) {
-          const errorText = await response.text();
-          errorMessage = errorText || errorMessage;
-        }
-        throw new Error(errorDetails ? `${errorMessage}\n\nDetails: ${errorDetails}` : errorMessage);
+        throw new Error("Failed to generate resume");
       }
 
       const responseText = await response.text();
@@ -359,9 +328,21 @@ function ResumeBuilderFormContent() {
         }
         setShowAiModal(false);
         setAiPrompt("");
+        dialog.alert({
+          title: "Resume filled",
+          message: "Your resume sections were generated successfully. Review and edit anything you need.",
+          variant: "success",
+        });
+      } else {
+        throw new Error("Invalid AI response");
       }
     } catch (error) {
-      alert(error instanceof Error ? error.message : "Failed to generate resume.");
+      console.error("Resume generation failed");
+      dialog.alert({
+        title: "Could not generate resume",
+        message: "Something went wrong while generating your resume. Please try again in a moment.",
+        variant: "error",
+      });
     } finally {
       setIsGenerating(false);
     }
@@ -375,7 +356,11 @@ function ResumeBuilderFormContent() {
       skills.length > 0;
 
     if (!hasData) {
-      alert("Please fill in some information first so AI can polish and improve it for you!");
+      dialog.alert({
+        title: "Add some details first",
+        message: "Fill in a bit of information first so AI can polish and improve your resume.",
+        variant: "warning",
+      });
       return;
     }
 
@@ -452,7 +437,12 @@ ${JSON.stringify({ personalInfo, summary, experiences, educations, skills, langu
         setTimeout(() => setImproveSuccess(false), 5000);
       }
     } catch (error) {
-      alert(error instanceof Error ? error.message : "Failed to improve resume with AI.");
+      console.error("Improve resume failed");
+      dialog.alert({
+        title: "Could not improve resume",
+        message: "We could not polish your resume right now. Please try again shortly.",
+        variant: "error",
+      });
     } finally {
       setIsImproving(false);
     }

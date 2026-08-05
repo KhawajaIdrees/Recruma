@@ -5,6 +5,7 @@ import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
 import { Mail, Lock, User, ArrowRight } from "lucide-react";
+import { useDialog } from "@/components/ui/DialogProvider";
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ export default function SignupPage() {
   });
   const [error, setError] = useState("");
   const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const dialog = useDialog();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,7 +37,11 @@ export default function SignupPage() {
     }
 
     if (formData.name && formData.email && formData.password) {
-      alert("Account created successfully! (This is a demo - no actual registration implemented)");
+      dialog.alert({
+        title: "Account created",
+        message: "Your demo account is ready. Full registration will be available soon.",
+        variant: "success",
+      });
       // In a real app, you would handle registration here
       window.location.href = "/make";
     } else {

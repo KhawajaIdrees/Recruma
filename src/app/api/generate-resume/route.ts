@@ -5,45 +5,71 @@ interface ResumeGenerationResponse {
   choices: Array<{ message: { content: string } }>;
 }
 
-// 1. Check for API Key
 const apiKey = process.env.OPENROUTER_API_KEY;
 
 const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
   apiKey: apiKey,
   defaultHeaders: {
-    "HTTP-Referer": "http://localhost:3000",
-    "X-Title": "Resume Builder",
+    "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+    "X-Title": process.env.NEXT_PUBLIC_SITE_NAME || "Recruma",
   },
 });
 
-// ✅ FINAL STABLE LIST (2026)
-// We use the non-dated 'flash-exp' ID which is the main stable free version.
+/** Free model fallbacks — order matters (first healthy model wins). */
 const FREE_MODELS = [
+  "nemotron-3-nano-30b-a3b:free",
   "arcee-ai/trinity-large-preview:free",
   "lfm-2.5-1.2b-thinking:free",
   "molmo-2-8b:free",
-  "nemotron-3-nano-30b-a3b:free",
 ];
 
+/** Safe messages returned to the browser — never include model IDs, keys, or provider payloads. */
+const CLIENT_ERRORS = {
+  missingKey: "Resume generation is temporarily unavailable. Please try again later.",
+  invalidRequest: "We could not process that request. Please check your input and try again.",
+  allFailed: "We could not generate your resume right now. Please try again in a moment.",
+  unexpected: "Something went wrong. Please try again.",
+} as const;
+
 function cleanJsonString(str: string) {
-  // Remove markdown code blocks if present
   return str.replace(/^```(json)?\s*/i, "").replace(/\s*```$/, "");
 }
 
+/** Short opaque id for correlating client reports with server logs. */
+function requestId() {
+  return `gen_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function clientError(message: string, status: number, id: string) {
+  return NextResponse.json(
+    { success: false, error: message, code: id },
+    { status }
+  );
+}
+
 export async function POST(req: Request) {
+  const id = requestId();
+
   try {
     if (!apiKey) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Server Configuration Error: API Key is missing.",
-        },
-        { status: 500 },
-      );
+      console.error(`[${id}] Missing OPENROUTER_API_KEY`);
+      return clientError(CLIENT_ERRORS.missingKey, 503, id);
     }
 
-    const { prompt } = await req.json();
+    let prompt: unknown;
+    try {
+      const body = await req.json();
+      prompt = body?.prompt;
+    } catch {
+      console.warn(`[${id}] Invalid JSON body`);
+      return clientError(CLIENT_ERRORS.invalidRequest, 400, id);
+    }
+
+    if (typeof prompt !== "string" || !prompt.trim()) {
+      console.warn(`[${id}] Empty or invalid prompt`);
+      return clientError(CLIENT_ERRORS.invalidRequest, 400, id);
+    }
 
     const systemPrompt = `You are an expert resume writer. Return a valid JSON object. No markdown. No conversation.
     Structure:
@@ -55,23 +81,25 @@ export async function POST(req: Request) {
       "skills": [ "Skill1", "Skill2" ]
     }`;
 
-    // Error Accumulator
     const errorLog: string[] = [];
+    const MODEL_TIMEOUT = process.env.GEN_TIMEOUT_MS
+      ? parseInt(process.env.GEN_TIMEOUT_MS, 10)
+      : 45000;
 
-    // Per-model timeout (ms) - configurable via env var
-    const MODEL_TIMEOUT = process.env.GEN_TIMEOUT_MS ? parseInt(process.env.GEN_TIMEOUT_MS) : 10000;
+    for (let i = 0; i < FREE_MODELS.length; i++) {
+      const modelName = FREE_MODELS[i];
+      const label = `provider-${i + 1}`;
 
-    // Loop through models
-    for (const modelName of FREE_MODELS) {
       try {
-        console.log(`Attempting generation with: ${modelName}`);
+        console.log(`[${id}] Attempting ${label}`);
 
-        // Use AbortController to limit wait time per-model
         const controller = new AbortController();
         const timeoutId = setTimeout(() => {
           try {
             controller.abort();
-          } catch (e) {}
+          } catch {
+            /* ignore */
+          }
         }, MODEL_TIMEOUT);
 
         let response: ResumeGenerationResponse;
@@ -90,53 +118,44 @@ export async function POST(req: Request) {
           clearTimeout(timeoutId);
         }
 
-        const content = response.choices[0].message.content || "{}";
+        const content = response.choices[0]?.message?.content || "{}";
         const cleanedContent = cleanJsonString(content);
 
-        // Validate JSON
         try {
           const data = JSON.parse(cleanedContent);
-
-          // ✅ SUCCESS!
-          // This log confirms Gemini worked. The loop stops here immediately.
-          console.log(`✅ Success with ${modelName}`);
+          console.log(`[${id}] Success with ${label}`);
           return NextResponse.json({ success: true, data });
-        } catch (parseError) {
-          console.warn(`⚠️ ${modelName} returned invalid JSON.`);
-          errorLog.push(`${modelName}: Invalid JSON`);
+        } catch {
+          console.warn(`[${id}] ${label} returned invalid JSON`);
+          errorLog.push(`${label}: invalid_json`);
           continue;
         }
       } catch (modelError: unknown) {
-        const errorMessage = modelError instanceof Error ? modelError.message : "Unknown error";
-        // If aborted, provide clearer message
-        if (
+        const isAbort =
           modelError &&
           typeof modelError === "object" &&
           "name" in modelError &&
-          (modelError as { name?: string }).name === "AbortError"
-        ) {
-          console.warn(`⏱️ ${modelName} timed out after ${MODEL_TIMEOUT}ms`);
-          errorLog.push(`${modelName}: timed out after ${MODEL_TIMEOUT}ms`);
+          (modelError as { name?: string }).name === "AbortError";
+
+        if (isAbort) {
+          console.warn(`[${id}] ${label} timed out after ${MODEL_TIMEOUT}ms`);
+          errorLog.push(`${label}: timeout`);
         } else {
-          console.warn(`❌ ${modelName} failed: ${errorMessage}`);
-          errorLog.push(`${modelName}: ${errorMessage}`);
+          const errorMessage =
+            modelError instanceof Error ? modelError.message : "unknown";
+          // Server-only: full provider message stays in the IDE/server terminal
+          console.warn(`[${id}] ${label} failed: ${errorMessage}`);
+          errorLog.push(`${label}: failed`);
         }
         continue;
       }
     }
 
-    // If we get here, EVERY model failed.
-    console.error(
-      "All models failed. Summary:",
-      JSON.stringify(errorLog, null, 2),
-    );
-
-    throw new Error(`All models failed. Details:\n${errorLog.join("\n")}`);
+    console.error(`[${id}] All providers failed:`, errorLog.join(", "));
+    return clientError(CLIENT_ERRORS.allFailed, 503, id);
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Unknown error";
-    return NextResponse.json(
-      { success: false, error: message },
-      { status: 500 },
-    );
+    const message = error instanceof Error ? error.message : "unknown";
+    console.error(`[${id}] Unexpected error:`, message);
+    return clientError(CLIENT_ERRORS.unexpected, 500, id);
   }
 }

@@ -3,16 +3,21 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Mail, Lock } from "lucide-react";
+import { useDialog } from "@/components/ui/DialogProvider";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dialog = useDialog();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     // TODO: wire up real auth
-    console.log("login", { email, password });
-    alert("Login submitted (demo)");
+    dialog.alert({
+      title: "Demo login",
+      message: "Login is a demo for now. Full authentication will be available soon.",
+      variant: "info",
+    });
   }
 
   return (
