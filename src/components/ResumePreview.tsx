@@ -441,7 +441,7 @@ function ResumePreview({
                   >
                     {personalInfo.fullName}
                   </h1>
-                )}
+                )}               
                 {jobTitle && (
                   <p
                     className="text-xs uppercase tracking-[0.2em] mt-1.5 text-white opacity-90 break-words"
