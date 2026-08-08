@@ -48,9 +48,20 @@ export interface Reference {
   phone?: string;
 }
 
+export interface Project {
+  id: string;
+  name: string;
+  link?: string;
+  startDate?: string;
+  endDate?: string;
+  description: string;
+  technologies?: string;
+}
+
 export interface ProfilePicture {
   url: string;
   base64?: string;
 }
+
 
 

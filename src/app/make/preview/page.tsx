@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import { Download, Edit3, LayoutTemplate, RotateCcw, Check, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
 import { templates } from "@/lib/templateData";
 import ResumePreview from "@/components/ResumePreview";
-import type { PersonalInfo, Experience, Education, Skill, Language, Reference, ProfilePicture } from "@/components/types";
+import type { PersonalInfo, Experience, Project, Education, Skill, Language, Reference, ProfilePicture } from "@/components/types";
 import { generateResumePDF } from "@/lib/pdfGenerator";
 import { showConfirm } from "@/components/ui/Dialog";
 
@@ -32,6 +32,9 @@ function ResumePreviewPageContent() {
     website: "",
   });
   const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [showExperience, setShowExperience] = useState<boolean>(true);
+  const [showProjects, setShowProjects] = useState<boolean>(true);
   const [educations, setEducations] = useState<Education[]>([]);
   const [skills, setSkills] = useState<Skill[]>([]);
   const [languages, setLanguages] = useState<Language[]>([]);
@@ -47,6 +50,9 @@ function ResumePreviewPageContent() {
         const data = JSON.parse(saved);
         if (data.personalInfo) setPersonalInfo(data.personalInfo);
         if (data.experiences) setExperiences(data.experiences);
+        if (data.projects) setProjects(data.projects);
+        if (data.showExperience !== undefined) setShowExperience(data.showExperience);
+        if (data.showProjects !== undefined) setShowProjects(data.showProjects);
         if (data.educations) setEducations(data.educations);
         if (data.skills) setSkills(data.skills);
         if (data.languages) setLanguages(data.languages);
@@ -61,6 +67,7 @@ function ResumePreviewPageContent() {
       console.error("Failed to load saved resume");
     }
   }, [templateParam]);
+
 
   // Sync selected template with param
   useEffect(() => {
@@ -243,6 +250,9 @@ function ResumePreviewPageContent() {
               <ResumePreview
                 personalInfo={personalInfo}
                 experiences={experiences}
+                projects={projects}
+                showExperience={showExperience}
+                showProjects={showProjects}
                 educations={educations}
                 skills={skills}
                 languages={languages}
@@ -251,6 +261,7 @@ function ResumePreviewPageContent() {
                 profile={profile}
                 template={Number(selectedTemplate)}
               />
+
             </div>
           </div>
         </div>

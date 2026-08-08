@@ -18,26 +18,30 @@ export default function ExperienceSection({
 }: ExperienceSectionProps) {
   return (
     <div className="space-y-4 font-poppins">
-      {experiences.map((exp, index) => (
-        <div
-          key={exp.id}
-          className="p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-3 relative group"
-        >
-          <div className="flex justify-between items-center mb-1">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
-              Experience #{index + 1}
-            </span>
-            {index > 0 && (
+      {experiences.length === 0 ? (
+        <p className="text-xs text-slate-500 italic py-2">
+          No work experience added yet. Click &quot;Add Experience&quot; below to add work experience.
+        </p>
+      ) : (
+        experiences.map((exp, index) => (
+          <div
+            key={exp.id}
+            className="p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-3 relative group"
+          >
+            <div className="flex justify-between items-center mb-1">
+              <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                Experience #{index + 1}
+              </span>
               <button
                 type="button"
                 onClick={() => onRemove(exp.id)}
-                className="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-md transition-colors"
+                className="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-md transition-colors cursor-pointer"
                 title="Remove Experience"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
-            )}
-          </div>
+            </div>
+
 
           <input
             type="text"
@@ -87,7 +91,9 @@ export default function ExperienceSection({
             className="w-full px-3 py-2 text-sm border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-400 bg-white resize-none text-slate-900 placeholder:text-slate-400 font-poppins"
           />
         </div>
-      ))}
+      )))}
+
+
 
       <button
         type="button"

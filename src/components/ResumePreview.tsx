@@ -4,14 +4,16 @@ import {
   User,
   Briefcase,
   GraduationCap,
+  FolderKanban,
   UserCheck,
 } from "lucide-react";
-import { PersonalInfo, Experience, Education, Skill, Language, Reference, ProfilePicture } from "./types";
+import { PersonalInfo, Experience, Project, Education, Skill, Language, Reference, ProfilePicture } from "./types";
 import { templates } from "@/lib/templateData";
 
 interface ResumePreviewProps {
   personalInfo: PersonalInfo;
   experiences: Experience[];
+  projects?: Project[];
   educations: Education[];
   skills: Skill[];
   languages?: Language[];
@@ -19,7 +21,10 @@ interface ResumePreviewProps {
   summary: string;
   template: number;
   profile?: ProfilePicture | null;
+  showExperience?: boolean;
+  showProjects?: boolean;
 }
+
 
 function getJobTitle(experiences: Experience[]): string {
   const current = experiences.find((e) => e.current && e.position);
@@ -404,6 +409,7 @@ import { memo } from "react";
 function ResumePreview({
   personalInfo,
   experiences,
+  projects = [],
   educations,
   skills,
   languages = [],
@@ -411,16 +417,24 @@ function ResumePreview({
   summary,
   template,
   profile,
+  showExperience = true,
+  showProjects = true,
 }: ResumePreviewProps) {
   const templateData = templates.find((t) => t.id === Number(template)) || templates[0];
   const showProfile = templateData.hasProfile && profile;
   const jobTitle = getJobTitle(experiences);
-  const activeExperiences = experiences.filter((e) => e && (e.position || e.company));
+  const activeExperiences = showExperience
+    ? experiences.filter((e) => e && (e.position || e.company))
+    : [];
+  const activeProjects = showProjects
+    ? projects.filter((p) => p && (p.name || p.description) && ((p.name && p.name.trim() !== "") || (p.description && p.description.trim() !== "")))
+    : [];
   const activeEducations = educations.filter((e) => e && (e.school || e.degree));
   const activeSkills = skills.filter((s) => s && s.name && s.name.trim() !== "");
   const activeLanguages = languages.filter((l) => l && l.name && l.name.trim() !== "");
   const activeReferences = references.filter((r) => r && r.name && r.name.trim() !== "");
   const fullBleed = [1, 2, 3, 5].includes(templateData.id);
+
 
   const RenderTemplate = ({ isForPrint = false }: { isForPrint?: boolean }) => {
     switch (templateData.id) {
@@ -525,6 +539,38 @@ function ResumePreview({
                     </div>
                   </TimelineSection>
                 )}
+
+                {activeProjects.length > 0 && (
+                  <TimelineSection icon={<FolderKanban className="w-3.5 h-3.5" />} title="Projects">
+                    <div className="space-y-5 border-l border-slate-300 ml-3 pl-5 min-w-0">
+                      {activeProjects.map((proj) => (
+                        <div key={proj.id} className="relative min-w-0">
+                          <div className={`absolute -left-[23px] ${isForPrint ? "top-[13px]" : "top-[0.35em]"} w-2 h-2 rounded-full border-2 border-slate-400 bg-white`} />
+                          <div className="flex justify-between items-baseline gap-3 min-w-0">
+                            <span className="text-sm font-bold text-slate-900 min-w-0 break-words flex-1">
+                              {proj.name}
+                              {proj.link && <span className="text-xs font-normal text-slate-500 ml-2">({proj.link})</span>}
+                            </span>
+                            {formatDateRange(proj.startDate || "", proj.endDate || "") && (
+                              <span className="text-xs text-slate-500 whitespace-nowrap uppercase shrink-0">
+                                {formatDateRange(proj.startDate || "", proj.endDate || "")}
+                              </span>
+                            )}
+                          </div>
+                          {proj.technologies && (
+                            <p className="text-xs text-slate-600 font-medium mt-0.5 break-words">
+                              Technologies: {proj.technologies}
+                            </p>
+                          )}
+                          {proj.description && (
+                            <DescriptionList description={proj.description} className="text-xs text-slate-600 break-words" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </TimelineSection>
+                )}
+
 
                 {activeEducations.length > 0 && (
                   <TimelineSection
@@ -664,6 +710,42 @@ function ResumePreview({
                   </div>
                 )}
 
+                {activeProjects.length > 0 && (
+                  <div>
+                    <SectionTitle>Projects</SectionTitle>
+                    <div className="space-y-4 min-w-0">
+                      {activeProjects.map((proj) => (
+                        <div key={proj.id} className="relative pl-4 min-w-0">
+                          <span
+                            className={`absolute left-0 ${isForPrint ? "top-[14px]" : "top-[5px]"} w-2 h-2 rounded-xs block`}
+                            style={{ background: "var(--accent)" }}
+                          />
+                          <div className="flex justify-between items-baseline gap-3 min-w-0">
+                            <div className="min-w-0 break-words flex-1">
+                              <span className="text-sm font-bold text-slate-900">{proj.name}</span>
+                              {proj.link && <span className="text-xs text-slate-500 ml-1.5">({proj.link})</span>}
+                            </div>
+                            {formatDateRange(proj.startDate || "", proj.endDate || "") && (
+                              <span className="text-xs text-slate-500 whitespace-nowrap shrink-0">
+                                {formatDateRange(proj.startDate || "", proj.endDate || "")}
+                              </span>
+                            )}
+                          </div>
+                          {proj.technologies && (
+                            <p className="text-xs text-slate-600 font-medium mt-0.5 break-words">
+                              Tech: {proj.technologies}
+                            </p>
+                          )}
+                          {proj.description && (
+                            <DescriptionList description={proj.description} className="text-xs text-slate-600 mt-1 break-words" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+
                 {activeEducations.length > 0 && (
                   <div>
                     <SectionTitle>Education</SectionTitle>
@@ -795,6 +877,42 @@ function ResumePreview({
                   </div>
                 )}
 
+                {activeProjects.length > 0 && (
+                  <div className="relative pl-6 min-w-0">
+                    <div className="absolute left-2 top-8 bottom-0 w-px bg-slate-300" />
+                    <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-400 pb-1.5 mb-4">
+                      Projects
+                    </h2>
+                    <div className="space-y-5 min-w-0">
+                      {activeProjects.map((proj) => (
+                        <div key={proj.id} className="relative min-w-0">
+                          <div className={`absolute -left-[18px] ${isForPrint ? "top-[10px]" : "top-[5px]"} w-3 h-3 rounded-full border-2 border-slate-500 bg-white`} />
+                          <div className="flex justify-between items-baseline gap-3 min-w-0">
+                            <span className="text-xs font-bold uppercase text-slate-900 min-w-0 break-words flex-1">
+                              {proj.name}
+                            </span>
+                            {formatDateRange(proj.startDate || "", proj.endDate || "") && (
+                              <span className="text-xs text-slate-500 whitespace-nowrap shrink-0">
+                                {formatDateRange(proj.startDate || "", proj.endDate || "")}
+                              </span>
+                            )}
+                          </div>
+                          {proj.link && <p className="text-xs text-slate-500 break-words">{proj.link}</p>}
+                          {proj.technologies && (
+                            <p className="text-xs text-slate-600 font-medium mt-0.5 break-words">
+                              Technologies: {proj.technologies}
+                            </p>
+                          )}
+                          {proj.description && (
+                            <DescriptionList description={proj.description} className="text-xs text-slate-600 break-words" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+
                 {activeEducations.length > 0 && (
                   <div className="min-w-0">
                     <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-400 pb-1.5 mb-3">
@@ -922,6 +1040,40 @@ function ResumePreview({
                     </div>
                   </TimelineSection>
                 )}
+
+                {activeProjects.length > 0 && (
+                  <TimelineSection
+                    icon={<FolderKanban className="w-3.5 h-3.5" />}
+                    titleNode={
+                      <h2 className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1.5 mb-3.5 w-full">
+                        Projects
+                      </h2>
+                    }
+                  >
+                    <div className="space-y-4">
+                      {activeProjects.map((proj) => (
+                        <div key={proj.id}>
+                          <div className="flex justify-between items-baseline gap-3">
+                            <span className="text-sm font-bold text-slate-900">{proj.name}</span>
+                            {formatDateRange(proj.startDate || "", proj.endDate || "") && (
+                              <span className="text-xs text-slate-500 whitespace-nowrap uppercase">
+                                {formatDateRange(proj.startDate || "", proj.endDate || "")}
+                              </span>
+                            )}
+                          </div>
+                          {proj.link && <p className="text-xs text-slate-500 mt-0.5">{proj.link}</p>}
+                          {proj.technologies && (
+                            <p className="text-xs text-slate-600 font-medium mt-0.5">Tech: {proj.technologies}</p>
+                          )}
+                          {proj.description && (
+                            <DescriptionList description={proj.description} className="text-xs text-slate-600" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </TimelineSection>
+                )}
+
 
                 {activeEducations.length > 0 && (
                   <TimelineSection
@@ -1107,6 +1259,36 @@ function ResumePreview({
                 </div>
               )}
 
+              {activeProjects.length > 0 && (
+                <div>
+                  <h2
+                    className="text-sm font-bold uppercase tracking-wide border-b border-slate-300 pb-1 mb-4"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    Projects
+                  </h2>
+                  <div className="space-y-4">
+                    {activeProjects.map((proj) => (
+                      <div key={proj.id}>
+                        <p className="text-xs text-slate-500">
+                          {proj.name}
+                          {proj.link && ` (${proj.link})`}
+                          {formatDateRange(proj.startDate || "", proj.endDate || "") &&
+                            ` / ${formatDateRange(proj.startDate || "", proj.endDate || "")}`}
+                        </p>
+                        {proj.technologies && (
+                          <p className="text-xs font-semibold text-slate-700 mt-0.5">Tech: {proj.technologies}</p>
+                        )}
+                        {proj.description && (
+                          <DescriptionList description={proj.description} className="text-xs text-slate-600" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+
               {activeEducations.length > 0 && (
                 <div>
                   <h2
@@ -1236,6 +1418,41 @@ function ResumePreview({
                   </div>
                 </section>
               )}
+
+              {activeProjects.length > 0 && (
+                <section className="border-b pb-3 mb-3" style={{ borderColor: "var(--accent-light)" }}>
+                  <h2
+                    className="text-xs font-bold uppercase tracking-wide mb-2.5"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    Projects
+                  </h2>
+                  <div className="space-y-3">
+                    {activeProjects.map((proj) => (
+                      <div key={proj.id}>
+                        <div className="flex justify-between items-start gap-4">
+                          <p className="text-xs font-bold text-slate-900">
+                            {proj.name}
+                            {proj.link && <span className="font-normal text-slate-500 ml-1.5">({proj.link})</span>}
+                          </p>
+                          {formatDateRange(proj.startDate || "", proj.endDate || "") && (
+                            <span className="text-xs text-slate-600 whitespace-nowrap">
+                              {formatDateRange(proj.startDate || "", proj.endDate || "")}
+                            </span>
+                          )}
+                        </div>
+                        {proj.technologies && (
+                          <p className="text-xs text-slate-600 font-medium mt-0.5">Tech: {proj.technologies}</p>
+                        )}
+                        {proj.description && (
+                          <DescriptionList description={proj.description} className="text-xs text-slate-700" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
 
               {activeEducations.length > 0 && (
                 <section className="border-b pb-3 mb-3" style={{ borderColor: "var(--accent-light)" }}>

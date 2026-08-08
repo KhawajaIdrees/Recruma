@@ -8,13 +8,14 @@ import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { templates } from "@/lib/templateData";
 import PersonalInfoSection from "@/components/PersonalInfoSection";
 import ExperienceSection from "@/components/ExperienceSection";
+import ProjectsSection from "@/components/ProjectsSection";
 import EducationSection from "@/components/EducationSection";
 import SkillsSection from "@/components/SkillsSection";
 import LanguagesSection from "@/components/LanguagesSection";
 import ReferencesSection from "@/components/ReferencesSection";
 import SummarySection from "@/components/SummarySection";
 import ProfilePictureSection from "@/components/ProfilePictureSection";
-import type { PersonalInfo, Experience, Education, Skill, Language, Reference, ProfilePicture } from "@/components/types";
+import type { PersonalInfo, Experience, Project, Education, Skill, Language, Reference, ProfilePicture } from "@/components/types";
 import { useDialog } from "@/components/ui/DialogProvider";
 
 const SAMPLE_AI_PROMPT = `My name is Richard Sanchez and I am a Marketing Manager based in 123 Anywhere St., Any City at phone +123-456-7890, email hello@reallygreatsite.com, and website www.reallygreatsite.com. I am a results-driven marketing professional with 8+ years of experience building brand awareness, leading cross-functional campaigns, and driving measurable revenue growth across B2B and B2C markets. I specialize in digital marketing strategy, content development, and data-driven campaign optimization.
@@ -63,6 +64,7 @@ function ResumeBuilderFormContent() {
     github: "",
     website: "",
   });
+  const [showExperience, setShowExperience] = useState(true);
   const [experiences, setExperiences] = useState<Experience[]>([
     {
       id: "init-exp-1",
@@ -74,6 +76,8 @@ function ResumeBuilderFormContent() {
       current: false,
     },
   ]);
+  const [showProjects, setShowProjects] = useState(false);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [educations, setEducations] = useState<Education[]>([
     {
       id: "init-edu-1",
@@ -107,6 +111,9 @@ function ResumeBuilderFormContent() {
       const data = JSON.parse(saved);
       if (data.personalInfo) setPersonalInfo(data.personalInfo);
       if (data.experiences) setExperiences(data.experiences);
+      if (data.projects) setProjects(data.projects);
+      if (data.showExperience !== undefined) setShowExperience(data.showExperience);
+      if (data.showProjects !== undefined) setShowProjects(data.showProjects);
       if (data.educations) setEducations(data.educations);
       if (data.skills) setSkills(data.skills);
       if (data.languages) setLanguages(data.languages);
@@ -116,6 +123,7 @@ function ResumeBuilderFormContent() {
       if (data.template) setSelectedTemplate(data.template);
     } catch (e) {}
   }, [searchParams]);
+
 
   const addExperience = () => {
     setExperiences([
@@ -144,6 +152,37 @@ function ResumeBuilderFormContent() {
     setExperiences(
       experiences.map((exp) =>
         exp.id === id ? { ...exp, [field]: value } : exp,
+      ),
+    );
+  };
+
+  const addProject = () => {
+    setProjects([
+      ...projects,
+      {
+        id: crypto.randomUUID(),
+        name: "",
+        link: "",
+        startDate: "",
+        endDate: "",
+        description: "",
+        technologies: "",
+      },
+    ]);
+  };
+
+  const removeProject = (id: string) => {
+    setProjects(projects.filter((p) => p.id !== id));
+  };
+
+  const updateProject = (
+    id: string,
+    field: keyof Project,
+    value: string,
+  ) => {
+    setProjects(
+      projects.map((proj) =>
+        proj.id === id ? { ...proj, [field]: value } : proj,
       ),
     );
   };
@@ -235,6 +274,9 @@ function ResumeBuilderFormContent() {
       template: selectedTemplate,
       personalInfo,
       experiences,
+      projects,
+      showExperience,
+      showProjects,
       educations,
       skills,
       languages,
@@ -245,6 +287,7 @@ function ResumeBuilderFormContent() {
     localStorage.setItem("resumeData", JSON.stringify(resumeData));
     localStorage.setItem("selectedTemplate", String(selectedTemplate));
   };
+
 
   const handleGenerateResume = () => {
     handleSave();
@@ -554,24 +597,86 @@ ${JSON.stringify({ personalInfo, summary, experiences, educations, skills, langu
             <SummarySection summary={summary} onUpdate={setSummary} />
           </div>
 
-          {/* 4. Work Experience */}
+          {/* 4. Work Experience (Optional) */}
           <div className="bg-white rounded-xl p-6 shadow-xs border border-slate-200">
-            <h3 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-900 flex items-center justify-center text-xs font-bold">4</div>
-              Work Experience
-            </h3>
-            <ExperienceSection
-              experiences={experiences}
-              onAdd={addExperience}
-              onRemove={removeExperience}
-              onUpdate={updateExperience}
-            />
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wide font-montserrat flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-900 flex items-center justify-center text-xs font-bold">4</div>
+                Work Experience
+                <span className="text-[11px] font-normal text-slate-500 normal-case bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">Optional</span>
+              </h3>
+              <label className="flex items-center gap-2 cursor-pointer select-none">
+                <span className="text-xs font-medium text-slate-600 font-poppins">Include</span>
+                <input
+                  type="checkbox"
+                  checked={showExperience}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setShowExperience(checked);
+                    if (checked && experiences.length === 0) {
+                      addExperience();
+                    }
+                  }}
+                  className="w-4 h-4 rounded border-slate-300 text-slate-900 focus:ring-slate-500 cursor-pointer"
+                />
+              </label>
+            </div>
+            {showExperience ? (
+              <ExperienceSection
+                experiences={experiences}
+                onAdd={addExperience}
+                onRemove={removeExperience}
+                onUpdate={updateExperience}
+              />
+            ) : (
+              <p className="text-xs text-slate-500 font-poppins italic">
+                Work Experience is currently excluded. Check &quot;Include&quot; above if you wish to add work experience.
+              </p>
+            )}
           </div>
 
-          {/* 5. Education */}
+          {/* 5. Projects (Optional) */}
+          <div className="bg-white rounded-xl p-6 shadow-xs border border-slate-200">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wide font-montserrat flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-900 flex items-center justify-center text-xs font-bold">5</div>
+                Projects
+                <span className="text-[11px] font-normal text-slate-500 normal-case bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">Optional</span>
+              </h3>
+              <label className="flex items-center gap-2 cursor-pointer select-none">
+                <span className="text-xs font-medium text-slate-600 font-poppins">Include</span>
+                <input
+                  type="checkbox"
+                  checked={showProjects}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setShowProjects(checked);
+                    if (checked && projects.length === 0) {
+                      addProject();
+                    }
+                  }}
+                  className="w-4 h-4 rounded border-slate-300 text-slate-900 focus:ring-slate-500 cursor-pointer"
+                />
+              </label>
+            </div>
+            {showProjects ? (
+              <ProjectsSection
+                projects={projects}
+                onAdd={addProject}
+                onRemove={removeProject}
+                onUpdate={updateProject}
+              />
+            ) : (
+              <p className="text-xs text-slate-500 font-poppins italic">
+                Projects section is optional. Check &quot;Include&quot; above to add personal or professional projects.
+              </p>
+            )}
+          </div>
+
+          {/* 6. Education */}
           <div className="bg-white rounded-xl p-6 shadow-xs border border-slate-200">
             <h3 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-900 flex items-center justify-center text-xs font-bold">5</div>
+              <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-900 flex items-center justify-center text-xs font-bold">6</div>
               Education
             </h3>
             <EducationSection
@@ -582,10 +687,10 @@ ${JSON.stringify({ personalInfo, summary, experiences, educations, skills, langu
             />
           </div>
 
-          {/* 6. Skills */}
+          {/* 7. Skills */}
           <div className="bg-white rounded-xl p-6 shadow-xs border border-slate-200">
             <h3 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-900 flex items-center justify-center text-xs font-bold">6</div>
+              <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-900 flex items-center justify-center text-xs font-bold">7</div>
               Skills
             </h3>
             <SkillsSection
@@ -596,10 +701,10 @@ ${JSON.stringify({ personalInfo, summary, experiences, educations, skills, langu
             />
           </div>
 
-          {/* 7. Languages */}
+          {/* 8. Languages */}
           <div className="bg-white rounded-xl p-6 shadow-xs border border-slate-200">
             <h3 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-900 flex items-center justify-center text-xs font-bold">7</div>
+              <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-900 flex items-center justify-center text-xs font-bold">8</div>
               Languages
             </h3>
             <LanguagesSection
@@ -610,10 +715,10 @@ ${JSON.stringify({ personalInfo, summary, experiences, educations, skills, langu
             />
           </div>
 
-          {/* 8. References */}
+          {/* 9. References */}
           <div className="bg-white rounded-xl p-6 shadow-xs border border-slate-200">
             <h3 className="text-sm font-semibold text-slate-900 mb-4 uppercase tracking-wide font-montserrat flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-900 flex items-center justify-center text-xs font-bold">8</div>
+              <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-900 flex items-center justify-center text-xs font-bold">9</div>
               References
             </h3>
             <ReferencesSection
@@ -623,6 +728,7 @@ ${JSON.stringify({ personalInfo, summary, experiences, educations, skills, langu
               onUpdate={updateReference}
             />
           </div>
+
 
           {/* Single Generate Resume Button at the bottom matching site theme color #0f172a */}
           <div className="bg-white rounded-xl p-8 shadow-xs border border-slate-200 flex justify-center items-center">
